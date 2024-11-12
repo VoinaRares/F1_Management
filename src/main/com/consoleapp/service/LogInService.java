@@ -13,6 +13,10 @@ public class LogInService {
         Engineer engineer=new Engineer(2, "Adrian Newey", 65, 22, 122555, "Aerodynamics",
                 5, 0, "EX3","y");
         F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"EX4","y");
+        repository.create(teamManager);
+        repository.create(driver);
+        repository.create(engineer);
+        repository.create(adminho);
     }
     InMemoryRepository<Person>repository=new InMemoryRepository<Person>();
 
