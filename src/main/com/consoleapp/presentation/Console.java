@@ -21,7 +21,8 @@ public class Console {
 
     public void show_login_menu()
     {
-
+        isTeamManager = false;
+        isF1Admin = false;
         String Username, Password;
         System.out.println("LOGIN");
         System.out.println("Enter your Username: ");
@@ -33,7 +34,11 @@ public class Console {
             isTeamManager=true;
         if(person_job.equals("F1Admin"))
             isF1Admin=true;
-
+        if(person_job.equals("false"))
+        {
+            System.out.println("Invalid username or password");
+            show_login_menu();
+        }
         showOptions();
     }
 
