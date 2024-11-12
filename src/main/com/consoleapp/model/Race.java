@@ -2,13 +2,14 @@ package main.com.consoleapp.model;
 
 import java.util.Map;
 
-public class Race {
+public class Race extends Entity {
 
     private Location location;
     private Date date;
     private Map<Team, Sponsor> mainTeamSponsors;
 
-    public Race(Location location, Date date, Map<Team, Sponsor> mainTeamSponsors) {
+    public Race(int id,Location location, Date date, Map<Team, Sponsor> mainTeamSponsors) {
+        super(id);
         this.location = location;
         this.date = date;
         this.mainTeamSponsors = mainTeamSponsors;
