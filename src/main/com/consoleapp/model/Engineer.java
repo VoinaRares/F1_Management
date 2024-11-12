@@ -7,8 +7,8 @@ public class Engineer extends Person {
     private final Team team;
 
     public Engineer(int id, String name, int age, int experience, float salary, String specialty,
-                    int yearsWithCurrentTeam, Team team) {
-        super(id, name, age, experience, salary);
+                    int yearsWithCurrentTeam, Team team, String username, String password) {
+        super(id, name, age, experience, salary,username, password);
         this.specialty = specialty;
         this.yearsWithCurrentTeam = yearsWithCurrentTeam;
         this.team = team;

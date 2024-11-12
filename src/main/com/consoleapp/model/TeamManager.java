@@ -4,9 +4,9 @@ public class TeamManager extends Person {
 
     private Team team;
 
-    TeamManager(int id,String name, int age, int experience, float salary,Team team)
+    TeamManager(int id,String name, int age, int experience, float salary,Team team,String username, String password)
     {
-        super(id,name,age,experience,salary);
+        super(id,name,age,experience,salary,username,password);
         this.team = team;
     }
 
