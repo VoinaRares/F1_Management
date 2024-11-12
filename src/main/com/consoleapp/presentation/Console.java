@@ -19,6 +19,8 @@ public class Console {
         System.out.println("Enter your Password: ");
         Password=System.console().readLine();
         //send by controller
+
+        showOptions();
     }
 
 
@@ -33,6 +35,32 @@ public class Console {
         //send by controller
 
     }
+
+    public void showOptions(){
+        int choice;
+        while(true){
+            //Options for Team Manager
+            System.out.println("1. Add Member");
+            System.out.println("2. Remove Member");
+            System.out.println("3. Swap Members");
+            System.out.println("4. Exit");
+            choice=Integer.parseInt(System.console().readLine());
+            switch (choice) {
+                case 1:
+                    //call to controller for Add
+                    break;
+                case 2:
+                    //call to controller for remove
+                    break;
+                case 3:
+                    //call to controller for swap
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     public void run()
     {
         while(true)
