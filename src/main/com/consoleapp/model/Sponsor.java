@@ -1,6 +1,6 @@
 package main.com.consoleapp.model;
 
-public class Sponsor {
+public class Sponsor extends Entity{
     private String sponsorName;
     private int investmentAmount;
     private String country;
@@ -29,7 +29,8 @@ public class Sponsor {
         this.country = country;
     }
 
-    public Sponsor(String sponsorName, int investmentAmount, String country) {
+    public Sponsor(int id,String sponsorName, int investmentAmount, String country) {
+        super(id);
         this.sponsorName = sponsorName;
         this.investmentAmount = investmentAmount;
         this.country = country;
