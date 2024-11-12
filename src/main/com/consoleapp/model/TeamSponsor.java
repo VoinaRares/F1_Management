@@ -3,10 +3,12 @@ package main.com.consoleapp.model;
 public class TeamSponsor {
     private Team team;
     private Sponsor sponsor;
+    private int investment_amount;
 
-    TeamSponsor(Team team, Sponsor sponsor) {
+    TeamSponsor(Team team, Sponsor sponsor, int investment_amount) {
         this.team = team;
         this.sponsor = sponsor;
+        this.investment_amount=investment_amount;
     }
 
     public Team getTeam() {
@@ -23,5 +25,13 @@ public class TeamSponsor {
 
     public void setSponsor(Sponsor sponsor) {
         this.sponsor = sponsor;
+    }
+
+    public int getInvestment_amount() {
+        return investment_amount;
+    }
+
+    public void setInvestment_amount(int investment_amount) {
+        this.investment_amount = investment_amount;
     }
 }
