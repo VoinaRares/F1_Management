@@ -1,4 +1,16 @@
 package main.com.consoleapp.repository;
 
-public interface IRepository {
+import java.util.List;
+
+public interface IRepository<T> {
+
+    public void create();
+
+    public T read(int id);
+
+    public void update();
+
+    public void delete(int id);
+
+    public List<T> getAll();
 }
