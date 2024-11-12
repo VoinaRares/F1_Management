@@ -17,7 +17,7 @@ public class LogInService {
     InMemoryRepository<Person>repository=new InMemoryRepository<Person>();
 
 
-    public String login(String username, String password) {
+    public String logIn(String username, String password) {
         List<Person> persons = repository.getAll();
         for(Person person:persons) {
             if ((username.equals(person.getUsername())))
