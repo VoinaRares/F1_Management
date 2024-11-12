@@ -10,6 +10,16 @@ public class Console {
         System.out.println("3.Exit");
     }
 
+    public void show_login_menu()
+    {
+        String Username, Password;
+        System.out.println("Enter your Username: ");
+        Username=System.console().readLine();
+        System.out.println("Enter your Password: ");
+        Password=System.console().readLine();
+        //send by controller
+    }
+
     public void run()
     {
         while(true)
