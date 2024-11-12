@@ -3,8 +3,20 @@ package main.com.consoleapp.model;
 public class Engineer extends Person {
 
     private String specialty;
-    private int  yearsWithCurrentTeam;
-    // private Team team;
+    private int yearsWithCurrentTeam;
+    private final Team team;
+
+    public Engineer(int id, String name, int age, int experience, float salary, String specialty,
+                    int yearsWithCurrentTeam, Team team) {
+        super(id, name, age, experience, salary);
+        this.specialty = specialty;
+        this.yearsWithCurrentTeam = yearsWithCurrentTeam;
+        this.team = team;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
 
     public String getSpecialty() {
         return specialty;
