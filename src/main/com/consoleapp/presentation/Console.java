@@ -15,7 +15,7 @@ public class Console {
     public Console() {
         teamManagerController = new TeamManagerController();
         logInController = new LogInController();
-        F1AdminController f1AdminController = new F1AdminController();
+        f1AdminController = new F1AdminController();
     }
     public void show_menu()
     {
@@ -48,7 +48,8 @@ public class Console {
             System.out.println("Invalid username or password");
             show_login_menu();
         }
-        showOptions();
+        if(isTeamManager)
+            showOptions();
     }
 
 
@@ -74,7 +75,7 @@ public class Console {
                 coordinate_x= Integer.parseInt(System.console().readLine());
                 System.out.println("Enter coordinate2: ");
                 coordinate_y=Integer.parseInt(System.console().readLine());
-                f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
+                boolean x=f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
         }
 
     }
