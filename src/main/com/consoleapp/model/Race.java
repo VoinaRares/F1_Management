@@ -15,6 +15,11 @@ public class Race extends Entity {
         this.mainTeamSponsors = mainTeamSponsors;
     }
 
+    public Race(int id, Location location) {
+        super(id);
+        this.location = location;
+    }
+
     public Location getLocation() {
         return location;
     }
