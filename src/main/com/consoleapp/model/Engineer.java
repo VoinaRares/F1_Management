@@ -4,18 +4,24 @@ public class Engineer extends Person {
 
     private String specialty;
     private int yearsWithCurrentTeam;
-    private final Team team;
+    private int teamId;
+
+
 
     public Engineer(int id, String name, int age, int experience, float salary, String specialty,
-                    int yearsWithCurrentTeam, Team team, String username, String password) {
+                    int yearsWithCurrentTeam, int teamId, String username, String password) {
         super(id, name, age, experience, salary,username, password);
         this.specialty = specialty;
         this.yearsWithCurrentTeam = yearsWithCurrentTeam;
-        this.team = team;
+        this.teamId = teamId;
     }
 
-    public Team getTeam() {
-        return team;
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
     }
 
     public String getSpecialty() {
