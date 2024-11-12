@@ -4,9 +4,8 @@ public class F1Admin extends Person {
 
     private Calendar calendar;
 
-    public F1Admin(int id, String name, int age, int experience, float salary, Calendar calendar) {
-        super(id, name, age, experience, salary);
-        this.calendar = calendar;
+    public F1Admin(int id, String name, int age, int experience, float salary,String username, String password) {
+        super(id, name, age, experience, salary, username, password);
     }
 
     public Calendar getCalendar() {

@@ -2,20 +2,20 @@ package main.com.consoleapp.model;
 
 public class Driver extends Person {
     private int number;
-    private Team team;
+    private int teamID;
 
-    public Driver(int id, String name, int age, int experience, float salary, int number, Team team) {
-        super(id, name, age, experience, salary);
+    public Driver(int id, String name, int age, int experience, float salary, int number, int teamID, String username, String password) {
+        super(id, name, age, experience, salary, username, password);
         this.number = number;
-        this.team = team;
+        this.teamID = teamID;
     }
 
-    public Team getTeam() {
-        return team;
+    public int getTeamID() {
+        return teamID;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeamID(int teamID) {
+        this.teamID = teamID;
     }
 
     public int getNumber() {
