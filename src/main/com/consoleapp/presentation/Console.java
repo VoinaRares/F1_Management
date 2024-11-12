@@ -10,6 +10,7 @@ public class Console {
 
     public Console() {
         teamManagerController = new TeamManagerController();
+        logInController = new LogInController();
     }
     public void show_menu()
     {
@@ -34,6 +35,9 @@ public class Console {
             isTeamManager=true;
         if(person_job.equals("F1Admin"))
             isF1Admin=true;
+
+        if(isF1Admin)
+            show_F1_Admin_menu();
         if(person_job.equals("false"))
         {
             System.out.println("Invalid username or password");
@@ -42,6 +46,26 @@ public class Console {
         showOptions();
     }
 
+
+    public void show_F1_Admin_menu()
+    {
+        int choice;
+        System.out.println("You are logged in as a F1 Admin");
+        System.out.println("Options:");
+        System.out.println("1.Add Race");
+        System.out.println("2.Generate Calendar");
+        System.out.println("3.Exit");
+        choice=Integer.parseInt(System.console().readLine());
+        switch(choice)
+        {
+            case 1:
+                String input;
+                System.out.println("Enter Country ");
+                input=System.console().readLine();
+
+        }
+
+    }
 
     public void show_sign_up_menu()
     {
