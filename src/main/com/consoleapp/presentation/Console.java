@@ -14,7 +14,19 @@ public class Console {
     {
         while(true)
         {
-
+            show_login_menu();
+            int choice;
+            choice=Integer.valueOf(System.console().readLine());
+            if(choice==1)
+            {
+                //
+            }
+            if(choice==2)
+            {
+                //
+            }
+            if(choice==3)
+                break;
         }
     }
 
