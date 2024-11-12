@@ -1,11 +1,12 @@
 package main.com.consoleapp.presentation;
-
+import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 
 public class Console {
-
+    private boolean isTeamManager = false;
+    private boolean isF1Admin = false;
     private TeamManagerController teamManagerController;
-
+    private LogInController logInController;
 
     public Console() {
         teamManagerController = new TeamManagerController();
@@ -20,13 +21,18 @@ public class Console {
 
     public void show_login_menu()
     {
+
         String Username, Password;
         System.out.println("LOGIN");
         System.out.println("Enter your Username: ");
         Username=System.console().readLine();
         System.out.println("Enter your Password: ");
         Password=System.console().readLine();
-        //send by controller
+        String person_job=logInController.validate_credentials(Username, Password);
+        if(person_job.equals("TeamManager"))
+            isTeamManager=true;
+        if(person_job.equals("F1Admin"))
+            isF1Admin=true;
 
         showOptions();
     }
