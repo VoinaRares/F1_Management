@@ -10,6 +10,7 @@ public class Console {
     public Console() {
         teamManagerController = new TeamManagerController();
     }
+
     public void show_menu()
     {
         System.out.println("\tF1 MANAGEMENT");
@@ -44,43 +45,72 @@ public class Console {
 
     }
 
+    private int chooseUserId(){
+        int choice;
+        System.out.println("Enter User ID: ");
+        choice = Integer.parseInt(System.console().readLine());
+
+        return choice;
+    }
+
 
 
     public void chooseUserType(){
         System.out.println("Choose your User Type: ");
         System.out.println("1. F1 Admin");
         System.out.println("2. Engineer");
-        System.out.println("3. Team Admin");
-        System.out.println("4. Driver");
-        System.out.println("5. Team Manager");
-        System.out.println("6. Exit");
+        System.out.println("3. Driver");
+        System.out.println("4. Team Manager");
+        System.out.println("5. Exit");
         int choice;
         choice = Integer.parseInt(System.console().readLine());
-        switch (choice) {
-            case 1:
-                // F1 Admin
-                teamManagerController.addF1Admin();
-                break;
-            case 2:
-                //Engineer
-                teamManagerController.addEngineer();
-                break;
-            case 3:
-                //Team Admin
-                teamManagerController.addTeamAdmin();
-                break;
-            case 4:
-                //Driver
-                teamManagerController.addDriver();
-                break;
-            case 5:
-                //Team Manager
-                teamManagerController.addTeamManager();
-                break;
-            default:
-                break;
-        }
 
+        int id, age, experience, teamId;
+        String name, userName, password;
+        float salary;
+
+        if(choice != 5){
+            System.out.println("id: ");
+            id=Integer.parseInt(System.console().readLine());
+            System.out.println("age: ");
+            age=Integer.parseInt(System.console().readLine());
+            System.out.println("experience: ");
+            experience=Integer.parseInt(System.console().readLine());
+            System.out.println("name: ");
+            name=System.console().readLine();
+            System.out.println("salary: ");
+            salary=Float.parseFloat(System.console().readLine());
+            System.out.println("userName: ");
+            userName=System.console().readLine();
+            System.out.println("password: ");
+            password=System.console().readLine();
+            if(choice == 1){
+                teamManagerController.addF1Admin(id, age, experience, name, salary, userName, password);
+            }
+            else if(choice == 2){
+                String specialty;
+                int yearsWithCurrentTeam = 0;
+                System.out.println("specialty: ");
+                specialty=System.console().readLine();
+                System.out.println("teamId: ");
+                teamId=Integer.parseInt(System.console().readLine());
+                teamManagerController.addEngineer(id, age, experience, name, salary, specialty,
+                        yearsWithCurrentTeam, teamId, userName, password);
+            }
+            else if(choice == 3){
+                int driverNumber;
+                System.out.println("driverNumber: ");
+                driverNumber=Integer.parseInt(System.console().readLine());
+                System.out.println("teamId: ");
+                teamId=Integer.parseInt(System.console().readLine());
+                teamManagerController.addDriver(id, age, experience, name, salary, driverNumber,teamId, userName, password);
+            }
+            else if(choice == 4){
+                System.out.println("teamId: ");
+                teamId=Integer.parseInt(System.console().readLine());
+                teamManagerController.addTeamManager(id, age, experience, name, salary,teamId, userName, password);
+            }
+        }
     }
 
     public void showOptions(){
@@ -89,8 +119,7 @@ public class Console {
             //Options for Team Manager
             System.out.println("1. Add Member");
             System.out.println("2. Remove Member");
-            System.out.println("3. Swap Members");
-            System.out.println("4. Exit");
+            System.out.println("3. Exit");
             choice=Integer.parseInt(System.console().readLine());
             switch (choice) {
                 case 1:
@@ -99,14 +128,13 @@ public class Console {
                     break;
                 case 2:
                     //call to controller for remove
-                    break;
-                case 3:
-                    //call to controller for swap
+                    int id = chooseUserId();
+                    teamManagerController.removePerson(id);
                     break;
                 default:
                     break;
             }
-//            if(choice == 4){
+//            if(choice == 3){
 //                break;
 //            }
         }
