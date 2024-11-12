@@ -2,23 +2,20 @@ package main.com.consoleapp.model;
 
 public class TeamManager extends Person {
 
-    private Team team;
+    private int teamId;
 
-    TeamManager(int id,String name, int age, int experience, float salary,Team team,String username, String password)
+    public TeamManager(int id, String name, int age, int experience, float salary, int teamId, String username, String password)
     {
         super(id,name,age,experience,salary,username,password);
-        this.team = team;
+        this.teamId = teamId;
     }
 
-
-    public Team getTeam()
-    {
-        return team;
+    public int getTeamId() {
+        return teamId;
     }
 
-    public void setTeam(Team team)
-    {
-        this.team=team;
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
     }
 
     public void addMember(int id)
