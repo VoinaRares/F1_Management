@@ -9,4 +9,19 @@ public class TeamSponsor {
         this.sponsor = sponsor;
     }
 
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Sponsor getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(Sponsor sponsor) {
+        this.sponsor = sponsor;
+    }
 }
