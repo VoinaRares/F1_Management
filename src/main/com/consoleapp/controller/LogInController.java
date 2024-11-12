@@ -1,9 +1,14 @@
 package main.com.consoleapp.controller;
-
+import main.com.consoleapp.service.LogInService;
+import main.com.consoleapp.service.Service;
 public class LogInController {
 
-    public boolean validate_credentials(String Username, String Password)
+    LogInService logInService = new LogInService();
+    public String validate_credentials(String Username, String Password)
     {
-            return true;
+        //validation of input in Console
+        return logInService.logIn(Username,Password);
     }
+
+
 }
