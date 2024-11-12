@@ -9,13 +9,15 @@ public class Location extends Entity{
     /**
      * Uses a map to simulate a tuple of coordinates (x, y)
      */
-    private Map<Float, Float> coordinates;
+    private int coordinate_x;
+    private int coordinate_y;
 
-    public Location(int id,String country, String continent, Map<Float, Float> coordinates) {
+    public Location(int id,String country, String continent, int coordinate_x, int coordinate_y) {
         super(id);
         this.country = country;
         this.continent = continent;
-        this.coordinates = coordinates;
+        this.coordinate_x = coordinate_x;
+        this.coordinate_y = coordinate_y;
     }
 
     public String getCountry() {
@@ -34,11 +36,19 @@ public class Location extends Entity{
         this.continent = continent;
     }
 
-    public Map<Float, Float> getCoordinates() {
-        return coordinates;
+    public int getCoordinate_x() {
+        return coordinate_x;
     }
 
-    public void setCoordinates(Map<Float, Float> coordinates) {
-        this.coordinates = coordinates;
+    public void setCoordinate_x(int coordinate_x) {
+        this.coordinate_x = coordinate_x;
+    }
+
+    public int getCoordinate_y() {
+        return coordinate_y;
+    }
+
+    public void setCoordinate_y(int coordinate_y) {
+        this.coordinate_y = coordinate_y;
     }
 }

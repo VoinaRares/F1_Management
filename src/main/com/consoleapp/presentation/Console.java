@@ -1,14 +1,21 @@
 package main.com.consoleapp.presentation;
-
+import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
+import main.com.consoleapp.controller.F1AdminController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Console {
-
+    private boolean isTeamManager = false;
+    private boolean isF1Admin = false;
     private TeamManagerController teamManagerController;
-
-
+    private LogInController logInController;
+    private F1AdminController f1AdminController;
     public Console() {
         teamManagerController = new TeamManagerController();
+        logInController = new LogInController();
+        f1AdminController = new F1AdminController();
     }
 
     public void show_menu()
@@ -21,17 +28,58 @@ public class Console {
 
     public void show_login_menu()
     {
+        isTeamManager = false;
+        isF1Admin = false;
         String Username, Password;
         System.out.println("LOGIN");
         System.out.println("Enter your Username: ");
         Username=System.console().readLine();
         System.out.println("Enter your Password: ");
         Password=System.console().readLine();
-        //send by controller
+        String person_job=logInController.validate_credentials(Username, Password);
+        if(person_job.equals("TeamManager"))
+            isTeamManager=true;
+        if(person_job.equals("F1Admin"))
+            isF1Admin=true;
 
-        showOptions();
+        if(isF1Admin)
+            show_F1_Admin_menu();
+        if(person_job.equals("false"))
+        {
+            System.out.println("Invalid username or password");
+            show_login_menu();
+        }
+        if(isTeamManager)
+            showOptions();
     }
 
+
+    public void show_F1_Admin_menu()
+    {
+        int choice;
+        System.out.println("You are logged in as a F1 Admin");
+        System.out.println("Options:");
+        System.out.println("1.Add Race");
+        System.out.println("2.Generate Calendar");
+        System.out.println("3.Exit");
+        choice=Integer.parseInt(System.console().readLine());
+        switch(choice)
+        {
+            case 1:
+                int coordinate_x,coordinate_y;
+                String country, continent;
+                System.out.println("Enter country: ");
+                country=System.console().readLine();
+                System.out.println("Enter continent: ");
+                continent=System.console().readLine();
+                System.out.println("Enter coordinate1: ");
+                coordinate_x= Integer.parseInt(System.console().readLine());
+                System.out.println("Enter coordinate2: ");
+                coordinate_y=Integer.parseInt(System.console().readLine());
+                boolean x=f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
+        }
+
+    }
 
     public void show_sign_up_menu()
     {
