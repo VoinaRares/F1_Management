@@ -7,11 +7,17 @@ import java.util.Map;
 
 public class F1AdminService {
 
-    InMemoryRepository<Race> repository = new InMemoryRepository<Race>();
-    public void addRace(String country, String continent, int coordinate_x, int coordinate_y)
+    //InMemoryRepository<Race> repository = new InMemoryRepository<Race>();
+    private final InMemoryRepository<Race> repository;
+
+    public F1AdminService() {
+        this.repository = InMemoryRepository.getInstance(Race.class);
+    }
+
+    public void addRace(String country, String continent, int coordinateX, int coordinateY)
     {
         int id=100;
-        Location location = new Location(100,country,continent,coordinate_x,coordinate_y);
+        Location location = new Location(100,country,continent,coordinateX,coordinateY);
         repository.create(new Race(id,location));
     }
 }

@@ -1,7 +1,7 @@
 package main.com.consoleapp.model;
 
 public abstract class Entity {
-    int id;
+    private int id;
     Entity(int id)
     {
         this.id = id;
