@@ -2,7 +2,7 @@ package main.com.consoleapp.presentation;
 
 public class Console {
 
-    public void show_login_menu()
+    public void show_menu()
     {
         System.out.println("\tF1 MANAGEMENT");
         System.out.println("1.Login");
@@ -14,7 +14,7 @@ public class Console {
     {
         while(true)
         {
-            show_login_menu();
+            show_menu();
             int choice;
             choice=Integer.valueOf(System.console().readLine());
             if(choice==1)
