@@ -1,7 +1,15 @@
 package main.com.consoleapp.presentation;
 
+import main.com.consoleapp.controller.TeamManagerController;
+
 public class Console {
 
+    private TeamManagerController teamManagerController;
+
+
+    public Console() {
+        teamManagerController = new TeamManagerController();
+    }
     public void show_menu()
     {
         System.out.println("\tF1 MANAGEMENT");
@@ -19,6 +27,8 @@ public class Console {
         System.out.println("Enter your Password: ");
         Password=System.console().readLine();
         //send by controller
+
+        showOptions();
     }
 
 
@@ -33,6 +43,69 @@ public class Console {
         //send by controller
 
     }
+
+    public void chooseUserType(){
+        System.out.println("Choose your User Type: ");
+        System.out.println("1. F1 Admin");
+        System.out.println("2. Engineer");
+        System.out.println("3. Team Admin");
+        System.out.println("4. Driver");
+        System.out.println("5. Team Manager");
+        System.out.println("6. Exit");
+        int choice;
+        choice = Integer.parseInt(System.console().readLine());
+        switch (choice) {
+            case 1:
+                // F1 Admin
+                teamManagerController.addF1Admin();
+                break;
+            case 2:
+                //Engineer
+                break;
+            case 3:
+                //Team Admin
+                break;
+            case 4:
+                //Driver
+                break;
+            case 5:
+                //Team Manager
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    public void showOptions(){
+        int choice;
+        while(true){
+            //Options for Team Manager
+            System.out.println("1. Add Member");
+            System.out.println("2. Remove Member");
+            System.out.println("3. Swap Members");
+            System.out.println("4. Exit");
+            choice=Integer.parseInt(System.console().readLine());
+            switch (choice) {
+                case 1:
+                    //call to controller for Add
+                    chooseUserType();
+                    break;
+                case 2:
+                    //call to controller for remove
+                    break;
+                case 3:
+                    //call to controller for swap
+                    break;
+                default:
+                    break;
+            }
+//            if(choice == 4){
+//                break;
+//            }
+        }
+    }
+
     public void run()
     {
         while(true)
