@@ -4,6 +4,11 @@ public class TeamManager extends Person {
 
     private Team team;
 
+    TeamManager(Team team)
+    {
+        this.team = team;
+    }
+
 
     public Team getTeam()
     {

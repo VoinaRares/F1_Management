@@ -1,17 +1,14 @@
 package main.com.consoleapp.model;
 
-public abstract class Person {
-    private int id;
+public abstract class Person extends Entity{
     private String name;
     private int age;
     private int experience;
     private float salary;
 
-    public Person() {
-    }
 
-    public Person(int id, String name, int age, int experience, float salary) {
-        this.id = id;
+    public Person(int id,String name, int age, int experience, float salary) {
+        super(id);
         this.name = name;
         this.age = age;
         this.experience = experience;

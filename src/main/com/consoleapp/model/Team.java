@@ -3,20 +3,22 @@ package main.com.consoleapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Team {
+public class Team extends Entity{
     private String teamName;
     private int budget;
     private List<Sponsor> sponsors;
     private List<Person> staff;
 
-    public Team(String teamName, int budget) {
+    public Team(int id,String teamName, int budget) {
+        super(id);
         this.teamName = teamName;
         this.budget = budget;
         sponsors = new ArrayList<Sponsor>();
         staff = new ArrayList<Person>();
     }
 
-    public Team(String teamName, int budget, List<Sponsor> sponsors, List<Person> staff) {
+    public Team(int id,String teamName, int budget, List<Sponsor> sponsors, List<Person> staff) {
+        super(id);
         this.teamName = teamName;
         this.budget = budget;
         this.sponsors = sponsors;

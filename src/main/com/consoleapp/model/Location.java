@@ -2,7 +2,7 @@ package main.com.consoleapp.model;
 
 import java.util.Map;
 
-public class Location {
+public class Location extends Entity{
 
     private String country;
     private String continent;
@@ -11,7 +11,8 @@ public class Location {
      */
     private Map<Float, Float> coordinates;
 
-    public Location(String country, String continent, Map<Float, Float> coordinates) {
+    public Location(int id,String country, String continent, Map<Float, Float> coordinates) {
+        super(id);
         this.country = country;
         this.continent = continent;
         this.coordinates = coordinates;
