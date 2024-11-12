@@ -13,6 +13,7 @@ public class Console {
     public void show_login_menu()
     {
         String Username, Password;
+        System.out.println("LOGIN");
         System.out.println("Enter your Username: ");
         Username=System.console().readLine();
         System.out.println("Enter your Password: ");
@@ -20,6 +21,18 @@ public class Console {
         //send by controller
     }
 
+
+    public void show_sign_up_menu()
+    {
+        String Username, Password;
+        System.out.println("SIGN UP");
+        System.out.println("Enter your Username: ");
+        Username=System.console().readLine();
+        System.out.println("Enter your Password: ");
+        Password=System.console().readLine();
+        //send by controller
+
+    }
     public void run()
     {
         while(true)
@@ -29,11 +42,11 @@ public class Console {
             choice=Integer.valueOf(System.console().readLine());
             if(choice==1)
             {
-                //
+                show_login_menu();
             }
             if(choice==2)
             {
-                //
+                show_sign_up_menu();
             }
             if(choice==3)
                 break;
