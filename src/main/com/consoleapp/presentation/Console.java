@@ -1,16 +1,21 @@
 package main.com.consoleapp.presentation;
 import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
+import main.com.consoleapp.controller.F1AdminController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Console {
     private boolean isTeamManager = false;
     private boolean isF1Admin = false;
     private TeamManagerController teamManagerController;
     private LogInController logInController;
-
+    private F1AdminController f1AdminController;
     public Console() {
         teamManagerController = new TeamManagerController();
         logInController = new LogInController();
+        F1AdminController f1AdminController = new F1AdminController();
     }
     public void show_menu()
     {
@@ -59,10 +64,17 @@ public class Console {
         switch(choice)
         {
             case 1:
-                String input;
-                System.out.println("Enter Country ");
-                input=System.console().readLine();
-
+                int coordinate_x,coordinate_y;
+                String country, continent;
+                System.out.println("Enter country: ");
+                country=System.console().readLine();
+                System.out.println("Enter continent: ");
+                continent=System.console().readLine();
+                System.out.println("Enter coordinate1: ");
+                coordinate_x= Integer.parseInt(System.console().readLine());
+                System.out.println("Enter coordinate2: ");
+                coordinate_y=Integer.parseInt(System.console().readLine());
+                f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
         }
 
     }
