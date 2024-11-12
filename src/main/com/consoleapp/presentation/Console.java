@@ -44,6 +44,8 @@ public class Console {
 
     }
 
+
+
     public void chooseUserType(){
         System.out.println("Choose your User Type: ");
         System.out.println("1. F1 Admin");
@@ -61,15 +63,19 @@ public class Console {
                 break;
             case 2:
                 //Engineer
+                teamManagerController.addEngineer();
                 break;
             case 3:
                 //Team Admin
+                teamManagerController.addTeamAdmin();
                 break;
             case 4:
                 //Driver
+                teamManagerController.addDriver();
                 break;
             case 5:
                 //Team Manager
+                teamManagerController.addTeamManager();
                 break;
             default:
                 break;
