@@ -1,8 +1,19 @@
 package main.com.consoleapp.model;
-import
+
 public class TeamManager extends Person {
 
-    Team team;
+    private Team team;
+
+
+    public Team getTeam()
+    {
+        return team;
+    }
+
+    public void setTeam(Team team)
+    {
+        this.team=team;
+    }
 
     public void addMember(int id)
     {
