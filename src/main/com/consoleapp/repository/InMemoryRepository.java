@@ -3,11 +3,14 @@ package main.com.consoleapp.repository;
 import main.com.consoleapp.model.Entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryRepository<T extends Entity> implements IRepository<T>{
 
     private List<T> data;
+    private static final Map<Class<?>, InMemoryRepository<?>> instances = new HashMap<>();
 
     public InMemoryRepository() {
         data = new ArrayList<T>();
@@ -55,5 +58,16 @@ public class InMemoryRepository<T extends Entity> implements IRepository<T>{
 
     public void setData(List<T> data) {
         this.data = data;
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public static synchronized <T extends Entity> InMemoryRepository<T> getInstance(Class<T> type) {
+        // Check if the instance for the given type already exists
+        if (!instances.containsKey(type)) {
+            instances.put(type, new InMemoryRepository<>());
+        }
+        // Return the singleton instance for the specified type
+        return (InMemoryRepository<T>) instances.get(type);
     }
 }

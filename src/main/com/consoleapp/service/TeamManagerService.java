@@ -8,7 +8,7 @@ public class TeamManagerService {
     private final InMemoryRepository<Person> personRepo;
 
     public TeamManagerService() {
-        personRepo = new InMemoryRepository<>();
+       this.personRepo = InMemoryRepository.getInstance(Person.class);
     }
 
     public boolean addF1Admin(int id, int age, int experience, String name,

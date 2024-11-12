@@ -6,6 +6,8 @@ import java.util.List;
 
 public class LogInService {
 
+
+    private final InMemoryRepository<Person>repository;
     public LogInService()
     {
         TeamManager teamManager=new TeamManager(0,"Toto Wolff",50,10,2500, 0, "1","y");
@@ -13,12 +15,16 @@ public class LogInService {
         Engineer engineer=new Engineer(2, "Adrian Newey", 65, 22, 122555, "Aerodynamics",
                 5, 0, "3","y");
         F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"4","y");
+
+
+        this.repository = InMemoryRepository.getInstance(Person.class);
+
         repository.create(teamManager);
         repository.create(driver);
         repository.create(engineer);
         repository.create(adminho);
     }
-    InMemoryRepository<Person>repository=new InMemoryRepository<Person>();
+
 
 
     public String logIn(String username, String password) {
