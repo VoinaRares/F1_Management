@@ -10,12 +10,20 @@ public class TeamManagerController {
         teamManagerService = new TeamManagerService();
     }
 
+    /**
+     * Validates the data entered the user calls add from the service
+     * @return true, if added successfully, false otherwise
+     */
     public boolean addF1Admin(int id, int age, int experience, String name,
                               float salary, String userName, String password){
         teamManagerService.addF1Admin(id, age, experience, name, salary, userName, password);
         return true;
     }
 
+    /**
+     *Validates the data entered the user calls add from the service
+     * @return true, if added successfully, false otherwise
+     */
     public boolean addEngineer(int id, int age, int experience, String name,
                                float salary, String specialty, int yearsWithCurrentTeam,
                                int TeamId, String userName, String password){
@@ -24,18 +32,30 @@ public class TeamManagerController {
         return true;
     }
 
+    /**
+     * Validates the data entered the user calls add from the service
+     * @return true, if added successfully, false otherwise
+     */
     public boolean addDriver(int id, int age, int experience, String name, float salary,
                              int driverNumber, int teamId, String userName, String password){
         teamManagerService.addDriver(id, age, experience, name, salary, driverNumber, teamId, userName, password);
         return true;
     }
 
+    /**
+     * Validates the data entered by the user calls add from the service
+     * @return true, if added successfully, false otherwise
+     */
     public boolean addTeamManager(int id, int age, int experience, String name,
                                   float salary, int teamId, String userName, String password){
         teamManagerService.addTeamManager(id, age, experience, name, salary, teamId, userName, password);
         return true;
     }
 
+    /**
+     * Validates the data entered and calls remove from the service
+     * @param id of the object to be removed
+     */
     public void removePerson(int id){
         teamManagerService.removePerson(id);
     }

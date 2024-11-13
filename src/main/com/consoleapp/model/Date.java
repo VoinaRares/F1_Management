@@ -1,5 +1,9 @@
 package main.com.consoleapp.model;
 
+
+/**
+ * Represents a date broken down into: year, month, day
+ */
 public class Date {
     private int year;
     private int month;

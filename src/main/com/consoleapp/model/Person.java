@@ -1,5 +1,8 @@
 package main.com.consoleapp.model;
 
+/**
+ * Base class for all People
+ */
 public abstract class Person extends Entity{
     private String name;
     private String username;
@@ -17,14 +20,6 @@ public abstract class Person extends Entity{
         this.salary = salary;
         this.username = username;
         this.password = password;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

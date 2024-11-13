@@ -1,12 +1,14 @@
 package main.com.consoleapp.model;
 
+
+/**
+ * Represents a F1 Engineer
+ */
 public class Engineer extends Person {
 
     private String specialty;
     private int yearsWithCurrentTeam;
     private int teamId;
-
-
 
     public Engineer(int id, String name, int age, int experience, float salary, String specialty,
                     int yearsWithCurrentTeam, int teamId, String username, String password) {

@@ -1,5 +1,9 @@
 package main.com.consoleapp.model;
 
+/**
+ * Represents a F1 Admin.
+ * Handles all the races and the organization
+ */
 public class F1Admin extends Person {
 
     private Calendar calendar;
@@ -16,10 +20,18 @@ public class F1Admin extends Person {
         this.calendar = calendar;
     }
 
+    /**
+     * Organizes the races stored in the calendar
+     * @param startPoint Starting Race
+     * @param endPoint Ending Race
+     */
     public void organizeRaces(Race startPoint, Race endPoint) {
 
     }
 
+    /**
+     * Adds a race to the Calendar
+     */
     public void addRace(){
 
     }

@@ -1,23 +1,22 @@
 package main.com.consoleapp.model;
 
-import java.util.Map;
-
+/**
+ * Represents a location with an F1 circuit present
+ */
 public class Location extends Entity{
 
     private String country;
     private String continent;
-    /**
-     * Uses a map to simulate a tuple of coordinates (x, y)
-     */
-    private int coordinate_x;
-    private int coordinate_y;
 
-    public Location(int id,String country, String continent, int coordinate_x, int coordinate_y) {
+    private int coordinateX;
+    private int coordinateY;
+
+    public Location(int id, String country, String continent, int coordinateX, int coordinateY) {
         super(id);
         this.country = country;
         this.continent = continent;
-        this.coordinate_x = coordinate_x;
-        this.coordinate_y = coordinate_y;
+        this.coordinateX = coordinateX;
+        this.coordinateY = coordinateY;
     }
 
     public String getCountry() {
@@ -36,19 +35,19 @@ public class Location extends Entity{
         this.continent = continent;
     }
 
-    public int getCoordinate_x() {
-        return coordinate_x;
+    public int getCoordinateX() {
+        return coordinateX;
     }
 
-    public void setCoordinate_x(int coordinate_x) {
-        this.coordinate_x = coordinate_x;
+    public void setCoordinateX(int coordinateX) {
+        this.coordinateX = coordinateX;
     }
 
-    public int getCoordinate_y() {
-        return coordinate_y;
+    public int getCoordinateY() {
+        return coordinateY;
     }
 
-    public void setCoordinate_y(int coordinate_y) {
-        this.coordinate_y = coordinate_y;
+    public void setCoordinateY(int coordinateY) {
+        this.coordinateY = coordinateY;
     }
 }

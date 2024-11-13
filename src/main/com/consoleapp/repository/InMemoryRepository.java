@@ -10,9 +10,14 @@ import java.util.Map;
 public class InMemoryRepository<T extends Entity> implements IRepository<T>{
 
     private List<T> data;
+
+    /**
+     * Represents a Map that stores the class and then an instance of InMemoryRepo.
+     * Used to keep the same instance over all Services and Controllers throughout the App
+     */
     private static final Map<Class<?>, InMemoryRepository<?>> instances = new HashMap<>();
 
-    public InMemoryRepository() {
+    private InMemoryRepository() {
         data = new ArrayList<T>();
     }
 
@@ -60,14 +65,21 @@ public class InMemoryRepository<T extends Entity> implements IRepository<T>{
         this.data = data;
     }
 
-
+    /**
+     * Used for keeping the same instance of InMemoryRepo
+     * @param type data type of the Repo
+     * @return instance of InMemoryRepo that uses type parameter
+     * @param <T> class that inherits Entity
+     * @see Entity
+     */
     @SuppressWarnings("unchecked")
     public static synchronized <T extends Entity> InMemoryRepository<T> getInstance(Class<T> type) {
-        // Check if the instance for the given type already exists
+
+        //Checks if an instance of this type of Class exists
         if (!instances.containsKey(type)) {
             instances.put(type, new InMemoryRepository<>());
         }
-        // Return the singleton instance for the specified type
+
         return (InMemoryRepository<T>) instances.get(type);
     }
 }

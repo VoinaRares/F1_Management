@@ -1,16 +1,19 @@
 package main.com.consoleapp.model;
 
+/**
+ * Class to represent the many-to-many relationship between the Sponsors and the Teams
+ */
 public class TeamSponsor extends Entity{
 
     private Team team;
     private Sponsor sponsor;
-    private int investment_amount;
+    private int investmentAmount;
 
-    TeamSponsor(int id,Team team, Sponsor sponsor, int investment_amount) {
+    TeamSponsor(int id,Team team, Sponsor sponsor, int investmentAmount) {
         super(id);
         this.team = team;
         this.sponsor = sponsor;
-        this.investment_amount=investment_amount;
+        this.investmentAmount = investmentAmount;
     }
 
     public Team getTeam() {
@@ -29,11 +32,11 @@ public class TeamSponsor extends Entity{
         this.sponsor = sponsor;
     }
 
-    public int getInvestment_amount() {
-        return investment_amount;
+    public int getInvestmentAmount() {
+        return investmentAmount;
     }
 
-    public void setInvestment_amount(int investment_amount) {
-        this.investment_amount = investment_amount;
+    public void setInvestmentAmount(int investmentAmount) {
+        this.investmentAmount = investmentAmount;
     }
 }

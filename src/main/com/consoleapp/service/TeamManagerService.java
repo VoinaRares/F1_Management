@@ -3,6 +3,9 @@ package main.com.consoleapp.service;
 import main.com.consoleapp.model.*;
 import main.com.consoleapp.repository.InMemoryRepository;
 
+/**
+ * Provides connection between Repository and logic for the attributes that Team Manager can perform
+ */
 public class TeamManagerService {
 
     private final InMemoryRepository<Person> personRepo;

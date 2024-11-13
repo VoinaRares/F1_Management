@@ -1,7 +1,11 @@
 package main.com.consoleapp.model;
 
+/**
+ * Base class for all classes to include the id
+ */
 public abstract class Entity {
-    int id;
+    private int id;
+
     Entity(int id)
     {
         this.id = id;

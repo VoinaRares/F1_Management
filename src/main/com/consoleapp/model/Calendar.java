@@ -2,6 +2,9 @@ package main.com.consoleapp.model;
 
 import java.util.Map;
 
+/**
+ * Represents a calendar for all the Races in an F1 season
+ */
 public class Calendar {
     /**
      * A Pair for (Race, cost)

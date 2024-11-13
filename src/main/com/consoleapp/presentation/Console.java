@@ -3,22 +3,21 @@ import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Console {
+
     private boolean isTeamManager = false;
     private boolean isF1Admin = false;
     private TeamManagerController teamManagerController;
     private LogInController logInController;
     private F1AdminController f1AdminController;
+
     public Console() {
         teamManagerController = new TeamManagerController();
         logInController = new LogInController();
         f1AdminController = new F1AdminController();
     }
 
-    public void show_menu()
+    public void showMenu()
     {
         System.out.println("\tF1 MANAGEMENT");
         System.out.println("1.Login");
@@ -26,35 +25,35 @@ public class Console {
         System.out.println("3.Exit");
     }
 
-    public void show_login_menu()
+    public void showLoginMenu()
     {
         isTeamManager = false;
         isF1Admin = false;
-        String Username, Password;
+        String username, password;
         System.out.println("LOGIN");
         System.out.println("Enter your Username: ");
-        Username=System.console().readLine();
+        username=System.console().readLine();
         System.out.println("Enter your Password: ");
-        Password=System.console().readLine();
-        String person_job=logInController.validate_credentials(Username, Password);
-        if(person_job.equals("TeamManager"))
+        password=System.console().readLine();
+        String personJob=logInController.validateCredentials(username, password);
+        if(personJob.equals("TeamManager"))
             isTeamManager=true;
-        if(person_job.equals("F1Admin"))
+        if(personJob.equals("F1Admin"))
             isF1Admin=true;
 
         if(isF1Admin)
-            show_F1_Admin_menu();
-        if(person_job.equals("false"))
+            showF1AdminMenu();
+        if(personJob.equals("false"))
         {
             System.out.println("Invalid username or password");
-            show_login_menu();
+            showLoginMenu();
         }
         if(isTeamManager)
             showOptions();
     }
 
 
-    public void show_F1_Admin_menu()
+    public void showF1AdminMenu()
     {
         int choice;
         System.out.println("You are logged in as a F1 Admin");
@@ -81,7 +80,7 @@ public class Console {
 
     }
 
-    public void show_sign_up_menu()
+    public void showSignUpMenu()
     {
         String Username, Password;
         System.out.println("SIGN UP");
@@ -192,16 +191,16 @@ public class Console {
     {
         while(true)
         {
-            show_menu();
+            showMenu();
             int choice;
             choice=Integer.valueOf(System.console().readLine());
             if(choice==1)
             {
-                show_login_menu();
+                showLoginMenu();
             }
             if(choice==2)
             {
-                show_sign_up_menu();
+                showSignUpMenu();
             }
             if(choice==3)
                 break;
