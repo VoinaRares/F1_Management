@@ -111,7 +111,9 @@ public class Console {
                 {
                     System.out.println(race);
                 }
-
+                showF1AdminMenu();
+            default:
+                break;
         }
 
 
