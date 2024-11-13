@@ -107,6 +107,7 @@ public class F1AdminService {
         Date date=setNextRaceDate(calendar.getLast(),finalRace);
         finalRace.setDate(date);
         calendar.add(finalRace);
+
         return calendar;
 
 
@@ -116,7 +117,24 @@ public class F1AdminService {
     {
         Race nextRace=null;
         Float min_distance= 10000000F;
-        if(lastRace.getDate().getMonth()>=4 && lastRace.getDate().getMonth()<=9)
+        int earliestRaceDay;
+        int earliestRaceMonth=lastRace.getDate().getMonth();
+        if(lastRace.getLocation().getContinent().equals("Europe"))
+        {
+            earliestRaceDay=lastRace.getDate().getDay()+7;
+        }
+        else
+        {
+            earliestRaceDay=lastRace.getDate().getDay()+14;
+        }
+
+        if(earliestRaceDay>30)
+        {
+            earliestRaceDay=earliestRaceDay%30;
+            earliestRaceMonth++;
+        }
+
+        if(earliestRaceMonth>=4 && earliestRaceMonth<=9)
         {
             for(Race race:races)
             {
