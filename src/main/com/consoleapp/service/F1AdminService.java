@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
+
 /**
  * Provides connection between Repository and logic for the attributes that F1 Admin can perform
  */
@@ -74,9 +77,14 @@ public class F1AdminService {
             Float min_distance= 10000000F;
             for(Race race:races)
             {
-                //calculate
+
             }
         }
 
+    }
+
+    public float getDistance(float coordinate1_x, float coordinate1_y, float coordinate2_x, float coordinate2_y)
+    {
+        return (float) sqrt(pow(coordinate1_x - coordinate2_x,2)+pow(coordinate1_y - coordinate2_y,2));
     }
 }
