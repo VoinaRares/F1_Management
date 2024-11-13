@@ -44,7 +44,7 @@ public class F1AdminService {
         repository.create(new Race(id,location));
     }
 
-    public void generateCalendar(String start_country, String end_country,int day, int month, int year)
+    public List<Race> generateCalendar(String start_country, String end_country,int day, int month, int year)
     {
         List<Race>races=repository.getAll();
         int numberOfRaces=races.size();
@@ -83,7 +83,7 @@ public class F1AdminService {
         Date date=setNextRaceDate(calendar.getLast(),finalRace);
         finalRace.setDate(date);
         calendar.add(finalRace);
-        int x;
+        return calendar;
 
 
     }

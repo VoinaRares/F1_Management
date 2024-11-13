@@ -2,6 +2,9 @@ package main.com.consoleapp.presentation;
 import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
+import main.com.consoleapp.model.Race;
+
+import java.util.List;
 
 public class Console {
 
@@ -95,7 +98,11 @@ public class Console {
                 year=Integer.parseInt(System.console().readLine());
                 System.out.println("Enter ending country: ");
                 endCountry=System.console().readLine();
-                f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
+                List<Race> calendar=f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
+                for(Race race:calendar)
+                {
+                    System.out.println(race);
+                }
 
         }
 
