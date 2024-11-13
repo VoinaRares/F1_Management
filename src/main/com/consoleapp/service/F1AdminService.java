@@ -69,6 +69,14 @@ public class F1AdminService {
 
     public Race getNextRace(Race lastRace, List<Race> races)
     {
-        return races.getLast();
+        if(lastRace.getDate().getMonth()>=4 && lastRace.getDate().getMonth()<=9)
+        {
+            Float min_distance= 10000000F;
+            for(Race race:races)
+            {
+                //calculate
+            }
+        }
+
     }
 }
