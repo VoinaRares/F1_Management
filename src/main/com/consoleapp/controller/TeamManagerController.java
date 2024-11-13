@@ -1,6 +1,9 @@
 package main.com.consoleapp.controller;
 
+import main.com.consoleapp.model.Person;
 import main.com.consoleapp.service.TeamManagerService;
+
+import java.util.List;
 
 public class TeamManagerController {
 
@@ -68,5 +71,8 @@ public class TeamManagerController {
         teamManagerService.removeTeamSponsor(id);
     }
 
+    public List<Person> getAllPersons(){
+        return teamManagerService.getAllPersons();
+    }
 
 }

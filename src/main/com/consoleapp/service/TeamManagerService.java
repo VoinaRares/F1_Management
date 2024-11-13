@@ -3,6 +3,8 @@ package main.com.consoleapp.service;
 import main.com.consoleapp.model.*;
 import main.com.consoleapp.repository.InMemoryRepository;
 
+import java.util.List;
+
 /**
  * Provides connection between Repository and logic for the attributes that Team Manager can perform
  */
@@ -68,6 +70,10 @@ public class TeamManagerService {
 
     public void removeTeamSponsor(int id){
         teamSponsorRepo.delete(id);
+    }
+
+    public List<Person> getAllPersons(){
+        return personRepo.getAll();
     }
 
 }
