@@ -82,7 +82,20 @@ public class Console {
                     showF1AdminMenu();
                 }
             case 2:
-                f1AdminController.generateCalendar();
+                String startCountry, endCountry;
+                int day,month,year;
+                System.out.println("Enter starting country: ");
+                startCountry=System.console().readLine();
+                System.out.println("Enter starting date of the season: ");
+                System.out.println("Enter starting day: ");
+                day=Integer.parseInt(System.console().readLine());
+                System.out.println("Enter starting month: ");
+                month=Integer.parseInt(System.console().readLine());
+                System.out.println("Enter starting year: ");
+                year=Integer.parseInt(System.console().readLine());
+                System.out.println("Enter ending country: ");
+                endCountry=System.console().readLine();
+                f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
 
         }
 

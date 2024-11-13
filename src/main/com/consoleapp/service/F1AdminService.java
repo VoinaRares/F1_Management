@@ -1,8 +1,11 @@
 package main.com.consoleapp.service;
+import main.com.consoleapp.model.Date;
 import main.com.consoleapp.model.Location;
 import main.com.consoleapp.model.Race;
 import main.com.consoleapp.repository.InMemoryRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,9 +25,13 @@ public class F1AdminService {
         Race race2=new Race(51,location2);
         Location location3= new Location(122,"UAE","Asia",800,200);
         Race race3=new Race(52,location3);
+        Location location4= new Location(123,"Japan","Asia",3000,1000);
+        Race race4=new Race(53,location4);
+
         repository.create(race1);
         repository.create(race2);
         repository.create(race3);
+        repository.create(race4);
     }
 
     public void addRace(String country, String continent, int coordinateX, int coordinateY)
@@ -34,8 +41,18 @@ public class F1AdminService {
         repository.create(new Race(id,location));
     }
 
-    public void generateCalendar()
+    public void generateCalendar(String start_country, String end_country,int day, int month, int year)
     {
+        List<Race>races=repository.getAll();
+        List<Race> calendar=new ArrayList<>();
+        for(Race race:races) {
+            if (race.getLocation().getCountry().equals(start_country)) {
+                Date date=new Date(day,month,year);
+                race.setDate(date);
+                calendar.add(race);
+                break;
+            }
+        }
 
     }
 }
