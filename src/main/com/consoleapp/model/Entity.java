@@ -6,7 +6,7 @@ package main.com.consoleapp.model;
 public abstract class Entity {
     private int id;
 
-    Entity(int id)
+    public Entity(int id)
     {
         this.id = id;
     }
@@ -17,5 +17,11 @@ public abstract class Entity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Id: " + id;
     }
 }

@@ -2,6 +2,7 @@ package main.com.consoleapp.presentation;
 import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
+import main.com.consoleapp.model.Person;
 import main.com.consoleapp.model.Race;
 
 import java.util.List;
@@ -212,7 +213,8 @@ public class Console {
         System.out.println("2. Remove Member");
         System.out.println("3. Add Team Sponsor");
         System.out.println("4. Remove Team Sponsor");
-        System.out.println("5. Exit");
+        System.out.println("5. Show all Members");
+        System.out.println("6. Exit");
         choice = Integer.parseInt(System.console().readLine());
         switch (choice) {
             case 1:
@@ -236,6 +238,11 @@ public class Console {
                 int removeId = readVariable("Enter Team Sponsor ID to remove: ");
                 teamManagerController.removeTeamSponsor(removeId);
                 break;
+            case 5:
+                //Might be a good idea to receive a List of Strings to not depend on the Person class
+                for(Person person : teamManagerController.getAllPersons()){
+                    System.out.println(person);
+                }
             default:
                 break;
         }
