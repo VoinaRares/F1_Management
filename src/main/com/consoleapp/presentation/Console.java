@@ -75,8 +75,17 @@ public class Console {
                 coordinate_x= Integer.parseInt(System.console().readLine());
                 System.out.println("Enter coordinate2: ");
                 coordinate_y=Integer.parseInt(System.console().readLine());
-                boolean x=f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
+                boolean added=f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
+                if(added)
+                {
+                    System.out.println("Race added successfully");
+                    showF1AdminMenu();
+                }
+            case 2:
+                f1AdminController.generateCalendar();
+
         }
+
 
     }
 

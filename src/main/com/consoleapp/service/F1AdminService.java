@@ -33,4 +33,9 @@ public class F1AdminService {
         Location location = new Location(100,country,continent,coordinateX,coordinateY);
         repository.create(new Race(id,location));
     }
+
+    public void generateCalendar()
+    {
+
+    }
 }
