@@ -52,8 +52,10 @@ public class F1AdminService {
         Race finalRace=null;
         Race firstRace=null;
         for(Race race:races) {
+            //Validate races exist
+
             if (race.getLocation().getCountry().equals(start_country)) {
-                Date date=new Date(day,month,year);
+                Date date=new Date(year,month,day);
                 race.setDate(date);
                 calendar.add(race);
                 firstRace=race;
@@ -78,6 +80,10 @@ public class F1AdminService {
             races.remove(newRace);
         }
 
+        Date date=setNextRaceDate(calendar.getLast(),finalRace);
+        finalRace.setDate(date);
+        calendar.add(finalRace);
+        int x;
 
 
     }
@@ -143,7 +149,7 @@ public class F1AdminService {
             month++;
             day=day%30;
         }
-        Date date=new Date(day, month,year);
+        Date date=new Date(year, month, day);
         return date;
     }
 }
