@@ -10,14 +10,12 @@ public class Race extends Entity {
 
     private Location location;
     private Date date;
-    private Map<Team, Sponsor> mainTeamSponsors;
     private List<TeamSponsor> teamSponsors;
 
-    public Race(int id,Location location, Date date, Map<Team, Sponsor> mainTeamSponsors) {
+    public Race(int id,Location location, Date date) {
         super(id);
         this.location = location;
         this.date = date;
-        this.mainTeamSponsors = mainTeamSponsors;
     }
 
     public Race(int id, Location location) {
@@ -41,19 +39,15 @@ public class Race extends Entity {
         this.date = date;
     }
 
-    public Map<Team, Sponsor> getMainTeamSponsors() {
-        return mainTeamSponsors;
-    }
-
-    public void setMainTeamSponsors(Map<Team, Sponsor> mainTeamSponsors) {
-        this.mainTeamSponsors = mainTeamSponsors;
-    }
-
     public List<TeamSponsor> getTeamSponsors() {
         return teamSponsors;
     }
 
     public void setTeamSponsors(List<TeamSponsor> teamSponsors) {
         this.teamSponsors = teamSponsors;
+    }
+
+    public void addTeamSponsor(TeamSponsor teamSponsor) {
+        this.teamSponsors.add(teamSponsor);
     }
 }
