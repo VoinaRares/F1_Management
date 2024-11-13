@@ -1,5 +1,8 @@
 package main.com.consoleapp.model;
 
+/**
+ * Represents a location with an F1 circuit present
+ */
 public class Location extends Entity{
 
     private String country;

@@ -1,13 +1,20 @@
 package main.com.consoleapp.controller;
 import main.com.consoleapp.service.LogInService;
-import main.com.consoleapp.service.Service;
+
 public class LogInController {
 
     LogInService logInService = new LogInService();
-    public String validate_credentials(String Username, String Password)
+
+    /**
+     * Validates the data for Login
+     * @param username user-entered username
+     * @param password user-entered password
+     * @return class name that user is part of, if combination of username and password exist, 'false' otherwise
+     */
+    public String validateCredentials(String username, String password)
     {
         //validation of input in Console
-        return logInService.logIn(Username,Password);
+        return logInService.logIn(username,password);
     }
 
 

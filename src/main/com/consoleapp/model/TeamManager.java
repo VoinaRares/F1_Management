@@ -1,5 +1,8 @@
 package main.com.consoleapp.model;
 
+/**
+ * Represents the manager of a team
+ */
 public class TeamManager extends Person {
 
     private int teamId;

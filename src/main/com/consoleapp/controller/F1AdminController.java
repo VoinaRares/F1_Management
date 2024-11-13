@@ -6,10 +6,19 @@ import java.util.Map;
 public class F1AdminController {
 
     F1AdminService f1AdminService = new F1AdminService();
-    public boolean addRace(String country, String continent, int coordinate_x, int coordinate_y)
+
+    /**
+     * Performs validation of data and calls addRace from the Admin Service
+     * @param country country of the race
+     * @param continent continent where that country is located
+     * @param coordinateX the X coordinate of the circuit
+     * @param coordinateY the Y coordinate of the circuit
+     * @return true, if service added the race successfully, false otherwise
+     */
+    public boolean addRace(String country, String continent, int coordinateX, int coordinateY)
     {
         //validation
-        f1AdminService.addRace(country, continent, coordinate_x, coordinate_y);
+        f1AdminService.addRace(country, continent, coordinateX, coordinateY);
         return true;
     }
 }

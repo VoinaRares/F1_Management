@@ -2,6 +2,9 @@ package main.com.consoleapp.model;
 
 import java.util.Map;
 
+/**
+ * Represents a race at a certain location and a certain date.
+ */
 public class Race extends Entity {
 
     private Location location;

@@ -3,6 +3,9 @@ package main.com.consoleapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a team competing in F1
+ */
 public class Team extends Entity{
     private String teamName;
     private int budget;

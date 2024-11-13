@@ -1,5 +1,9 @@
 package main.com.consoleapp.model;
 
+
+/**
+ * Represents a F1 Engineer
+ */
 public class Engineer extends Person {
 
     private String specialty;

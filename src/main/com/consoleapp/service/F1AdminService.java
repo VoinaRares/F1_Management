@@ -5,6 +5,9 @@ import main.com.consoleapp.repository.InMemoryRepository;
 
 import java.util.Map;
 
+/**
+ * Provides connection between Repository and logic for the attributes that F1 Admin can perform
+ */
 public class F1AdminService {
 
     //InMemoryRepository<Race> repository = new InMemoryRepository<Race>();

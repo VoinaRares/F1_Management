@@ -1,5 +1,8 @@
 package main.com.consoleapp.model;
 
+/**
+ * Class to represent the many-to-many relationship between the Sponsors and the Teams
+ */
 public class TeamSponsor extends Entity{
 
     private Team team;

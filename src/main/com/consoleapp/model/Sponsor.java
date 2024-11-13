@@ -1,5 +1,8 @@
 package main.com.consoleapp.model;
 
+/**
+ * Represents a sponsor for races or teams
+ */
 public class Sponsor extends Entity{
     private String sponsorName;
     private int investmentAmount;

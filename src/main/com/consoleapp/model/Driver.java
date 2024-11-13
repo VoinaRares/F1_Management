@@ -1,5 +1,8 @@
 package main.com.consoleapp.model;
 
+/**
+ * Represents the F1 pilot
+ */
 public class Driver extends Person {
     private int number;
     private int teamId;

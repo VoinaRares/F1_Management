@@ -1,5 +1,8 @@
 package main.com.consoleapp.model;
 
+/**
+ * Base class for all People
+ */
 public abstract class Person extends Entity{
     private String name;
     private String username;

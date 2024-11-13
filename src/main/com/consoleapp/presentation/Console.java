@@ -35,7 +35,7 @@ public class Console {
         username=System.console().readLine();
         System.out.println("Enter your Password: ");
         password=System.console().readLine();
-        String personJob=logInController.validate_credentials(username, password);
+        String personJob=logInController.validateCredentials(username, password);
         if(personJob.equals("TeamManager"))
             isTeamManager=true;
         if(personJob.equals("F1Admin"))
