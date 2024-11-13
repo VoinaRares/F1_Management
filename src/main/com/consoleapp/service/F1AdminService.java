@@ -14,7 +14,17 @@ public class F1AdminService {
     private final InMemoryRepository<Race> repository;
 
     public F1AdminService() {
+
         this.repository = InMemoryRepository.getInstance(Race.class);
+        Location location1= new Location(120,"Italy","Europe",500,1000);
+        Race race1=new Race(50,location1);
+        Location location2= new Location(121,"France","Europe",400,1200);
+        Race race2=new Race(51,location2);
+        Location location3= new Location(122,"UAE","Asia",800,200);
+        Race race3=new Race(52,location3);
+        repository.create(race1);
+        repository.create(race2);
+        repository.create(race3);
     }
 
     public void addRace(String country, String continent, int coordinateX, int coordinateY)
