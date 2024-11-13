@@ -1,6 +1,9 @@
 package main.com.consoleapp.controller;
 
+import main.com.consoleapp.model.Race;
 import main.com.consoleapp.service.F1AdminService;
+
+import java.util.List;
 import java.util.Map;
 
 public class F1AdminController {
@@ -22,11 +25,10 @@ public class F1AdminController {
         return true;
     }
 
-    public boolean generateCalendar(String start_country, String end_country,int day, int month, int year)
+    public List<Race> generateCalendar(String start_country, String end_country, int day, int month, int year)
     {
         //validation
-        f1AdminService.generateCalendar(start_country,end_country,day,month,year);
-        return true;
+        return f1AdminService.generateCalendar(start_country,end_country,day,month,year);
     }
 
 }

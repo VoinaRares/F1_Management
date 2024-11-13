@@ -44,36 +44,47 @@ public class F1AdminService {
         repository.create(new Race(id,location));
     }
 
-    public void generateCalendar(String start_country, String end_country,int day, int month, int year)
+    public List<Race> generateCalendar(String start_country, String end_country,int day, int month, int year)
     {
         List<Race>races=repository.getAll();
         int numberOfRaces=races.size();
         List<Race> calendar=new ArrayList<>();
         Race finalRace=null;
+        Race firstRace=null;
         for(Race race:races) {
+            //Validate races exist
+
             if (race.getLocation().getCountry().equals(start_country)) {
-                Date date=new Date(day,month,year);
+                Date date=new Date(year,month,day);
                 race.setDate(date);
                 calendar.add(race);
-                races.remove(race);
+                firstRace=race;
             }
             if(race.getLocation().getCountry().equals(end_country)) {
                 finalRace=race;
-                races.remove(race);
+
             }
         }
+
+        races.remove(firstRace);
+        races.remove(finalRace);
 
         Race newRace=null;
         while(calendar.size()<numberOfRaces-1)
         {
-            newRace=getNextRace(calendar.getLast(), races);
-            if(newRace.getLocation().getContinent().equals(calendar.getLast().getLocation().getContinent()))
-            {
 
-            }
+            newRace=getNextRace(calendar.getLast(), races);
+            Date date= setNextRaceDate(calendar.getLast(),newRace);
+            newRace.setDate(date);
             calendar.add(newRace);
             races.remove(newRace);
         }
+
+        Date date=setNextRaceDate(calendar.getLast(),finalRace);
+        finalRace.setDate(date);
+        calendar.add(finalRace);
+        return calendar;
+
 
     }
 
@@ -118,5 +129,27 @@ public class F1AdminService {
     public float getDistance(float coordinate1_x, float coordinate1_y, float coordinate2_x, float coordinate2_y)
     {
         return (float) sqrt(pow(coordinate1_x - coordinate2_x,2)+pow(coordinate1_y - coordinate2_y,2));
+    }
+
+    public Date setNextRaceDate(Race lastRace, Race newRace)
+    {
+        int day=lastRace.getDate().getDay();
+        int month=lastRace.getDate().getMonth();
+        int year=lastRace.getDate().getYear();
+        if(newRace.getLocation().getContinent().equals(lastRace.getLocation().getContinent()))
+        {
+            day=day+7;
+        }
+        else
+        {
+            day=day+14;
+        }
+        if(day>30)
+        {
+            month++;
+            day=day%30;
+        }
+        Date date=new Date(year, month, day);
+        return date;
     }
 }
