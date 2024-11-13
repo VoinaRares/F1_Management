@@ -66,11 +66,25 @@ public class F1AdminService {
         Race newRace=null;
         while(calendar.size()<numberOfRaces-1)
         {
+            Date date=new Date(day,month,year);
             newRace=getNextRace(calendar.getLast(), races);
+            day=calendar.getLast().getDate().getDay();
+            month=calendar.getLast().getDate().getMonth();
+            year=calendar.getLast().getDate().getYear();
             if(newRace.getLocation().getContinent().equals(calendar.getLast().getLocation().getContinent()))
             {
-
+               day=day+7;
             }
+            else
+            {
+                day=day+14;
+            }
+            if(day>30)
+            {
+                month++;
+                day=day%30;
+            }
+            newRace.setDate(date);
             calendar.add(newRace);
             races.remove(newRace);
         }
