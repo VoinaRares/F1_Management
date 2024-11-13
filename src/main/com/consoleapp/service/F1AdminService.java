@@ -63,23 +63,49 @@ public class F1AdminService {
             }
         }
 
+        Race newRace=null;
         while(calendar.size()<numberOfRaces-1)
         {
-            calendar.add(getNextRace(calendar.getLast(), races));
+
+            newRace=getNextRace(calendar.getLast(), races);
+            calendar.add(newRace);
+            races.remove(newRace);
         }
 
     }
 
     public Race getNextRace(Race lastRace, List<Race> races)
     {
+        Race nextRace=null;
+        Float min_distance= 10000000F;
         if(lastRace.getDate().getMonth()>=4 && lastRace.getDate().getMonth()<=9)
         {
-            Float min_distance= 10000000F;
+            for(Race race:races)
+            {
+                Float distance=getDistance(lastRace.getLocation().getCoordinateX(),
+                        lastRace.getLocation().getCoordinateY(),race.getLocation().getCoordinateX(),race.getLocation().getCoordinateY());
+                if(distance<min_distance)
+                {
+                    min_distance=distance;
+                    nextRace=race;
+                }
+            }
+        }
+        else
+        {
             for(Race race:races)
             {
 
+                Float distance=getDistance(lastRace.getLocation().getCoordinateX(),
+                        lastRace.getLocation().getCoordinateY(),race.getLocation().getCoordinateX(),race.getLocation().getCoordinateY());
+                if(distance<min_distance)
+                {
+                    min_distance=distance;
+                    nextRace=race;
+                }
             }
         }
+        return nextRace;
 
     }
 
