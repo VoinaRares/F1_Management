@@ -66,8 +66,11 @@ public class F1AdminService {
         Race newRace=null;
         while(calendar.size()<numberOfRaces-1)
         {
-
             newRace=getNextRace(calendar.getLast(), races);
+            if(newRace.getLocation().getContinent().equals(calendar.getLast().getLocation().getContinent()))
+            {
+
+            }
             calendar.add(newRace);
             races.remove(newRace);
         }
@@ -95,13 +98,16 @@ public class F1AdminService {
         {
             for(Race race:races)
             {
-
-                Float distance=getDistance(lastRace.getLocation().getCoordinateX(),
-                        lastRace.getLocation().getCoordinateY(),race.getLocation().getCoordinateX(),race.getLocation().getCoordinateY());
-                if(distance<min_distance)
+                if(!race.getLocation().getContinent().equals("Europe"))
                 {
-                    min_distance=distance;
-                    nextRace=race;
+                    Float distance = getDistance(lastRace.getLocation().getCoordinateX(),
+                            lastRace.getLocation().getCoordinateY(), race.getLocation().getCoordinateX(),
+                            race.getLocation().getCoordinateY());
+                    if (distance < min_distance)
+                    {
+                        min_distance = distance;
+                        nextRace = race;
+                    }
                 }
             }
         }
