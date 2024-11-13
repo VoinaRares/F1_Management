@@ -47,11 +47,7 @@ public class InMemoryRepository<T extends Entity> implements IRepository<T>{
 
     @Override
     public void delete(int id) {
-        for(T obj : data){
-            if(obj.getId() == id){
-                data.remove(obj);
-            }
-        }
+        data.removeIf(obj -> obj.getId() == id);
         //data.removeIf(obj -> obj.getId() == id);
         //Might be able to do the same thing using remove and the equals operator inside the class.
     }
@@ -81,5 +77,9 @@ public class InMemoryRepository<T extends Entity> implements IRepository<T>{
         }
 
         return (InMemoryRepository<T>) instances.get(type);
+    }
+
+    private int getFirstAvailableId() {
+        return 1;
     }
 }
