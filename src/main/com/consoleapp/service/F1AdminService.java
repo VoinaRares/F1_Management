@@ -45,12 +45,17 @@ public class F1AdminService {
     {
         List<Race>races=repository.getAll();
         List<Race> calendar=new ArrayList<>();
+        Race finalRace=null;
         for(Race race:races) {
             if (race.getLocation().getCountry().equals(start_country)) {
                 Date date=new Date(day,month,year);
                 race.setDate(date);
                 calendar.add(race);
-                break;
+                races.remove(race);
+            }
+            if(race.getLocation().getCountry().equals(end_country)) {
+                finalRace=race;
+                races.remove(race);
             }
         }
 
