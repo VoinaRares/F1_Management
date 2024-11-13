@@ -60,5 +60,13 @@ public class TeamManagerController {
         teamManagerService.removePerson(id);
     }
 
+    public void addTeamSponsor(int id,int sponsorId, int teamId, int investmentAmount){
+        teamManagerService.addTeamSponsor(id, sponsorId, teamId, investmentAmount);
+    }
+
+    public void removeTeamSponsor(int id){
+        teamManagerService.removeTeamSponsor(id);
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package main.com.consoleapp.model;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,6 +11,7 @@ public class Race extends Entity {
     private Location location;
     private Date date;
     private Map<Team, Sponsor> mainTeamSponsors;
+    private List<TeamSponsor> teamSponsors;
 
     public Race(int id,Location location, Date date, Map<Team, Sponsor> mainTeamSponsors) {
         super(id);
@@ -45,5 +47,13 @@ public class Race extends Entity {
 
     public void setMainTeamSponsors(Map<Team, Sponsor> mainTeamSponsors) {
         this.mainTeamSponsors = mainTeamSponsors;
+    }
+
+    public List<TeamSponsor> getTeamSponsors() {
+        return teamSponsors;
+    }
+
+    public void setTeamSponsors(List<TeamSponsor> teamSponsors) {
+        this.teamSponsors = teamSponsors;
     }
 }

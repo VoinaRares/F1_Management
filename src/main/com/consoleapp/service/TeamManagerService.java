@@ -9,9 +9,19 @@ import main.com.consoleapp.repository.InMemoryRepository;
 public class TeamManagerService {
 
     private final InMemoryRepository<Person> personRepo;
+    private final InMemoryRepository<TeamSponsor> teamSponsorRepo;
+
+    //Might be used for data validation in the Controller
+    private final InMemoryRepository<Sponsor> sponsorRepo;
+    private final InMemoryRepository<Team> teamRepo;
 
     public TeamManagerService() {
        this.personRepo = InMemoryRepository.getInstance(Person.class);
+       this.sponsorRepo = InMemoryRepository.getInstance(Sponsor.class);
+       this.teamRepo = InMemoryRepository.getInstance(Team.class);
+
+       this.teamSponsorRepo = InMemoryRepository.getInstance(TeamSponsor.class);
+
     }
 
     public boolean addF1Admin(int id, int age, int experience, String name,
@@ -49,6 +59,15 @@ public class TeamManagerService {
 
     public void removePerson(int id){
         personRepo.delete(id);
+    }
+
+    public void addTeamSponsor(int id,int sponsorId, int teamId, int investmentAmount){
+        TeamSponsor teamSponsor = new TeamSponsor(id, sponsorId, teamId, investmentAmount);
+        teamSponsorRepo.create(teamSponsor);
+    }
+
+    public void removeTeamSponsor(int id){
+        teamSponsorRepo.delete(id);
     }
 
 }
