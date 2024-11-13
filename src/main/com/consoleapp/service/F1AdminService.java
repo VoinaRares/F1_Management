@@ -1,12 +1,11 @@
 package main.com.consoleapp.service;
-import main.com.consoleapp.model.Date;
-import main.com.consoleapp.model.Location;
-import main.com.consoleapp.model.Race;
+import main.com.consoleapp.model.*;
 import main.com.consoleapp.repository.InMemoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
@@ -18,10 +17,14 @@ public class F1AdminService {
 
     //InMemoryRepository<Race> repository = new InMemoryRepository<Race>();
     private final InMemoryRepository<Race> repository;
+    private final InMemoryRepository<Team> teamRepository;
+    private final InMemoryRepository<Sponsor> sponsorRepository;
 
     public F1AdminService() {
 
         this.repository = InMemoryRepository.getInstance(Race.class);
+        this.teamRepository = InMemoryRepository.getInstance(Team.class);
+        this.sponsorRepository = InMemoryRepository.getInstance(Sponsor.class);
         Location location1= new Location(120,"Italy","Europe",500,1000);
         Race race1=new Race(50,location1);
         Location location2= new Location(121,"France","Europe",400,1200);
@@ -40,8 +43,29 @@ public class F1AdminService {
     public void addRace(String country, String continent, int coordinateX, int coordinateY)
     {
         int id=100;
-        Location location = new Location(100,country,continent,coordinateX,coordinateY);
-        repository.create(new Race(id,location));
+        //Adds a random id. Will be changed in the future
+        Random random = new Random();
+        int rand_id = random.nextInt(10000);
+        Location location = new Location(rand_id,country,continent,coordinateX,coordinateY);
+
+
+        List<Team> teams = teamRepository.getAll();
+        List<Sponsor> sponsors = sponsorRepository.getAll();
+        List<TeamSponsor> teamSponsors = new ArrayList<>();
+        for(Sponsor sponsor : sponsors){
+            if(sponsor.getCountry().equals(country)){
+                for(Team team : teams){
+                    rand_id = random.nextInt(10000);
+                    // Doubles the amount. Will be changed later.
+                    TeamSponsor teamSponsor = new TeamSponsor(rand_id,sponsor.getId(), team.getId(),
+                            sponsor.getInvestmentAmount() * 2);
+                    teamSponsors.add(teamSponsor);
+                }
+            }
+        }
+        Race race = new Race(id, location);
+        race.setTeamSponsors(teamSponsors);
+        repository.create(race);
     }
 
     public List<Race> generateCalendar(String start_country, String end_country,int day, int month, int year)
