@@ -44,6 +44,7 @@ public class F1AdminService {
     public void generateCalendar(String start_country, String end_country,int day, int month, int year)
     {
         List<Race>races=repository.getAll();
+        int numberOfRaces=races.size();
         List<Race> calendar=new ArrayList<>();
         Race finalRace=null;
         for(Race race:races) {
@@ -59,5 +60,15 @@ public class F1AdminService {
             }
         }
 
+        while(calendar.size()<numberOfRaces-1)
+        {
+            calendar.add(getNextRace(calendar.getLast(), races));
+        }
+
+    }
+
+    public Race getNextRace(Race lastRace, List<Race> races)
+    {
+        return races.getLast();
     }
 }
