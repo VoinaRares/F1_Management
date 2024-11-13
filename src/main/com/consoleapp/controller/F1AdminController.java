@@ -21,4 +21,12 @@ public class F1AdminController {
         f1AdminService.addRace(country, continent, coordinateX, coordinateY);
         return true;
     }
+
+    public boolean generateCalendar(String start_country, String end_country,int day, int month, int year)
+    {
+        //validation
+        f1AdminService.generateCalendar(start_country,end_country,day,month,year);
+        return true;
+    }
+
 }

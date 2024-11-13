@@ -82,8 +82,30 @@ public class Console {
                 coordinate_x= Integer.parseInt(System.console().readLine());
                 System.out.println("Enter coordinate2: ");
                 coordinate_y=Integer.parseInt(System.console().readLine());
-                boolean x=f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
+                boolean added=f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
+                if(added)
+                {
+                    System.out.println("Race added successfully");
+                    showF1AdminMenu();
+                }
+            case 2:
+                String startCountry, endCountry;
+                int day,month,year;
+                System.out.println("Enter starting country: ");
+                startCountry=System.console().readLine();
+                System.out.println("Enter starting date of the season: ");
+                System.out.println("Enter starting day: ");
+                day=Integer.parseInt(System.console().readLine());
+                System.out.println("Enter starting month: ");
+                month=Integer.parseInt(System.console().readLine());
+                System.out.println("Enter starting year: ");
+                year=Integer.parseInt(System.console().readLine());
+                System.out.println("Enter ending country: ");
+                endCountry=System.console().readLine();
+                f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
+
         }
+
 
     }
 
