@@ -23,6 +23,14 @@ public class Race extends Entity {
         this.location = location;
     }
 
+    @Override
+    public String toString() {
+        return "Race{" +
+                "date=" + date +
+                ", location=" + location +
+                '}';
+    }
+
     public Location getLocation() {
         return location;
     }
