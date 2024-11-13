@@ -69,4 +69,9 @@ public abstract class Person extends Entity{
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " Name: " + name;
+    }
 }
