@@ -50,44 +50,35 @@ public class F1AdminService {
         int numberOfRaces=races.size();
         List<Race> calendar=new ArrayList<>();
         Race finalRace=null;
+        Race firstRace=null;
         for(Race race:races) {
             if (race.getLocation().getCountry().equals(start_country)) {
                 Date date=new Date(day,month,year);
                 race.setDate(date);
                 calendar.add(race);
-                races.remove(race);
+                firstRace=race;
             }
             if(race.getLocation().getCountry().equals(end_country)) {
                 finalRace=race;
-                races.remove(race);
+
             }
         }
+
+        races.remove(firstRace);
+        races.remove(finalRace);
 
         Race newRace=null;
         while(calendar.size()<numberOfRaces-1)
         {
-            Date date=new Date(day,month,year);
+
             newRace=getNextRace(calendar.getLast(), races);
-            day=calendar.getLast().getDate().getDay();
-            month=calendar.getLast().getDate().getMonth();
-            year=calendar.getLast().getDate().getYear();
-            if(newRace.getLocation().getContinent().equals(calendar.getLast().getLocation().getContinent()))
-            {
-               day=day+7;
-            }
-            else
-            {
-                day=day+14;
-            }
-            if(day>30)
-            {
-                month++;
-                day=day%30;
-            }
+            Date date= setNextRaceDate(calendar.getLast(),newRace);
             newRace.setDate(date);
             calendar.add(newRace);
             races.remove(newRace);
         }
+
+
 
     }
 
@@ -132,5 +123,27 @@ public class F1AdminService {
     public float getDistance(float coordinate1_x, float coordinate1_y, float coordinate2_x, float coordinate2_y)
     {
         return (float) sqrt(pow(coordinate1_x - coordinate2_x,2)+pow(coordinate1_y - coordinate2_y,2));
+    }
+
+    public Date setNextRaceDate(Race lastRace, Race newRace)
+    {
+        int day=lastRace.getDate().getDay();
+        int month=lastRace.getDate().getMonth();
+        int year=lastRace.getDate().getYear();
+        if(newRace.getLocation().getContinent().equals(lastRace.getLocation().getContinent()))
+        {
+            day=day+7;
+        }
+        else
+        {
+            day=day+14;
+        }
+        if(day>30)
+        {
+            month++;
+            day=day%30;
+        }
+        Date date=new Date(day, month,year);
+        return date;
     }
 }
