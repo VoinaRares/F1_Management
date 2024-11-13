@@ -10,6 +10,7 @@ public class Console {
     private TeamManagerController teamManagerController;
     private LogInController logInController;
     private F1AdminController f1AdminController;
+    private boolean isLoggedIn = false;
 
     public Console() {
         teamManagerController = new TeamManagerController();
@@ -36,10 +37,16 @@ public class Console {
         System.out.println("Enter your Password: ");
         password=System.console().readLine();
         String personJob=logInController.validateCredentials(username, password);
-        if(personJob.equals("TeamManager"))
-            isTeamManager=true;
-        if(personJob.equals("F1Admin"))
-            isF1Admin=true;
+
+        if(personJob.equals("TeamManager")) {
+            isTeamManager = true;
+            isLoggedIn = true;
+        }
+
+        if(personJob.equals("F1Admin")) {
+            isF1Admin = true;
+            isLoggedIn = true;
+        }
 
         if(isF1Admin)
             showF1AdminMenu();
@@ -92,9 +99,17 @@ public class Console {
 
     }
 
-    private int chooseUserId(){
+    private int chooseId(){
         int choice;
-        System.out.println("Enter User ID: ");
+        System.out.println("Enter ID: ");
+        choice = Integer.parseInt(System.console().readLine());
+
+        return choice;
+    }
+
+    private int readVariable(String message){
+        int choice;
+        System.out.println(message);
         choice = Integer.parseInt(System.console().readLine());
 
         return choice;
@@ -162,29 +177,43 @@ public class Console {
 
     public void showOptions(){
         int choice;
-        while(true){
-            //Options for Team Manager
-            System.out.println("1. Add Member");
-            System.out.println("2. Remove Member");
-            System.out.println("3. Exit");
-            choice=Integer.parseInt(System.console().readLine());
-            switch (choice) {
-                case 1:
-                    //call to controller for Add
-                    chooseUserType();
-                    break;
-                case 2:
-                    //call to controller for remove
-                    int id = chooseUserId();
-                    teamManagerController.removePerson(id);
-                    break;
-                default:
-                    break;
-            }
+
+        //Options for Team Manager
+        System.out.println("1. Add Member");
+        System.out.println("2. Remove Member");
+        System.out.println("3. Add Team Sponsor");
+        System.out.println("4. Remove Team Sponsor");
+        System.out.println("5. Exit");
+        choice = Integer.parseInt(System.console().readLine());
+        switch (choice) {
+            case 1:
+                //call to controller for Add
+                chooseUserType();
+                break;
+            case 2:
+                //call to controller for remove
+                int id = chooseId();
+                teamManagerController.removePerson(id);
+                break;
+            case 3:
+                int teamSponsorId = chooseId();
+                int teamId, sponsorId, investmentAmount;
+                teamId = readVariable("Enter Team ID: ");
+                sponsorId = readVariable("Enter Sponsor ID: ");
+                investmentAmount = readVariable("Enter Investment Amount: ");
+                teamManagerController.addTeamSponsor(teamSponsorId, sponsorId, teamId, investmentAmount);
+                break;
+            case 4:
+                int removeId = readVariable("Enter Team Sponsor ID to remove: ");
+                teamManagerController.removeTeamSponsor(removeId);
+                break;
+            default:
+                break;
+        }
 //            if(choice == 3){
 //                break;
 //            }
-        }
+
     }
 
     public void run()
@@ -193,7 +222,7 @@ public class Console {
         {
             showMenu();
             int choice;
-            choice=Integer.valueOf(System.console().readLine());
+            choice=Integer.parseInt(System.console().readLine());
             if(choice==1)
             {
                 showLoginMenu();

@@ -5,31 +5,38 @@ package main.com.consoleapp.model;
  */
 public class TeamSponsor extends Entity{
 
-    private Team team;
-    private Sponsor sponsor;
+    private int teamId;
+    private int sponsorId;
     private int investmentAmount;
 
-    TeamSponsor(int id,Team team, Sponsor sponsor, int investmentAmount) {
+    public TeamSponsor(int id,int teamId, int sponsorId, int investmentAmount) {
         super(id);
-        this.team = team;
-        this.sponsor = sponsor;
+        this.teamId = teamId;
+        this.sponsorId = sponsorId;
         this.investmentAmount = investmentAmount;
     }
 
-    public Team getTeam() {
-        return team;
+    public TeamSponsor(int id, int teamId, int sponsorId) {
+        super(id);
+        this.teamId = teamId;
+        this.sponsorId = sponsorId;
+        this.investmentAmount = 0;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public int getTeamId() {
+        return teamId;
     }
 
-    public Sponsor getSponsor() {
-        return sponsor;
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
     }
 
-    public void setSponsor(Sponsor sponsor) {
-        this.sponsor = sponsor;
+    public int getSponsorId() {
+        return sponsorId;
+    }
+
+    public void setSponsorId(int sponsorId) {
+        this.sponsorId = sponsorId;
     }
 
     public int getInvestmentAmount() {
