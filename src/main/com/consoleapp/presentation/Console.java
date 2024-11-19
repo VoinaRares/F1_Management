@@ -263,6 +263,7 @@ public class Console {
 
         System.out.println("1. Show All Engineers");
         System.out.println("2. Show All Drivers");
+        System.out.println("3. Filter Engineers by Specialty:");
         choice=Integer.parseInt(System.console().readLine());
         switch (choice)
         {
@@ -277,6 +278,19 @@ public class Console {
                 for(Driver driver : drivers){
                     System.out.println(driver);
                 }
+                break;
+            case 3:
+                int choice2;
+                System.out.println("Choose Specialty: ");
+                System.out.println("1. Aerodynamics");
+                System.out.println("2. Chassis");
+                System.out.println("3. Engine");
+                choice2 = Integer.parseInt(System.console().readLine());
+                switch (choice2){
+                    case 1:
+                        teamManagerController.
+                }
+
                 break;
         }
     }
