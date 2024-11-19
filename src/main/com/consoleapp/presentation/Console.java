@@ -2,6 +2,7 @@ package main.com.consoleapp.presentation;
 import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
+import main.com.consoleapp.model.Driver;
 import main.com.consoleapp.model.Engineer;
 import main.com.consoleapp.model.Person;
 import main.com.consoleapp.model.Race;
@@ -274,7 +275,10 @@ public class Console {
                 }
                 break;
             case 2:
-                //teamManagerController.getAllDrivers();
+                List<Driver> drivers= teamManagerController.getAllDrivers();
+                for(Driver driver : drivers){
+                    System.out.println(driver);
+                }
                 break;
         }
     }
