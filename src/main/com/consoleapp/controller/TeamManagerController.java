@@ -76,6 +76,6 @@ public class TeamManagerController {
         return teamManagerService.getAllPersons();
     }
 
-    public List<Engineer> getAllEngineers(){return teamManagerService.}
+    public List<Engineer> getAllEngineers(){return teamManagerService.getAllEngineers();}
 
 }
