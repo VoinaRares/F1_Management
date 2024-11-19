@@ -127,7 +127,11 @@ public class Console {
                 showF1AdminMenu();
                 break;
             case 3:
-                //List<TeamSponsorRace> teamSponsorRaces= f1AdminController.
+                List<TeamSponsorRace> teamSponsorRaces= f1AdminController.showSponsorMoneyPerRace();
+                for(TeamSponsorRace teamSponsorRace:teamSponsorRaces)
+                {
+                    System.out.println(teamSponsorRace);
+                }
                 break;
             case 4:
                 break;
