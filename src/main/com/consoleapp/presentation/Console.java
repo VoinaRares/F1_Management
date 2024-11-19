@@ -246,6 +246,7 @@ public class Console {
             case 6:
                 break;
             case 7:
+                showTeamManagerFilterOptions();
                 break;
             default:
                 break;
@@ -253,6 +254,11 @@ public class Console {
 //            if(choice == 3){
 //                break;
 //            }
+
+    }
+
+    public void showTeamManagerFilterOptions()
+    {
 
     }
 
