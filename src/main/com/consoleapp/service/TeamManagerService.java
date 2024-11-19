@@ -67,7 +67,7 @@ public class TeamManagerService {
     }
 
     public void addTeamSponsor(int id,int sponsorId, int teamId, int investmentAmount){
-        TeamSponsor teamSponsor = new TeamSponsor(id, sponsorId, teamId, investmentAmount);
+        TeamSponsor teamSponsor = new TeamSponsor(id, teamId, sponsorId, investmentAmount);
         teamSponsorRepo.create(teamSponsor);
     }
 

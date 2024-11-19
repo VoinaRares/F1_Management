@@ -26,4 +26,13 @@ public class TeamSponsorRace extends Entity {
     public void setTeamSponsorId(int teamSponsorId) {
         TeamSponsorId = teamSponsorId;
     }
+
+    @Override
+    public String toString() {
+        return "TeamSponsorRace{" +
+                "TeamSponsorId=" + TeamSponsorId +
+                ", RaceId=" + RaceId +
+                ", investment=" + investment +
+                '}';
+    }
 }
