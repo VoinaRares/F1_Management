@@ -34,6 +34,6 @@ public class Engineer extends TeamMember {
 
     public String toString()
     {
-        return super.toString() + "Team ID: " + getTeamId() + ", Specialty: " + getSpecialty();
+        return super.toString() + " Team ID: " + getTeamId() + ", Specialty: " + getSpecialty();
     }
 }

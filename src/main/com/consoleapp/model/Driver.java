@@ -22,7 +22,7 @@ public class Driver extends TeamMember {
 
     public String toString()
     {
-        return super.toString() + "Team ID: " + getTeamId() + ", Number: " + getNumber();
+        return super.toString() + " Team ID: " + getTeamId() + ", Number: " + getNumber();
     }
 
 }
