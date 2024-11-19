@@ -81,4 +81,6 @@ public class TeamManagerController {
 
     public List<Driver> getAllDrivers(){return teamManagerService.getAllDrivers();}
 
+    public List<Engineer> getEngineersBySpecialty(String specialty){//return teamManagerService.}
+
 }
