@@ -26,7 +26,18 @@ public class LogInService {
 //        repository.create(adminho);
     }
 
+    public int findTeamId(String username, String password){
+        List<Person> person = repository.getAll();
+        for(Person p : person){
+            if(p.getUsername().equals(username) && p.getPassword().equals(password)){
+                if(p instanceof TeamMember){
+                    return ((TeamMember)p).getTeamId();
+                }
+            }
+        }
 
+        return -1;
+    }
 
     public String logIn(String username, String password) {
         List<Person> persons = repository.getAll();

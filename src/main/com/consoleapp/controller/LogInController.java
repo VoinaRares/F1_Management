@@ -17,5 +17,9 @@ public class LogInController {
         return logInService.logIn(username,password);
     }
 
+    public int getTeamId(String username, String password){
+        return logInService.findTeamId(username,password);
+    }
+
 
 }
