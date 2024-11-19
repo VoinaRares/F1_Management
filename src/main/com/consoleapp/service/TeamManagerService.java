@@ -102,4 +102,15 @@ public class TeamManagerService {
         return drivers;
     }
 
+
+    public List<Engineer> getEngineersBySpecialty(String specialty){
+        List<Person> persons = personRepo.getAll();
+        List<Engineer> engineers = new ArrayList<>();
+        for(Person person : persons ){
+            if(person instanceof Engineer && ((Engineer) person).getSpecialty().equals(specialty)){
+                engineers.add((Engineer) person);
+            }
+        }
+        return engineers;
+    }
 }
