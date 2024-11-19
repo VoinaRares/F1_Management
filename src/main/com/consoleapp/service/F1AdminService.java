@@ -228,6 +228,14 @@ public class F1AdminService {
         }
         return teamSponsorRaces;
     }
+
+    public void addSponsor(String name, int investmentAmount,String country)
+    {
+        Random random=new Random();
+        int rand_id=random.nextInt(9999999);
+        Sponsor sponsor= new Sponsor(rand_id, name, investmentAmount, country);
+        sponsorRepository.create(sponsor);
+    }
 }
 
 
