@@ -1,5 +1,6 @@
 package main.com.consoleapp.controller;
 
+import main.com.consoleapp.model.Engineer;
 import main.com.consoleapp.model.Person;
 import main.com.consoleapp.service.TeamManagerService;
 
@@ -74,5 +75,7 @@ public class TeamManagerController {
     public List<Person> getAllPersons(){
         return teamManagerService.getAllPersons();
     }
+
+    public List<Engineer> getAllEngineers(){return teamManagerService.}
 
 }
