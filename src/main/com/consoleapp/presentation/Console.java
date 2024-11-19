@@ -288,7 +288,23 @@ public class Console {
                 choice2 = Integer.parseInt(System.console().readLine());
                 switch (choice2){
                     case 1:
-                        teamManagerController.
+                        List<Engineer> specialtyEngineersAerodynamics = teamManagerController.getEngineersBySpecialty("Aerodynamics");
+                        for(Engineer engineer : specialtyEngineersAerodynamics){
+                            System.out.println(engineer);
+                        }
+                        break;
+                    case 2:
+                        List<Engineer> specialtyEngineersChassis = teamManagerController.getEngineersBySpecialty("Chassis");
+                        for(Engineer engineer : specialtyEngineersChassis){
+                            System.out.println(engineer);
+                        }
+                        break;
+                    case 3:
+                        List<Engineer> specialtyEngineersEngine= teamManagerController.getEngineersBySpecialty("Engine");
+                        for(Engineer engineer : specialtyEngineersEngine){
+                            System.out.println(engineer);
+                        }
+                        break;
                 }
 
                 break;
