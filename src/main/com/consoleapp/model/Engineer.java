@@ -4,26 +4,16 @@ package main.com.consoleapp.model;
 /**
  * Represents a F1 Engineer
  */
-public class Engineer extends Person {
+public class Engineer extends TeamMember {
 
     private String specialty;
     private int yearsWithCurrentTeam;
-    private int teamId;
 
     public Engineer(int id, String name, int age, int experience, float salary, String specialty,
                     int yearsWithCurrentTeam, int teamId, String username, String password) {
-        super(id, name, age, experience, salary,username, password);
+        super(id, name, age, experience, salary,username, password, teamId);
         this.specialty = specialty;
         this.yearsWithCurrentTeam = yearsWithCurrentTeam;
-        this.teamId = teamId;
-    }
-
-    public int getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(int teamId) {
-        this.teamId = teamId;
     }
 
     public String getSpecialty() {
