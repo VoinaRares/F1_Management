@@ -2,6 +2,7 @@ package main.com.consoleapp.presentation;
 import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
+import main.com.consoleapp.model.Engineer;
 import main.com.consoleapp.model.Person;
 import main.com.consoleapp.model.Race;
 
@@ -260,16 +261,20 @@ public class Console {
     public void showTeamManagerFilterOptions()
     {
         int choice;
+
         System.out.println("1. Show All Engineers");
         System.out.println("2. Show All Drivers");
         choice=Integer.parseInt(System.console().readLine());
         switch (choice)
         {
             case 1:
-                //teamManagerController.showAllEngineers
+                List<Engineer> engineers= teamManagerController.getAllEngineers();
+                for(Engineer engineer : engineers){
+                    System.out.println(engineer);
+                }
                 break;
             case 2:
-                //teamManagerController.showAllDrivers
+                //teamManagerController.getAllDrivers();
                 break;
         }
     }
