@@ -53,10 +53,7 @@ public class F1AdminService {
         Location location = new Location(rand_id,country,continent,coordinateX,coordinateY);
 
 
-        List<Team> teams = teamRepository.getAll();
-        List<Sponsor> sponsors = sponsorRepository.getAll();
-        List<TeamSponsor> teamSponsors = teamSponsorRepository.getAll();
-        rand_id=random.nextInt(9999999);
+
 
 //        for(Sponsor sponsor : sponsors){
 //            if(sponsor.getCountry().equals(country)){
@@ -72,25 +69,6 @@ public class F1AdminService {
 
         Race race = new Race(id, location);
         repository.create(race);
-        List<Race> races = repository.getAll();
-        for(Race race1: races)
-        {
-            for (TeamSponsor teamSponsor : teamSponsors)
-            {
-
-                if(race1.getLocation().getCountry().equals(sponsorRepository.read(teamSponsor.getSponsorId()).getCountry()))
-                {
-                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race.getId(), teamSponsor.getInvestmentAmount()*2);
-                }
-                else
-                {
-                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race.getId(), teamSponsor.getInvestmentAmount());
-
-                }
-
-            }
-        }
-        race.setTeamSponsors(teamSponsors);
 
     }
 
@@ -220,4 +198,36 @@ public class F1AdminService {
         Date date=new Date(year, month, day);
         return date;
     }
+
+    public List<TeamSponsorRace> showSponsorMoneyPerRace()
+    {
+        List<Team> teams = teamRepository.getAll();
+        List<Sponsor> sponsors = sponsorRepository.getAll();
+        List<TeamSponsor> teamSponsors = teamSponsorRepository.getAll();
+        Random random=new Random();
+        int rand_id=random.nextInt(9999999);
+        List<TeamSponsorRace> teamSponsorRaces=new ArrayList<>();
+        List<Race> races = repository.getAll();
+        for(Race race1: races)
+        {
+            for (TeamSponsor teamSponsor : teamSponsors)
+            {
+
+                if(race1.getLocation().getCountry().equals(sponsorRepository.read(teamSponsor.getSponsorId()).getCountry()))
+                {
+                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race1.getId(), teamSponsor.getInvestmentAmount()*2);
+                    teamSponsorRaces.add(teamSponsorRace);
+                }
+                else
+                {
+                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race1.getId(), teamSponsor.getInvestmentAmount());
+                    teamSponsorRaces.add(teamSponsorRace);
+                }
+
+            }
+        }
+        return teamSponsorRaces;
+    }
 }
+
+
