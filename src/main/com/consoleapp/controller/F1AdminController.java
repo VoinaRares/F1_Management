@@ -32,6 +32,6 @@ public class F1AdminController {
         return f1AdminService.generateCalendar(start_country,end_country,day,month,year);
     }
 
-    public List<TeamSponsorRace> showSponsorMoneyPerRace(){//return f1AdminService.}
+    public List<TeamSponsorRace> showSponsorMoneyPerRace(){return f1AdminService.showSponsorMoneyPerRace();}
 
 }
