@@ -84,6 +84,9 @@ public class Console {
         System.out.println("2.Generate Calendar");
         System.out.println("3.Show Sponsor investments in races");
         System.out.println("4.Add Sponsor");
+        System.out.println("5.Show all Sponsors");
+        System.out.println("6.Show all Races");
+        System.out.println("7.Exit");
         choice=Integer.parseInt(System.console().readLine());
         switch(choice)
         {
@@ -145,7 +148,23 @@ public class Console {
                 sponsorCountry=System.console().readLine();
                 f1AdminController.addSponsor(sponsorName,investmentAmount,sponsorCountry);
                 break;
+
             case 5:
+                List<Sponsor> sponsors=f1AdminController.getAllSponsors();
+                for(Sponsor sponsor:sponsors)
+                {
+                    System.out.println(sponsor);
+                }
+                break;
+            case 6:
+                List<Race> races=f1AdminController.getAllRaces();
+                for(Race race:races)
+                {
+                    System.out.println(race);
+                }
+                break;
+
+            case 7:
                 break;
         }
 

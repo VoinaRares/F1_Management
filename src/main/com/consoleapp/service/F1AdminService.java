@@ -44,6 +44,7 @@ public class F1AdminService {
 //        repository.create(race4);
     }
 
+
     public void addRace(String country, String continent, int coordinateX, int coordinateY)
     {
         int id=100;
@@ -66,8 +67,8 @@ public class F1AdminService {
 //                }
 //            }
 //        }
-
-        Race race = new Race(id, location);
+        rand_id=random.nextInt(9999999);
+        Race race = new Race(rand_id, location);
         repository.create(race);
 
     }
@@ -229,12 +230,23 @@ public class F1AdminService {
         return teamSponsorRaces;
     }
 
+
+
     public void addSponsor(String name, int investmentAmount,String country)
     {
         Random random=new Random();
         int rand_id=random.nextInt(9999999);
         Sponsor sponsor= new Sponsor(rand_id, name, investmentAmount, country);
         sponsorRepository.create(sponsor);
+    }
+
+    public List<Sponsor> getAllSponsors()
+    {
+        return sponsorRepository.getAll();
+    }
+
+    public List<Race> getAllRaces() {
+        return repository.getAll();
     }
 }
 

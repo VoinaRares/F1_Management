@@ -1,6 +1,7 @@
 package main.com.consoleapp.controller;
 
 import main.com.consoleapp.model.Race;
+import main.com.consoleapp.model.Sponsor;
 import main.com.consoleapp.model.TeamSponsorRace;
 import main.com.consoleapp.service.F1AdminService;
 
@@ -35,4 +36,12 @@ public class F1AdminController {
     public List<TeamSponsorRace> showSponsorMoneyPerRace(){return f1AdminService.showSponsorMoneyPerRace();}
 
     public void addSponsor(String name, int investmentAmount, String country){f1AdminService.addSponsor(name,investmentAmount,country);}
+
+    public List<Sponsor> getAllSponsors() {
+        return f1AdminService.getAllSponsors();
+    }
+
+    public List<Race> getAllRaces() {
+        return f1AdminService.getAllRaces();
+    }
 }
