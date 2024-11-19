@@ -259,7 +259,19 @@ public class Console {
 
     public void showTeamManagerFilterOptions()
     {
-
+        int choice;
+        System.out.println("1. Show All Engineers");
+        System.out.println("2. Show All Drivers");
+        choice=Integer.parseInt(System.console().readLine());
+        switch (choice)
+        {
+            case 1:
+                //teamManagerController.showAllEngineers
+                break;
+            case 2:
+                //teamManagerController.showAllDrivers
+                break;
+        }
     }
 
     public void run()
