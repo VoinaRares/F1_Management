@@ -91,4 +91,15 @@ public class TeamManagerService {
         return engineers;
     }
 
+    public List<Driver> getAllDrivers(){
+        List<Person> persons = personRepo.getAll();
+        List<Driver> drivers = new ArrayList<>();
+        for(Person person : persons ){
+            if(person instanceof Driver){
+                drivers.add((Driver) person);
+            }
+        }
+        return drivers;
+    }
+
 }
