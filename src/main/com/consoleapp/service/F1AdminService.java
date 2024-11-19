@@ -47,7 +47,7 @@ public class F1AdminService {
         int id=100;
         //Adds a random id. Will be changed in the future
         Random random = new Random();
-        int rand_id = random.nextInt(10000);
+        int rand_id = random.nextInt(9999999);
         Location location = new Location(rand_id,country,continent,coordinateX,coordinateY);
 
 
@@ -57,7 +57,7 @@ public class F1AdminService {
         for(Sponsor sponsor : sponsors){
             if(sponsor.getCountry().equals(country)){
                 for(Team team : teams){
-                    rand_id = random.nextInt(10000);
+                    rand_id = random.nextInt(99999999);
                     // Doubles the amount. Will be changed later.
                     TeamSponsor teamSponsor = new TeamSponsor(rand_id,sponsor.getId(), team.getId(),
                             sponsor.getInvestmentAmount() * 2);
