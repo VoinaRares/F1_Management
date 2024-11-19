@@ -20,4 +20,9 @@ public class Driver extends TeamMember {
         this.number = number;
     }
 
+    public String toString()
+    {
+        return super.toString() + "Team ID: " + getTeamId() + ", Number: " + getNumber();
+    }
+
 }
