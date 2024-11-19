@@ -21,12 +21,14 @@ public class F1AdminService {
     private final IRepository<Race> repository;
     private final IRepository<Team> teamRepository;
     private final IRepository<Sponsor> sponsorRepository;
-
+    private final IRepository<TeamSponsor> teamSponsorRepository;
     public F1AdminService() {
         //Should probably be added with addRace
         this.repository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
         this.teamRepository = InFileRepository.getInstance(Team.class, "teamRepo.txt");
         this.sponsorRepository = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
+        this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+
 //        Location location1= new Location(120,"Italy","Europe",500,1000);
 //        Race race1=new Race(50,location1);
 //        Location location2= new Location(121,"France","Europe",400,1200);
@@ -53,21 +55,43 @@ public class F1AdminService {
 
         List<Team> teams = teamRepository.getAll();
         List<Sponsor> sponsors = sponsorRepository.getAll();
-        List<TeamSponsor> teamSponsors = new ArrayList<>();
-        for(Sponsor sponsor : sponsors){
-            if(sponsor.getCountry().equals(country)){
-                for(Team team : teams){
-                    rand_id = random.nextInt(99999999);
-                    // Doubles the amount. Will be changed later.
-                    TeamSponsor teamSponsor = new TeamSponsor(rand_id,sponsor.getId(), team.getId(),
-                            sponsor.getInvestmentAmount() * 2);
-                    teamSponsors.add(teamSponsor);
+        List<TeamSponsor> teamSponsors = teamSponsorRepository.getAll();
+        rand_id=random.nextInt(9999999);
+
+//        for(Sponsor sponsor : sponsors){
+//            if(sponsor.getCountry().equals(country)){
+//                for(Team team : teams){
+//                    rand_id = random.nextInt(99999999);
+//                    // Doubles the amount. Will be changed later.
+//                    TeamSponsor teamSponsor = new TeamSponsor(rand_id,sponsor.getId(), team.getId(),
+//                            sponsor.getInvestmentAmount() * 2);
+//                    teamSponsors.add(teamSponsor);
+//                }
+//            }
+//        }
+
+        Race race = new Race(id, location);
+        repository.create(race);
+        List<Race> races = repository.getAll();
+        for(Race race1: races)
+        {
+            for (TeamSponsor teamSponsor : teamSponsors)
+            {
+
+                if(race1.getLocation().getCountry().equals(sponsorRepository.read(teamSponsor.getSponsorId()).getCountry()))
+                {
+                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race.getId(), teamSponsor.getInvestmentAmount()*2);
                 }
+                else
+                {
+                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race.getId(), teamSponsor.getInvestmentAmount());
+
+                }
+
             }
         }
-        Race race = new Race(id, location);
         race.setTeamSponsors(teamSponsors);
-        repository.create(race);
+
     }
 
     public List<Race> generateCalendar(String start_country, String end_country,int day, int month, int year)
