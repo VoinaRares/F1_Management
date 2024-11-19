@@ -1,6 +1,7 @@
 package main.com.consoleapp.controller;
 
 import main.com.consoleapp.model.Race;
+import main.com.consoleapp.model.TeamSponsorRace;
 import main.com.consoleapp.service.F1AdminService;
 
 import java.util.List;
@@ -30,5 +31,7 @@ public class F1AdminController {
         //validation
         return f1AdminService.generateCalendar(start_country,end_country,day,month,year);
     }
+
+    public List<TeamSponsorRace> showSponsorMoneyPerRace(){//return f1AdminService.}
 
 }
