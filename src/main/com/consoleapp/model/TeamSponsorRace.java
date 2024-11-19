@@ -9,4 +9,20 @@ public class TeamSponsorRace extends Entity {
         this.TeamSponsorId = teamSponsorId;
         this.RaceId = raceId;
     }
+
+    public int getRaceId() {
+        return RaceId;
+    }
+
+    public void setRaceId(int raceId) {
+        RaceId = raceId;
+    }
+
+    public int getTeamSponsorId() {
+        return TeamSponsorId;
+    }
+
+    public void setTeamSponsorId(int teamSponsorId) {
+        TeamSponsorId = teamSponsorId;
+    }
 }
