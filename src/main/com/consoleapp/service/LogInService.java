@@ -1,28 +1,29 @@
 package main.com.consoleapp.service;
 import main.com.consoleapp.model.*;
 import main.com.consoleapp.repository.IRepository;
+import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.repository.InMemoryRepository;
 import java.util.List;
 
 public class LogInService {
 
 
-    private final InMemoryRepository<Person>repository;
+    private final IRepository<Person> repository;
     public LogInService()
     {
-        TeamManager teamManager=new TeamManager(0,"Toto Wolff",50,10,2500, 0, "1","y");
-        Driver  driver= new Driver(1,"Charles Leclerc", 25, 6, 1200000, 16,2,"2","y" );
-        Engineer engineer=new Engineer(2, "Adrian Newey", 65, 22, 122555, "Aerodynamics",
-                5, 0, "3","y");
-        F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"4","y");
+//        TeamManager teamManager=new TeamManager(0,"Toto Wolff",50,10,2500, 0, "1","y");
+//        Driver  driver= new Driver(1,"Charles Leclerc", 25, 6, 1200000, 16,2,"2","y" );
+//        Engineer engineer=new Engineer(2, "Adrian Newey", 65, 22, 122555, "Aerodynamics",
+//                5, 0, "3","y");
+//        F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"4","y");
 
 
-        this.repository = InMemoryRepository.getInstance(Person.class);
+        this.repository = InFileRepository.getInstance(Person.class, "personRepo.txt");
 
-        repository.create(teamManager);
-        repository.create(driver);
-        repository.create(engineer);
-        repository.create(adminho);
+//        repository.create(teamManager);
+//        repository.create(driver);
+//        repository.create(engineer);
+//        repository.create(adminho);
     }
 
 

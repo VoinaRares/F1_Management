@@ -1,6 +1,8 @@
 package main.com.consoleapp.service;
 
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.repository.IRepository;
+import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.repository.InMemoryRepository;
 
 import java.util.List;
@@ -10,19 +12,19 @@ import java.util.List;
  */
 public class TeamManagerService {
 
-    private final InMemoryRepository<Person> personRepo;
-    private final InMemoryRepository<TeamSponsor> teamSponsorRepo;
+    private final IRepository<Person> personRepo;
+    private final IRepository<TeamSponsor> teamSponsorRepo;
 
     //Might be used for data validation in the Controller
-    private final InMemoryRepository<Sponsor> sponsorRepo;
-    private final InMemoryRepository<Team> teamRepo;
+    private final IRepository<Sponsor> sponsorRepo;
+    private final IRepository<Team> teamRepo;
 
     public TeamManagerService() {
-       this.personRepo = InMemoryRepository.getInstance(Person.class);
-       this.sponsorRepo = InMemoryRepository.getInstance(Sponsor.class);
-       this.teamRepo = InMemoryRepository.getInstance(Team.class);
+       this.personRepo = InFileRepository.getInstance(Person.class, "personRepo.txt");
+       this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
+       this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
 
-       this.teamSponsorRepo = InMemoryRepository.getInstance(TeamSponsor.class);
+       this.teamSponsorRepo = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
 
     }
 

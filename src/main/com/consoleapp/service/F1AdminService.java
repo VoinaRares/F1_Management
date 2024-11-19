@@ -1,5 +1,7 @@
 package main.com.consoleapp.service;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.repository.IRepository;
+import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.repository.InMemoryRepository;
 
 import java.util.ArrayList;
@@ -16,28 +18,28 @@ import static java.lang.Math.sqrt;
 public class F1AdminService {
 
     //InMemoryRepository<Race> repository = new InMemoryRepository<Race>();
-    private final InMemoryRepository<Race> repository;
-    private final InMemoryRepository<Team> teamRepository;
-    private final InMemoryRepository<Sponsor> sponsorRepository;
+    private final IRepository<Race> repository;
+    private final IRepository<Team> teamRepository;
+    private final IRepository<Sponsor> sponsorRepository;
 
     public F1AdminService() {
         //Should probably be added with addRace
-        this.repository = InMemoryRepository.getInstance(Race.class);
-        this.teamRepository = InMemoryRepository.getInstance(Team.class);
-        this.sponsorRepository = InMemoryRepository.getInstance(Sponsor.class);
-        Location location1= new Location(120,"Italy","Europe",500,1000);
-        Race race1=new Race(50,location1);
-        Location location2= new Location(121,"France","Europe",400,1200);
-        Race race2=new Race(51,location2);
-        Location location3= new Location(122,"UAE","Asia",800,200);
-        Race race3=new Race(52,location3);
-        Location location4= new Location(123,"Japan","Asia",3000,1000);
-        Race race4=new Race(53,location4);
-
-        repository.create(race1);
-        repository.create(race2);
-        repository.create(race3);
-        repository.create(race4);
+        this.repository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
+        this.teamRepository = InFileRepository.getInstance(Team.class, "teamRepo.txt");
+        this.sponsorRepository = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
+//        Location location1= new Location(120,"Italy","Europe",500,1000);
+//        Race race1=new Race(50,location1);
+//        Location location2= new Location(121,"France","Europe",400,1200);
+//        Race race2=new Race(51,location2);
+//        Location location3= new Location(122,"UAE","Asia",800,200);
+//        Race race3=new Race(52,location3);
+//        Location location4= new Location(123,"Japan","Asia",3000,1000);
+//        Race race4=new Race(53,location4);
+//
+//        repository.create(race1);
+//        repository.create(race2);
+//        repository.create(race3);
+//        repository.create(race4);
     }
 
     public void addRace(String country, String continent, int coordinateX, int coordinateY)

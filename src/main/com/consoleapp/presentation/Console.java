@@ -92,6 +92,7 @@ public class Console {
                     System.out.println("Race added successfully");
                     showF1AdminMenu();
                 }
+                break;
             case 2:
                 String startCountry, endCountry;
                 int day,month,year;
@@ -112,6 +113,7 @@ public class Console {
                     System.out.println(race);
                 }
                 showF1AdminMenu();
+                break;
             default:
                 break;
         }

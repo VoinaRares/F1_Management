@@ -1,9 +1,11 @@
 package main.com.consoleapp.model;
 
+import java.io.Serializable;
+
 /**
  * Base class for all classes to include the id
  */
-public abstract class Entity {
+public abstract class Entity implements Serializable {
     private int id;
 
     public Entity(int id)
