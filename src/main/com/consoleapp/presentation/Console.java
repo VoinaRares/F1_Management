@@ -11,10 +11,11 @@ public class Console {
 
     private boolean isTeamManager = false;
     private boolean isF1Admin = false;
-    private TeamManagerController teamManagerController;
-    private LogInController logInController;
-    private F1AdminController f1AdminController;
+    private final TeamManagerController teamManagerController;
+    private final LogInController logInController;
+    private final F1AdminController f1AdminController;
     private boolean isLoggedIn = false;
+    private int currentUserTeamId;
 
     public Console() {
         teamManagerController = new TeamManagerController();
@@ -26,8 +27,7 @@ public class Console {
     {
         System.out.println("\tF1 MANAGEMENT");
         System.out.println("1.Login");
-        System.out.println("2.Sign up");
-        System.out.println("3.Exit");
+        System.out.println("2.Exit");
     }
 
     public void showLoginMenu()
@@ -45,11 +45,22 @@ public class Console {
         if(personJob.equals("TeamManager")) {
             isTeamManager = true;
             isLoggedIn = true;
+            currentUserTeamId = logInController.getTeamId(username, password);
         }
 
         if(personJob.equals("F1Admin")) {
             isF1Admin = true;
             isLoggedIn = true;
+        }
+
+        if(personJob.equals("Driver")) {
+            isLoggedIn = true;
+            currentUserTeamId = logInController.getTeamId(username, password);
+        }
+
+        if(personJob.equals("Engineer")) {
+            isLoggedIn = true;
+            currentUserTeamId = logInController.getTeamId(username, password);
         }
 
         if(isF1Admin)
@@ -60,7 +71,7 @@ public class Console {
             showLoginMenu();
         }
         if(isTeamManager)
-            showOptions();
+            showTeamManagerOptions();
     }
 
 
@@ -121,17 +132,6 @@ public class Console {
 
     }
 
-    public void showSignUpMenu()
-    {
-        String Username, Password;
-        System.out.println("SIGN UP");
-        System.out.println("Enter your Username: ");
-        Username=System.console().readLine();
-        System.out.println("Enter your Password: ");
-        Password=System.console().readLine();
-        //send by controller
-
-    }
 
     private int chooseId(){
         int choice;
@@ -161,7 +161,7 @@ public class Console {
         int choice;
         choice = Integer.parseInt(System.console().readLine());
 
-        int id, age, experience, teamId;
+        int id, age, experience;
         String name, userName, password;
         float salary;
 
@@ -188,28 +188,22 @@ public class Console {
                 int yearsWithCurrentTeam = 0;
                 System.out.println("specialty: ");
                 specialty=System.console().readLine();
-                System.out.println("teamId: ");
-                teamId=Integer.parseInt(System.console().readLine());
                 teamManagerController.addEngineer(id, age, experience, name, salary, specialty,
-                        yearsWithCurrentTeam, teamId, userName, password);
+                        yearsWithCurrentTeam, currentUserTeamId, userName, password);
             }
             else if(choice == 3){
                 int driverNumber;
                 System.out.println("driverNumber: ");
                 driverNumber=Integer.parseInt(System.console().readLine());
-                System.out.println("teamId: ");
-                teamId=Integer.parseInt(System.console().readLine());
-                teamManagerController.addDriver(id, age, experience, name, salary, driverNumber,teamId, userName, password);
+                teamManagerController.addDriver(id, age, experience, name, salary, driverNumber,currentUserTeamId, userName, password);
             }
             else if(choice == 4){
-                System.out.println("teamId: ");
-                teamId=Integer.parseInt(System.console().readLine());
-                teamManagerController.addTeamManager(id, age, experience, name, salary,teamId, userName, password);
+                teamManagerController.addTeamManager(id, age, experience, name, salary,currentUserTeamId, userName, password);
             }
         }
     }
 
-    public void showOptions(){
+    public void showTeamManagerOptions(){
         int choice;
 
         //Options for Team Manager
@@ -218,7 +212,9 @@ public class Console {
         System.out.println("3. Add Team Sponsor");
         System.out.println("4. Remove Team Sponsor");
         System.out.println("5. Show all Members");
-        System.out.println("6. Exit");
+        System.out.println("6. Sorting Operations");
+        System.out.println("7. Filter Operations");
+        System.out.println("8. Exit");
         choice = Integer.parseInt(System.console().readLine());
         switch (choice) {
             case 1:
@@ -247,6 +243,10 @@ public class Console {
                 for(Person person : teamManagerController.getAllPersons()){
                     System.out.println(person);
                 }
+            case 6:
+                break;
+            case 7:
+                break;
             default:
                 break;
         }
@@ -268,10 +268,6 @@ public class Console {
                 showLoginMenu();
             }
             if(choice==2)
-            {
-                showSignUpMenu();
-            }
-            if(choice==3)
                 break;
         }
     }
