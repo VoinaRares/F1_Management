@@ -21,7 +21,7 @@ public class F1AdminService {
     private final InMemoryRepository<Sponsor> sponsorRepository;
 
     public F1AdminService() {
-
+        //Should probably be added with addRace
         this.repository = InMemoryRepository.getInstance(Race.class);
         this.teamRepository = InMemoryRepository.getInstance(Team.class);
         this.sponsorRepository = InMemoryRepository.getInstance(Sponsor.class);
