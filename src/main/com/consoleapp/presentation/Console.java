@@ -82,7 +82,8 @@ public class Console {
         System.out.println("Options:");
         System.out.println("1.Add Race");
         System.out.println("2.Generate Calendar");
-        System.out.println("3.Exit");
+        System.out.println("3.Show Sponsor investments in races");
+        System.out.println("4.Exit");
         choice=Integer.parseInt(System.console().readLine());
         switch(choice)
         {
@@ -125,7 +126,10 @@ public class Console {
                 }
                 showF1AdminMenu();
                 break;
-            default:
+            case 3:
+                //List<TeamSponsorRace> teamSponsorRaces= f1AdminController.
+                break;
+            case 4:
                 break;
         }
 
