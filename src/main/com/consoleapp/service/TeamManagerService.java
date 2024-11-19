@@ -5,6 +5,7 @@ import main.com.consoleapp.repository.IRepository;
 import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.repository.InMemoryRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,6 +77,18 @@ public class TeamManagerService {
 
     public List<Person> getAllPersons(){
         return personRepo.getAll();
+    }
+
+    public List<Person> getAllSortedBySalary(){
+        ArrayList<Person> personList = new ArrayList<>(personRepo.getAll());
+        personList.sort((p1, p2) -> Float.compare(p1.getSalary(), p2.getSalary()));
+        return personList;
+    }
+
+    public List<Person> getAllSortedByAge(){
+        List<Person> personList = new ArrayList<>(personRepo.getAll());
+        personList.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
+        return personList;
     }
 
 }
