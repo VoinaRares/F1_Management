@@ -1,5 +1,6 @@
 package main.com.consoleapp.controller;
 
+import main.com.consoleapp.model.Driver;
 import main.com.consoleapp.model.Engineer;
 import main.com.consoleapp.model.Person;
 import main.com.consoleapp.service.TeamManagerService;
@@ -77,5 +78,7 @@ public class TeamManagerController {
     }
 
     public List<Engineer> getAllEngineers(){return teamManagerService.getAllEngineers();}
+
+    public List<Driver> getAllDrivers(){return teamManagerService.getAllDrivers();}
 
 }
