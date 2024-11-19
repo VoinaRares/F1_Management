@@ -5,6 +5,7 @@ import main.com.consoleapp.repository.IRepository;
 import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.repository.InMemoryRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,6 +79,16 @@ public class TeamManagerService {
         return personRepo.getAll();
     }
 
-    public List<Engineer> getAllEngineers(){}
+    public List<Engineer> getAllEngineers(){
+        List<Person> persons = personRepo.getAll();
+        List<Engineer> engineers = new ArrayList<>();
+
+        for(Person person : persons ){
+            if(person instanceof Engineer){
+                engineers.add((Engineer) person);
+            }
+        }
+        return engineers;
+    }
 
 }
