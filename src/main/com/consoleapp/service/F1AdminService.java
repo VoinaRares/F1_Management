@@ -151,7 +151,8 @@ public class F1AdminService {
             for(Race race:races)
             {
                 Float distance=getDistance(lastRace.getLocation().getCoordinateX(),
-                        lastRace.getLocation().getCoordinateY(),race.getLocation().getCoordinateX(),race.getLocation().getCoordinateY());
+                        lastRace.getLocation().getCoordinateY(),
+                        race.getLocation().getCoordinateX(),race.getLocation().getCoordinateY());
                 if(distance<min_distance)
                 {
                     min_distance=distance;
@@ -184,7 +185,8 @@ public class F1AdminService {
      * Calculates the distance between 2 locations using the coordinates
      * @return the Distance
      */
-    public float getDistance(float coordinate1_x, float coordinate1_y, float coordinate2_x, float coordinate2_y)
+    public float getDistance(float coordinate1_x, float coordinate1_y,
+                             float coordinate2_x, float coordinate2_y)
     {
         return (float) sqrt(pow(coordinate1_x - coordinate2_x,2)+pow(coordinate1_y - coordinate2_y,2));
     }
@@ -237,12 +239,14 @@ public class F1AdminService {
 
                 if(race1.getLocation().getCountry().equals(sponsorRepository.read(teamSponsor.getSponsorId()).getCountry()))
                 {
-                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race1.getId(), teamSponsor.getInvestmentAmount()*2);
+                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race1.getId(),
+                            teamSponsor.getInvestmentAmount()*2);
                     teamSponsorRaces.add(teamSponsorRace);
                 }
                 else
                 {
-                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race1.getId(), teamSponsor.getInvestmentAmount());
+                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race1.getId(),
+                            teamSponsor.getInvestmentAmount());
                     teamSponsorRaces.add(teamSponsorRace);
                 }
 
