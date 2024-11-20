@@ -3,7 +3,6 @@ package main.com.consoleapp.service;
 import main.com.consoleapp.model.*;
 import main.com.consoleapp.repository.IRepository;
 import main.com.consoleapp.repository.InFileRepository;
-import main.com.consoleapp.repository.InMemoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,20 +12,18 @@ import java.util.List;
  */
 public class TeamManagerService {
 
-    private final IRepository<Person> personRepo;
-    private final IRepository<TeamSponsor> teamSponsorRepo;
-    private final IRepository<Race> raceRepo;
+    private final IRepository<Person> personRepository;
+    private final IRepository<TeamSponsor> teamSponsorRepository;;
 
     //Might be used for data validation in the Controller
     private final IRepository<Sponsor> sponsorRepo;
     private final IRepository<Team> teamRepo;
 
     public TeamManagerService() {
-       this.personRepo = InFileRepository.getInstance(Person.class, "personRepo.txt");
+       this.personRepository = InFileRepository.getInstance(Person.class, "personRepo.txt");
        this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
        this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
-       this.raceRepo = InFileRepository.getInstance(Race.class, "raceRepo.txt");
-       this.teamSponsorRepo = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+       this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
 
     }
 
@@ -37,7 +34,7 @@ public class TeamManagerService {
     public boolean addF1Admin(int id, int age, int experience, String name,
                               float salary, String userName, String password){
         F1Admin person = new F1Admin(id, name, age, experience, salary, userName, password );
-        personRepo.create(person);
+        personRepository.create(person);
         return true;
     }
 
@@ -52,7 +49,7 @@ public class TeamManagerService {
 
         Engineer person = new Engineer(id, name, age, experience, salary,
                 specialty, yearsWithCurrentTeam, TeamId, userName, password );
-        personRepo.create(person);
+        personRepository.create(person);
         return true;
     }
 
@@ -64,7 +61,7 @@ public class TeamManagerService {
                              int driverNumber, int teamId, String userName, String password){
 
         Driver person = new Driver(id, name, age, experience, salary, driverNumber, teamId, userName, password );
-        personRepo.create(person);
+        personRepository.create(person);
         return true;
     }
 
@@ -77,7 +74,7 @@ public class TeamManagerService {
                                   float salary, int teamId, String userName, String password){
 
         TeamManager person = new TeamManager(id, name, age, experience, salary, teamId, userName, password );
-        personRepo.create(person);
+        personRepository.create(person);
         return true;
     }
 
@@ -86,7 +83,7 @@ public class TeamManagerService {
      * @param id of the Entity to be deleted
      */
     public void removePerson(int id){
-        personRepo.delete(id);
+        personRepository.delete(id);
     }
 
 
@@ -95,7 +92,7 @@ public class TeamManagerService {
      */
     public void addTeamSponsor(int id,int sponsorId, int teamId, int investmentAmount){
         TeamSponsor teamSponsor = new TeamSponsor(id, teamId, sponsorId, investmentAmount);
-        teamSponsorRepo.create(teamSponsor);
+        teamSponsorRepository.create(teamSponsor);
     }
 
     /**
@@ -103,32 +100,42 @@ public class TeamManagerService {
      * @param id of the deleted Team Sponsor
      */
     public void removeTeamSponsor(int id){
-        teamSponsorRepo.delete(id);
+        teamSponsorRepository.delete(id);
     }
 
     /**
      * @return A List of all Entities in the Repository
      */
     public List<Person> getAllPersons(){
-        return personRepo.getAll();
+        return personRepository.getAll();
     }
 
-
+    /**
+     * Sorts all Person entities by their salary
+     * @return sorted List
+     */
     public List<Person> getAllSortedBySalary(){
-        ArrayList<Person> personList = new ArrayList<>(personRepo.getAll());
+        ArrayList<Person> personList = new ArrayList<>(personRepository.getAll());
         personList.sort((p1, p2) -> Float.compare(p1.getSalary(), p2.getSalary()));
         return personList;
     }
 
+    /**
+     * Sorts all Person entities by their age
+     * @return sorted List
+     */
     public List<Person> getAllSortedByAge(){
-        List<Person> personList = new ArrayList<>(personRepo.getAll());
+        List<Person> personList = new ArrayList<>(personRepository.getAll());
         personList.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
         return personList;
     }
 
 
+    /**
+     * @return all Engineer Entities
+     */
     public List<Engineer> getAllEngineers(){
-        List<Person> persons = personRepo.getAll();
+        List<Person> persons = personRepository.getAll();
         List<Engineer> engineers = new ArrayList<>();
 
         for(Person person : persons ){
@@ -139,8 +146,11 @@ public class TeamManagerService {
         return engineers;
     }
 
+    /**
+     * @return all Driver Entities
+     */
     public List<Driver> getAllDrivers(){
-        List<Person> persons = personRepo.getAll();
+        List<Person> persons = personRepository.getAll();
         List<Driver> drivers = new ArrayList<>();
         for(Person person : persons ){
             if(person instanceof Driver){
@@ -151,8 +161,13 @@ public class TeamManagerService {
     }
 
 
+    /**
+     * Filters Engineers by a given specialty
+     * @param specialty filterSpecialty
+     * @return List of all appropriate Engineer
+     */
     public List<Engineer> getEngineersBySpecialty(String specialty){
-        List<Person> persons = personRepo.getAll();
+        List<Person> persons = personRepository.getAll();
         List<Engineer> engineers = new ArrayList<>();
         for(Person person : persons ){
             if(person instanceof Engineer && ((Engineer) person).getSpecialty().equals(specialty)){
