@@ -12,4 +12,8 @@ public class TeamManager extends TeamMember {
         super(id,name,age,experience,salary,username,password, teamId);
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + " Team ID:" + getTeamId();
+    }
 }
