@@ -248,6 +248,10 @@ public class F1AdminService {
     public List<Race> getAllRaces() {
         return repository.getAll();
     }
+
+    public List<TeamSponsor> getAllTeamSponsors() {
+        return teamSponsorRepository.getAll();
+    }
 }
 
 
