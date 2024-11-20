@@ -40,43 +40,102 @@ public class F1AdminController {
         return f1AdminService.generateCalendar(start_country,end_country,day,month,year);
     }
 
+
+    /**
+     * gets List of all the Sponsor budget for every Race
+     * @return List of all the Sponsor budget for every Race
+     */
     public List<TeamSponsorRace> showSponsorMoneyPerRace(){return f1AdminService.showSponsorMoneyPerRace();}
 
+
+    /**
+     * adds a Sponsor
+     * @param name SponsorName
+     * @param investmentAmount SponsorInvestmentAmount
+     * @param country SponsorCountry
+     */
     public void addSponsor(String name, int investmentAmount, String country){f1AdminService.addSponsor(name,investmentAmount,country);}
 
+
+    /**
+     * gets List of all the Sponsors
+     * @return List of all Sponsors
+     */
     public List<Sponsor> getAllSponsors() {
         return f1AdminService.getAllSponsors();
     }
 
+
+    /**
+     * gets List of all Races
+     * @return List of all Races
+     */
     public List<Race> getAllRaces() {
         return f1AdminService.getAllRaces();
     }
 
+    /**
+     * gets List of all TeamSponsors
+     * @return List of all TeamSponsors
+     */
     public List<TeamSponsor> getAllTeamSponsors() {
         return f1AdminService.getAllTeamSponsors();
     }
 
+
+    /**
+     * adds a new Team to the List
+     * @param teamName Team.TeamName
+     * @param budget Team.Budget
+     */
     public void addTeam(String teamName, int budget) {
         f1AdminService.addTeam(teamName,budget);
     }
 
+
+    /**
+     * gets List of all Teams
+     * @return list of all Teams
+     */
     public List<Team> getAllTeams() {
         return f1AdminService.getAllTeams();
     }
 
-
+    /**
+     * gets Team by id
+     * @param id id of Team
+     * @return Team if found, else null
+     */
     public Team getTeamById(int id){
         return f1AdminService.getTeam(id);
     }
 
+
+    /**
+     * gets TeamSponsor by id
+     * @param id id of TeamSponsor
+     * @return TeamSponsor if found, else null
+     */
     public TeamSponsor getTeamSponsorById(int id){
         return f1AdminService.getTeamSponsor(id);
     }
 
+
+    /**
+     * gets Sponsor by id
+     * @param id id of Sponsor
+     * @return Sponsor if found, else null
+     */
     public Sponsor getSponsorById(int id){
         return f1AdminService.getSponsor(id);
     }
 
+
+    /**
+     * gets Race by id
+     * @param id id of Race
+     * @return Race if found, else null
+     */
     public Race getRaceById(int id){
         return f1AdminService.getRace(id);
     }
