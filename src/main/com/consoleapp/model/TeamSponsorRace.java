@@ -35,4 +35,12 @@ public class TeamSponsorRace extends Entity {
                 ", investment=" + investment +
                 '}';
     }
+
+    public int getInvestment() {
+        return investment;
+    }
+
+    public void setInvestment(int investment) {
+        this.investment = investment;
+    }
 }
