@@ -20,7 +20,8 @@ public class Team extends Entity{
         staff = new ArrayList<Person>();
     }
 
-    public Team(int id,String teamName, int budget, List<Sponsor> sponsors, List<Person> staff) {
+
+    public Team(int id, String teamName, int budget, List<Sponsor> sponsors, List<Person> staff) {
         super(id);
         this.teamName = teamName;
         this.budget = budget;
@@ -74,5 +75,10 @@ public class Team extends Entity{
 
     public void removeStaff(Person member) {
         staff.remove(member);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " Team Name: " + teamName + " Budget: " + budget;
     }
 }
