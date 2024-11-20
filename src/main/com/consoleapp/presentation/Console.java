@@ -135,48 +135,54 @@ public class Console {
                 List<Race> races=f1AdminController.getAllRaces();
                 List<TeamSponsor> teamSponsors= f1AdminController.getAllTeamSponsors();
                 List<Sponsor> sponsors=f1AdminController.getAllSponsors();
-                String raceName;
-                String sponsorName;
-                for(TeamSponsorRace teamSponsorRace:teamSponsorRaces)
-                {
-                    int raceId,SponsorId,TeamId;
-                    raceId=teamSponsorRace.getRaceId();
+                List<Team> teams=f1AdminController.getAllTeams();
+                String raceName="";
+                String sponsorName="";
+                String teamName="";
+                int investmentAmount=0;
+                for(TeamSponsorRace teamSponsorRace:teamSponsorRaces) {
+                    int raceId, SponsorId, TeamId;
+                    raceId = teamSponsorRace.getRaceId();
 
+                    for (Race race : races) {
+                        if (raceId == race.getId()) {
+                            raceName = String.valueOf(race.getLocation().getCountry());
+                            for (TeamSponsor teamSponsor : teamSponsors) {
 
+                                investmentAmount = teamSponsorRace.getInvestment();
 
+                                for (Sponsor sponsor : sponsors) {
+                                    if (teamSponsor.getSponsorId() == sponsor.getId()) {
+                                        sponsorName = sponsor.getSponsorName();
 
-                    for(Race race:races)
-                    {
-                        if(raceId==race.getId())
-                            raceName= String.valueOf(race.getLocation().getCountry());
-                        for(TeamSponsor teamSponsor:teamSponsors)
-                        {
-                            for(Sponsor sponsor:sponsors)
-                            {
-                                if (teamSponsor.getSponsorId()==sponsor.getId())
-                                {
-                                    sponsorName = sponsor.getSponsorName();
-                                    break;
+                                        break;
+                                    }
                                 }
+
+                                for (Team team : teams) {
+                                    if (teamSponsor.getTeamId() == team.getId()) {
+                                        teamName = team.getTeamName();
+                                        break;
+                                    }
+                                }
+                                System.out.print(raceName + " " + teamName + " " + sponsorName + " " + investmentAmount + "\n");
                             }
-
-
                         }
+                        SponsorId = teamSponsorRace.getTeamSponsorId();
                     }
-                    SponsorId=teamSponsorRace.getTeamSponsorId();
                 }
                 break;
 
             case 4:
                 String addSponsorName,sponsorCountry;
-                int investmentAmount;
+                int addInvestmentAmount;
                 System.out.println("Enter sponsor name: ");
                 addSponsorName =System.console().readLine();
                 System.out.println("Enter sponsor investment amount: ");
-                investmentAmount=Integer.parseInt(System.console().readLine());
+                addInvestmentAmount =Integer.parseInt(System.console().readLine());
                 System.out.println("Enter sponsor country: ");
                 sponsorCountry=System.console().readLine();
-                f1AdminController.addSponsor(addSponsorName,investmentAmount,sponsorCountry);
+                f1AdminController.addSponsor(addSponsorName, addInvestmentAmount,sponsorCountry);
                 break;
 
             case 5:
@@ -195,17 +201,17 @@ public class Console {
                 break;
 
             case 7:
-                String teamName;
+                String addTeamName;
                 int budget;
                 System.out.println("Enter team name: ");
-                teamName=System.console().readLine();
+                addTeamName =System.console().readLine();
                 System.out.println("Enter budget: ");
                 budget=Integer.parseInt(System.console().readLine());
-                f1AdminController.addTeam(teamName,budget);
+                f1AdminController.addTeam(addTeamName,budget);
                 break;
             case 8:
-                List<Team> teams=f1AdminController.getAllTeams();
-                for(Team team:teams)
+                List<Team> getTeams =f1AdminController.getAllTeams();
+                for(Team team: getTeams)
                 {
                     System.out.println(team);
                 }
