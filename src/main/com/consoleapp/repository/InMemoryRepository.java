@@ -21,11 +21,21 @@ public class InMemoryRepository<T extends Entity> implements IRepository<T>{
         data = new ArrayList<T>();
     }
 
+    /**
+     * Adds an object to the repository
+     * @param obj to be added
+     */
     @Override
     public void create(T obj) {
         data.add(obj);
     }
 
+
+    /**
+     * Searches for an object in the repository
+     * @param id of the searched object
+     * @return the found object, or null if there is no object found
+     */
     @Override
     public T read(int id) {
         for (T obj : data) {
@@ -36,6 +46,10 @@ public class InMemoryRepository<T extends Entity> implements IRepository<T>{
         return null;
     }
 
+    /**
+     * Updates the data of an object
+     * @param obj the new obj that will be saved
+     */
     @Override
     public void update(T obj) {
         for(int i = 0; i < data.size(); i++){
@@ -45,6 +59,10 @@ public class InMemoryRepository<T extends Entity> implements IRepository<T>{
         }
     }
 
+    /**
+     * Removes data from the repository
+     * @param id of the object to be removed
+     */
     @Override
     public void delete(int id) {
         data.removeIf(obj -> obj.getId() == id);
@@ -52,6 +70,9 @@ public class InMemoryRepository<T extends Entity> implements IRepository<T>{
         //Might be able to do the same thing using remove and the equals operator inside the class.
     }
 
+    /**
+     * @return All the data found in the repository
+     */
     @Override
     public List<T> getAll() {
         return data;
@@ -79,6 +100,10 @@ public class InMemoryRepository<T extends Entity> implements IRepository<T>{
         return (InMemoryRepository<T>) instances.get(type);
     }
 
+    /**
+     * NOT IN USE YET
+     * @return the first available id in the current repository
+     */
     private int getFirstAvailableId() {
         return 1;
     }

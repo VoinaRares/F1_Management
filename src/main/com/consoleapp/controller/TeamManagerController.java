@@ -63,14 +63,25 @@ public class TeamManagerController {
         teamManagerService.removePerson(id);
     }
 
+    /**
+     * Adds a team sponsor
+     */
     public void addTeamSponsor(int id,int sponsorId, int teamId, int investmentAmount){
         teamManagerService.addTeamSponsor(id, sponsorId, teamId, investmentAmount);
     }
 
+    /**
+     * Removes a team sponsor by id
+     * @param id of team sponsor
+     */
     public void removeTeamSponsor(int id){
         teamManagerService.removeTeamSponsor(id);
     }
 
+    /**
+     * Gets all the persons
+     * @return all the persons
+     */
     public List<Person> getAllPersons(){
         return teamManagerService.getAllPersons();
     }

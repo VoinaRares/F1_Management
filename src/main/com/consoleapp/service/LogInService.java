@@ -26,6 +26,13 @@ public class LogInService {
 //        repository.create(adminho);
     }
 
+    /**
+     * Searches for the teamId of a given Team Member class member
+     * Potential improvement: Search by currently logged in id
+     * @param username of the currently logged in Person
+     * @param password of the currently logged in Person
+     * @return team id if the logged in Person is a Team Member, -1 if else
+     */
     public int findTeamId(String username, String password){
         List<Person> person = repository.getAll();
         for(Person p : person){
@@ -39,6 +46,12 @@ public class LogInService {
         return -1;
     }
 
+    /**
+     * Searches for a person in the repo to match the username and the password
+     * @param username of the person that is trying to log in
+     * @param password of the person that is trying to log in
+     * @return the job title of the found Person, "false" if there was no job with special privileges found
+     */
     public String logIn(String username, String password) {
         List<Person> persons = repository.getAll();
         for(Person person:persons) {
