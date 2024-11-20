@@ -86,18 +86,39 @@ public class TeamManagerController {
         return teamManagerService.getAllPersons();
     }
 
+    /**
+     * Sorts the List of Person by Salary
+     * @return List of Persons sorted by salary
+     */
     public List<Person> getAllSortedBySalary(){
         return teamManagerService.getAllSortedBySalary();
     }
 
+    /**
+     * Sorts the List of Persons by Age
+     * @return List of Persons sorted by their age
+     */
     public List<Person> getAllSortedByAge(){
         return teamManagerService.getAllSortedByAge();
     }
 
+    /**
+     * Filters all Persons to be an instance of Engineer
+     * @return List of all Engineers
+     */
     public List<Engineer> getAllEngineers(){return teamManagerService.getAllEngineers();}
 
+    /**
+     * Filters all Persons to be an instance of Driver
+     * @return List of all Drivers
+     */
     public List<Driver> getAllDrivers(){return teamManagerService.getAllDrivers();}
 
+    /**
+     * Filters Engineers by their specialty
+     * @param specialty filter
+     * @return List of Engineers of a certain specialty
+     */
     public List<Engineer> getEngineersBySpecialty(String specialty){
         return teamManagerService.getEngineersBySpecialty(specialty);
     }
