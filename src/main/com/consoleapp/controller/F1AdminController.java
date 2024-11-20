@@ -1,6 +1,6 @@
 package main.com.consoleapp.controller;
 
-import main.com.consoleapp.model.Race;
+import main.com.consoleapp.model.*;
 import main.com.consoleapp.service.F1AdminService;
 
 import java.util.List;
@@ -25,10 +25,42 @@ public class F1AdminController {
         return true;
     }
 
+    /**
+     * Generates the calendar of the F1 season
+     * @param start_country starting country
+     * @param end_country final country race
+     * @param day starting day
+     * @param month starting month
+     * @param year starting year
+     * @return the list of all races in order
+     */
     public List<Race> generateCalendar(String start_country, String end_country, int day, int month, int year)
     {
         //validation
         return f1AdminService.generateCalendar(start_country,end_country,day,month,year);
     }
 
+    public List<TeamSponsorRace> showSponsorMoneyPerRace(){return f1AdminService.showSponsorMoneyPerRace();}
+
+    public void addSponsor(String name, int investmentAmount, String country){f1AdminService.addSponsor(name,investmentAmount,country);}
+
+    public List<Sponsor> getAllSponsors() {
+        return f1AdminService.getAllSponsors();
+    }
+
+    public List<Race> getAllRaces() {
+        return f1AdminService.getAllRaces();
+    }
+
+    public List<TeamSponsor> getAllTeamSponsors() {
+        return f1AdminService.getAllTeamSponsors();
+    }
+
+    public void addTeam(String teamName, int budget) {
+        f1AdminService.addTeam(teamName,budget);
+    }
+
+    public List<Team> getAllTeams() {
+        return f1AdminService.getAllTeams();
+    }
 }

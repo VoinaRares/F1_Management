@@ -31,4 +31,9 @@ public class Engineer extends TeamMember {
     public void setYearsWithCurrentTeam(int yearsWithCurrentTeam) {
         this.yearsWithCurrentTeam = yearsWithCurrentTeam;
     }
+
+    public String toString()
+    {
+        return super.toString() + " Team ID: " + getTeamId() + ", Specialty: " + getSpecialty();
+    }
 }
