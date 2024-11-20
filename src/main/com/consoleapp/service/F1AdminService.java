@@ -44,7 +44,13 @@ public class F1AdminService {
 //        repository.create(race4);
     }
 
-
+    /**
+     * Adds a Race
+     * @param country of the Race
+     * @param continent of the Race
+     * @param coordinateX of the Race
+     * @param coordinateY of the Race
+     */
     public void addRace(String country, String continent, int coordinateX, int coordinateY)
     {
         int id=100;
@@ -52,27 +58,21 @@ public class F1AdminService {
         Random random = new Random();
         int rand_id = random.nextInt(9999999);
         Location location = new Location(rand_id,country,continent,coordinateX,coordinateY);
-
-
-
-
-//        for(Sponsor sponsor : sponsors){
-//            if(sponsor.getCountry().equals(country)){
-//                for(Team team : teams){
-//                    rand_id = random.nextInt(99999999);
-//                    // Doubles the amount. Will be changed later.
-//                    TeamSponsor teamSponsor = new TeamSponsor(rand_id,sponsor.getId(), team.getId(),
-//                            sponsor.getInvestmentAmount() * 2);
-//                    teamSponsors.add(teamSponsor);
-//                }
-//            }
-//        }
         rand_id=random.nextInt(9999999);
         Race race = new Race(rand_id, location);
         repository.create(race);
 
     }
 
+    /**
+     * Generates the calendar for the season
+     * @param start_country starting country
+     * @param end_country last country
+     * @param day day of the first Race
+     * @param month Month of the first Race
+     * @param year Year of the first Race
+     * @return A list of all Races in order
+     */
     public List<Race> generateCalendar(String start_country, String end_country,int day, int month, int year)
     {
         //List<Race>races=repository.getAll();
@@ -119,6 +119,12 @@ public class F1AdminService {
 
     }
 
+    /**
+     * Sets the next Race, and it's Date and adds it to the Calendar
+     * @param lastRace
+     * @param races
+     * @return Race
+     */
     public Race getNextRace(Race lastRace, List<Race> races)
     {
         Race nextRace=null;
@@ -174,11 +180,21 @@ public class F1AdminService {
 
     }
 
+    /**
+     * Calculates the distance between 2 locations using the coordinates
+     * @return the Distance
+     */
     public float getDistance(float coordinate1_x, float coordinate1_y, float coordinate2_x, float coordinate2_y)
     {
         return (float) sqrt(pow(coordinate1_x - coordinate2_x,2)+pow(coordinate1_y - coordinate2_y,2));
     }
 
+    /**
+     * Calculates the date of the next Race in the calendar
+     * @param lastRace
+     * @param newRace
+     * @return Date of the next available Race
+     */
     public Date setNextRaceDate(Race lastRace, Race newRace)
     {
         int day=lastRace.getDate().getDay();
@@ -201,6 +217,10 @@ public class F1AdminService {
         return date;
     }
 
+    /**
+     * Calculates the investment amounts of the TeamSponsors per Race
+     * @return List of TeamSponsorRace with calculated investments in every Race
+     */
     public List<TeamSponsorRace> showSponsorMoneyPerRace()
     {
         List<Team> teams = teamRepository.getAll();
@@ -231,8 +251,12 @@ public class F1AdminService {
         return teamSponsorRaces;
     }
 
-
-
+    /**
+     * Adds a new Sponsor to the Repository
+     * @param name of the sponsor
+     * @param investmentAmount of the Sponsor
+     * @param country of the Sponsor
+     */
     public void addSponsor(String name, int investmentAmount,String country)
     {
         Random random=new Random();
@@ -241,19 +265,33 @@ public class F1AdminService {
         sponsorRepository.create(sponsor);
     }
 
+    /**
+     * @return all the Sponsor entities
+     */
     public List<Sponsor> getAllSponsors()
     {
         return sponsorRepository.getAll();
     }
 
+    /**
+     * @return all the Race entities
+     */
     public List<Race> getAllRaces() {
         return repository.getAll();
     }
 
+    /**
+     * @return all the TeamSponsor entities
+     */
     public List<TeamSponsor> getAllTeamSponsors() {
         return teamSponsorRepository.getAll();
     }
 
+    /**
+     * Calls to add a team
+     * @param teamName name of the team
+     * @param budget of the team
+     */
     public void addTeam(String teamName, int budget) {
         Random random=new Random();
         int rand_id=random.nextInt(9999999);
@@ -261,23 +299,46 @@ public class F1AdminService {
         teamRepository.create(team);
     }
 
+    /**
+     * @return all Team entities
+     */
     public List<Team> getAllTeams() {
         return teamRepository.getAll();
     }
 
 
+    /**
+     * Gets Team by id
+     * @param id of the Team
+     * @return Team if found, else null
+     */
     public Team getTeam(int id){
         return teamRepository.read(id);
     }
 
+    /**
+     * Gets TeamSponsor by id
+     * @param id of the TeamSponsor
+     * @return TeamSponsor if found, else null
+     */
     public TeamSponsor getTeamSponsor(int id){
         return teamSponsorRepository.read(id);
     }
 
+    /**
+     * Gets Sponsor by id
+     * @param id of the sponsor
+     * @return Sponsor if found, else null
+     */
     public Sponsor getSponsor(int id){
         return sponsorRepository.read(id);
     }
 
+    /**
+     * Gets Race by id
+     * @param id of the race
+     * @return race if found, else null
+     */
     public Race getRace(int id){
         return repository.read(id);
     }
