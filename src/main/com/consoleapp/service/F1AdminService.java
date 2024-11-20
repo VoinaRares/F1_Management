@@ -259,6 +259,10 @@ public class F1AdminService {
         Team team= new Team(rand_id, teamName, budget);
         teamRepository.create(team);
     }
+
+    public List<Team> getAllTeams() {
+        return teamRepository.getAll();
+    }
 }
 
 

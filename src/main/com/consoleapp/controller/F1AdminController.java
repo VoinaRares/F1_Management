@@ -1,9 +1,6 @@
 package main.com.consoleapp.controller;
 
-import main.com.consoleapp.model.Race;
-import main.com.consoleapp.model.Sponsor;
-import main.com.consoleapp.model.TeamSponsor;
-import main.com.consoleapp.model.TeamSponsorRace;
+import main.com.consoleapp.model.*;
 import main.com.consoleapp.service.F1AdminService;
 
 import java.util.List;
@@ -52,5 +49,9 @@ public class F1AdminController {
 
     public void addTeam(String teamName, int budget) {
         f1AdminService.addTeam(teamName,budget);
+    }
+
+    public List<Team> getAllTeams() {
+        return f1AdminService.getAllTeams();
     }
 }

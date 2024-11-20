@@ -202,6 +202,16 @@ public class Console {
                 System.out.println("Enter budget: ");
                 budget=Integer.parseInt(System.console().readLine());
                 f1AdminController.addTeam(teamName,budget);
+                break;
+            case 8:
+                List<Team> teams=f1AdminController.getAllTeams();
+                for(Team team:teams)
+                {
+                    System.out.println(team);
+                }
+                break;
+
+
             case 9:
                 break;
         }
