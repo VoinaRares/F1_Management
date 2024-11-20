@@ -5,6 +5,7 @@ import main.com.consoleapp.repository.IRepository;
 import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.repository.InMemoryRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,7 +93,7 @@ public class TeamManagerService {
      * Creates a new Team Sponsor with the given Parameters and tries to add it to the Repository
      */
     public void addTeamSponsor(int id,int sponsorId, int teamId, int investmentAmount){
-        TeamSponsor teamSponsor = new TeamSponsor(id, sponsorId, teamId, investmentAmount);
+        TeamSponsor teamSponsor = new TeamSponsor(id, teamId, sponsorId, investmentAmount);
         teamSponsorRepo.create(teamSponsor);
     }
 
@@ -111,4 +112,38 @@ public class TeamManagerService {
         return personRepo.getAll();
     }
 
+    public List<Engineer> getAllEngineers(){
+        List<Person> persons = personRepo.getAll();
+        List<Engineer> engineers = new ArrayList<>();
+
+        for(Person person : persons ){
+            if(person instanceof Engineer){
+                engineers.add((Engineer) person);
+            }
+        }
+        return engineers;
+    }
+
+    public List<Driver> getAllDrivers(){
+        List<Person> persons = personRepo.getAll();
+        List<Driver> drivers = new ArrayList<>();
+        for(Person person : persons ){
+            if(person instanceof Driver){
+                drivers.add((Driver) person);
+            }
+        }
+        return drivers;
+    }
+
+
+    public List<Engineer> getEngineersBySpecialty(String specialty){
+        List<Person> persons = personRepo.getAll();
+        List<Engineer> engineers = new ArrayList<>();
+        for(Person person : persons ){
+            if(person instanceof Engineer && ((Engineer) person).getSpecialty().equals(specialty)){
+                engineers.add((Engineer) person);
+            }
+        }
+        return engineers;
+    }
 }
