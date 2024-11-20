@@ -25,6 +25,15 @@ public class F1AdminController {
         return true;
     }
 
+    /**
+     * Generates the calendar of the F1 season
+     * @param start_country starting country
+     * @param end_country final country race
+     * @param day starting day
+     * @param month starting month
+     * @param year starting year
+     * @return the list of all races in order
+     */
     public List<Race> generateCalendar(String start_country, String end_country, int day, int month, int year)
     {
         //validation

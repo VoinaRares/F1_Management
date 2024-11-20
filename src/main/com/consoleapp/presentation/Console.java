@@ -22,6 +22,9 @@ public class Console {
         f1AdminController = new F1AdminController();
     }
 
+    /**
+     * Shows the menu of a not logged in person
+     */
     public void showMenu()
     {
         System.out.println("\tF1 MANAGEMENT");
@@ -29,6 +32,10 @@ public class Console {
         System.out.println("2.Exit");
     }
 
+    /**
+     * Shows the logInMenu and sets up parameters of currentUserTeamId, isLoggedIn, and variables depending on the job
+     * they have
+     */
     public void showLoginMenu()
     {
         isTeamManager = false;
@@ -74,6 +81,9 @@ public class Console {
     }
 
 
+    /**
+     * Menu shown if the User is an F1 Admin
+     */
     public void showF1AdminMenu()
     {
         int choice;
@@ -229,7 +239,10 @@ public class Console {
 
     }
 
-
+    /**
+     * Helper function to standardize getting the id from the console
+     * @return the user-chosen id
+     */
     private int chooseId(){
         int choice;
         System.out.println("Enter ID: ");
@@ -238,6 +251,11 @@ public class Console {
         return choice;
     }
 
+    /**
+     * Standardizes the reading of a numerical variable
+     * @param message the message that will be displayed before reading the variable
+     * @return the user-chosen variable value
+     */
     private int readVariable(String message){
         int choice;
         System.out.println(message);
@@ -246,8 +264,9 @@ public class Console {
         return choice;
     }
 
-
-
+    /**
+     * Menu used when a new Person is to be created.
+     */
     public void chooseUserType(){
         System.out.println("Choose your User Type: ");
         System.out.println("1. F1 Admin");
@@ -300,6 +319,9 @@ public class Console {
         }
     }
 
+    /**
+     * Presents all the Options of a Team Manager
+     */
     public void showTeamManagerOptions(){
         int choice;
 
@@ -407,7 +429,10 @@ public class Console {
                 break;
         }
     }
-
+  
+   /**
+    * Calls the Menu and reads the input
+    */
     public void run()
     {
 //        InFileRepository<Person> repo=new InFileRepository<>("personRepo.txt");
