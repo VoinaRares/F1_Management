@@ -49,4 +49,8 @@ public class F1AdminController {
     public List<TeamSponsor> getAllTeamSponsors() {
         return f1AdminService.getAllTeamSponsors();
     }
+
+    public void addTeam(String teamName, int budget) {
+        f1AdminService.addTeam(teamName,budget);
+    }
 }

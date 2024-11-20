@@ -195,7 +195,13 @@ public class Console {
                 break;
 
             case 7:
-
+                String teamName;
+                int budget;
+                System.out.println("Enter team name: ");
+                teamName=System.console().readLine();
+                System.out.println("Enter budget: ");
+                budget=Integer.parseInt(System.console().readLine());
+                f1AdminController.addTeam(teamName,budget);
             case 9:
                 break;
         }

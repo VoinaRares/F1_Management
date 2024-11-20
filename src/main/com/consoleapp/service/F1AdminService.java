@@ -252,6 +252,13 @@ public class F1AdminService {
     public List<TeamSponsor> getAllTeamSponsors() {
         return teamSponsorRepository.getAll();
     }
+
+    public void addTeam(String teamName, int budget) {
+        Random random=new Random();
+        int rand_id=random.nextInt(9999999);
+        Team team= new Team(rand_id, teamName, budget);
+        teamRepository.create(team);
+    }
 }
 
 
