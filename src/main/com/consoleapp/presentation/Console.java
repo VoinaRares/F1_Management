@@ -136,11 +136,12 @@ public class Console {
                 List<TeamSponsor> teamSponsors= f1AdminController.getAllTeamSponsors();
                 List<Sponsor> sponsors=f1AdminController.getAllSponsors();
                 List<Team> teams=f1AdminController.getAllTeams();
-                String raceName="";
-                String sponsorName="";
-                String teamName="";
+
                 int investmentAmount=0;
                 for(TeamSponsorRace teamSponsorRace:teamSponsorRaces) {
+                    String raceName="";
+                    String sponsorName="";
+                    String teamName="";
                     int raceId, SponsorId, TeamId;
                     raceId = teamSponsorRace.getRaceId();
 
@@ -165,10 +166,13 @@ public class Console {
                                         break;
                                     }
                                 }
-                                System.out.print(raceName + " " + teamName + " " + sponsorName + " " + investmentAmount + "\n");
+
+                                if (raceName != "" && sponsorName != "" && teamName != "")
+                                {
+                                    System.out.print(raceName + " " + teamName + " " + sponsorName + " " + investmentAmount + "\n");
+                                }
                             }
                         }
-                        SponsorId = teamSponsorRace.getTeamSponsorId();
                     }
                 }
                 break;
