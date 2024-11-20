@@ -348,6 +348,7 @@ public class Console {
                 for(Person person : teamManagerController.getAllPersons()){
                     System.out.println(person);
                 }
+                break;
             case 6:
                 showSortingOptions();
                 break;
@@ -357,9 +358,7 @@ public class Console {
             default:
                 break;
         }
-//            if(choice == 3){
-//                break;
-//            }
+
 
     }
 
