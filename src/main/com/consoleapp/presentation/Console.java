@@ -36,7 +36,7 @@ public class Console {
     private void showSortingOptions(){
         System.out.println("Sorting Options");
         System.out.println("1. Sort by salary");
-        System.out.println("2. Sort by name");
+        System.out.println("2. Sort by age");
         System.out.println("3. Exit");
         int choice = Integer.parseInt(System.console().readLine());
         if(choice == 1){
@@ -161,49 +161,16 @@ public class Console {
                 break;
             case 3:
                 List<TeamSponsorRace> teamSponsorRaces= f1AdminController.showSponsorMoneyPerRace();
-                List<Race> races=f1AdminController.getAllRaces();
-                List<TeamSponsor> teamSponsors= f1AdminController.getAllTeamSponsors();
-                List<Sponsor> sponsors=f1AdminController.getAllSponsors();
-                List<Team> teams=f1AdminController.getAllTeams();
 
-                int investmentAmount=0;
-                for(TeamSponsorRace teamSponsorRace:teamSponsorRaces) {
-                    String raceName="";
-                    String sponsorName="";
-                    String teamName="";
-                    int raceId, SponsorId, TeamId;
-                    raceId = teamSponsorRace.getRaceId();
-
-                    for (Race race : races) {
-                        if (raceId == race.getId()) {
-                            raceName = String.valueOf(race.getLocation().getCountry());
-                            for (TeamSponsor teamSponsor : teamSponsors) {
-
-                                investmentAmount = teamSponsorRace.getInvestment();
-
-                                for (Sponsor sponsor : sponsors) {
-                                    if (teamSponsor.getSponsorId() == sponsor.getId()) {
-                                        sponsorName = sponsor.getSponsorName();
-
-                                        break;
-                                    }
-                                }
-
-                                for (Team team : teams) {
-                                    if (teamSponsor.getTeamId() == team.getId()) {
-                                        teamName = team.getTeamName();
-                                        break;
-                                    }
-                                }
-
-                                if (raceName != "" && sponsorName != "" && teamName != "")
-                                {
-                                    System.out.print(raceName + " " + teamName + " " + sponsorName + " " + investmentAmount + "\n");
-                                }
-                            }
-                        }
-                    }
+                for(TeamSponsorRace teamSponsorRace: teamSponsorRaces){
+                    int teamId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId()).getTeamId();
+                    int sponsorId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId()).getSponsorId();
+                    System.out.print(f1AdminController.getRaceById(teamSponsorRace.getRaceId()).getLocation().getCountry() + " ");
+                    System.out.print(f1AdminController.getTeamById(teamId).getTeamName() + " ");
+                    System.out.print(f1AdminController.getSponsorById(sponsorId).getSponsorName() + " ");
+                    System.out.println("Budget: " + teamSponsorRace.getInvestment());
                 }
+
                 break;
 
             case 4:

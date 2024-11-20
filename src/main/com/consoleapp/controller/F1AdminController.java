@@ -63,4 +63,21 @@ public class F1AdminController {
     public List<Team> getAllTeams() {
         return f1AdminService.getAllTeams();
     }
+
+
+    public Team getTeamById(int id){
+        return f1AdminService.getTeam(id);
+    }
+
+    public TeamSponsor getTeamSponsorById(int id){
+        return f1AdminService.getTeamSponsor(id);
+    }
+
+    public Sponsor getSponsorById(int id){
+        return f1AdminService.getSponsor(id);
+    }
+
+    public Race getRaceById(int id){
+        return f1AdminService.getRace(id);
+    }
 }
