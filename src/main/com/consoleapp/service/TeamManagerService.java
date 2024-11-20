@@ -15,6 +15,7 @@ public class TeamManagerService {
 
     private final IRepository<Person> personRepo;
     private final IRepository<TeamSponsor> teamSponsorRepo;
+    private final IRepository<Race> raceRepo;
 
     //Might be used for data validation in the Controller
     private final IRepository<Sponsor> sponsorRepo;
@@ -24,7 +25,7 @@ public class TeamManagerService {
        this.personRepo = InFileRepository.getInstance(Person.class, "personRepo.txt");
        this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
        this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
-
+       this.raceRepo = InFileRepository.getInstance(Race.class, "raceRepo.txt");
        this.teamSponsorRepo = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
 
     }
@@ -160,4 +161,5 @@ public class TeamManagerService {
         }
         return engineers;
     }
+
 }

@@ -1,9 +1,6 @@
 package main.com.consoleapp.controller;
 
-import main.com.consoleapp.model.Driver;
-import main.com.consoleapp.model.Engineer;
-import main.com.consoleapp.model.Person;
-import main.com.consoleapp.model.Team;
+import main.com.consoleapp.model.*;
 import main.com.consoleapp.service.TeamManagerService;
 
 import java.util.List;
@@ -101,6 +98,9 @@ public class TeamManagerController {
 
     public List<Driver> getAllDrivers(){return teamManagerService.getAllDrivers();}
 
-    public List<Engineer> getEngineersBySpecialty(String specialty){return teamManagerService.getEngineersBySpecialty(specialty);}
+    public List<Engineer> getEngineersBySpecialty(String specialty){
+        return teamManagerService.getEngineersBySpecialty(specialty);
+    }
+
 
 }

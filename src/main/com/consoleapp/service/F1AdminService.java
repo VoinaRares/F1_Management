@@ -75,7 +75,8 @@ public class F1AdminService {
 
     public List<Race> generateCalendar(String start_country, String end_country,int day, int month, int year)
     {
-        List<Race>races=repository.getAll();
+        //List<Race>races=repository.getAll();
+        ArrayList<Race> races = new ArrayList<>(repository.getAll());
         int numberOfRaces=races.size();
         List<Race> calendar=new ArrayList<>();
         Race finalRace=null;
@@ -262,6 +263,23 @@ public class F1AdminService {
 
     public List<Team> getAllTeams() {
         return teamRepository.getAll();
+    }
+
+
+    public Team getTeam(int id){
+        return teamRepository.read(id);
+    }
+
+    public TeamSponsor getTeamSponsor(int id){
+        return teamSponsorRepository.read(id);
+    }
+
+    public Sponsor getSponsor(int id){
+        return sponsorRepository.read(id);
+    }
+
+    public Race getRace(int id){
+        return repository.read(id);
     }
 }
 
