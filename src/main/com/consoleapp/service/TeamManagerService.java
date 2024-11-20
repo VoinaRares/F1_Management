@@ -112,6 +112,20 @@ public class TeamManagerService {
         return personRepo.getAll();
     }
 
+
+    public List<Person> getAllSortedBySalary(){
+        ArrayList<Person> personList = new ArrayList<>(personRepo.getAll());
+        personList.sort((p1, p2) -> Float.compare(p1.getSalary(), p2.getSalary()));
+        return personList;
+    }
+
+    public List<Person> getAllSortedByAge(){
+        List<Person> personList = new ArrayList<>(personRepo.getAll());
+        personList.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
+        return personList;
+    }
+
+
     public List<Engineer> getAllEngineers(){
         List<Person> persons = personRepo.getAll();
         List<Engineer> engineers = new ArrayList<>();

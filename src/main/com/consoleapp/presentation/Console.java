@@ -32,6 +32,25 @@ public class Console {
         System.out.println("2.Exit");
     }
 
+
+    private void showSortingOptions(){
+        System.out.println("Sorting Options");
+        System.out.println("1. Sort by salary");
+        System.out.println("2. Sort by name");
+        System.out.println("3. Exit");
+        int choice = Integer.parseInt(System.console().readLine());
+        if(choice == 1){
+            for(Person person : teamManagerController.getAllSortedBySalary()){
+                System.out.println(person + " Salary: " + person.getSalary());
+            }
+        }
+        else if(choice == 2){
+            for(Person person : teamManagerController.getAllSortedByAge()){
+                System.out.println(person + " Age: " + person.getAge());
+            }
+        }
+    }
+
     /**
      * Shows the logInMenu and sets up parameters of currentUserTeamId, isLoggedIn, and variables depending on the job
      * they have
@@ -363,6 +382,7 @@ public class Console {
                     System.out.println(person);
                 }
             case 6:
+                showSortingOptions();
                 break;
             case 7:
                 showTeamManagerFilterOptions();

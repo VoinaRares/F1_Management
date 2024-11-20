@@ -3,6 +3,7 @@ package main.com.consoleapp.controller;
 import main.com.consoleapp.model.Driver;
 import main.com.consoleapp.model.Engineer;
 import main.com.consoleapp.model.Person;
+import main.com.consoleapp.model.Team;
 import main.com.consoleapp.service.TeamManagerService;
 
 import java.util.List;
@@ -86,6 +87,14 @@ public class TeamManagerController {
      */
     public List<Person> getAllPersons(){
         return teamManagerService.getAllPersons();
+    }
+
+    public List<Person> getAllSortedBySalary(){
+        return teamManagerService.getAllSortedBySalary();
+    }
+
+    public List<Person> getAllSortedByAge(){
+        return teamManagerService.getAllSortedByAge();
     }
 
     public List<Engineer> getAllEngineers(){return teamManagerService.getAllEngineers();}
