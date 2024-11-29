@@ -3,6 +3,7 @@ import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.repository.InFileRepository;
 
 import java.util.List;
 
@@ -421,7 +422,7 @@ public class Console {
     */
     public void run()
     {
-//        InFileRepository<Person> repo=new InFileRepository<>("personRepo.txt");
+//        InFileRepository<Person> repo=new InFileRepository<>("personRepo.json");
 //        TeamManager teamManager=new TeamManager(0,"Toto Wolff",50,10,2500, 0, "1","y");
 //        repo.create(teamManager);
         while(true)
