@@ -1,5 +1,7 @@
 package main.com.consoleapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a location with an F1 circuit present
  */
@@ -10,6 +12,9 @@ public class Location extends Entity{
 
     private int coordinateX;
     private int coordinateY;
+
+    @JsonProperty("@type")
+    private final String type = "location";
 
     @Override
     public String toString() {

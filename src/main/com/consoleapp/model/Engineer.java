@@ -1,6 +1,8 @@
 package main.com.consoleapp.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a F1 Engineer
  */
@@ -8,6 +10,8 @@ public class Engineer extends TeamMember {
 
     private String specialty;
     private int yearsWithCurrentTeam;
+    @JsonProperty("@type")
+    private final String type = "engineer";
 
     public Engineer(int id, String name, int age, int experience, float salary, String specialty,
                     int yearsWithCurrentTeam, int teamId, String username, String password) {

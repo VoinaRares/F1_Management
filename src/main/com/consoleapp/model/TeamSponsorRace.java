@@ -1,9 +1,14 @@
 package main.com.consoleapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TeamSponsorRace extends Entity {
     int TeamSponsorId;
     int RaceId;
     int investment;
+    @JsonProperty("@type")
+    private final String type = "teamSponsorRace";
+
     public TeamSponsorRace(int id, int teamSponsorId, int raceId, int investment) {
         super(id);
         this.TeamSponsorId = teamSponsorId;

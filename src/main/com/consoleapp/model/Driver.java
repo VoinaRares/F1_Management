@@ -1,10 +1,14 @@
 package main.com.consoleapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents the F1 pilot
  */
 public class Driver extends TeamMember {
     private int number;
+    @JsonProperty("@type")
+    private final String type = "driver";
 
     public Driver(int id, String name, int age, int experience, float salary, int number,
                   int teamId, String username, String password) {

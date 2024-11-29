@@ -1,5 +1,7 @@
 package main.com.consoleapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +13,9 @@ public class Team extends Entity{
     private int budget;
     private List<Sponsor> sponsors;
     private List<Person> staff;
+
+    @JsonProperty("@type")
+    private final String type = "team";
 
     public Team(int id,String teamName, int budget) {
         super(id);

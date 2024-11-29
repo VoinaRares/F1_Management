@@ -1,5 +1,7 @@
 package main.com.consoleapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Class to represent the many-to-many relationship between the Sponsors and the Teams
  */
@@ -8,6 +10,9 @@ public class TeamSponsor extends Entity{
     private int teamId;
     private int sponsorId;
     private int investmentAmount;
+
+    @JsonProperty("@type")
+    private final String type = "teamSponsor";
 
     public TeamSponsor(int id,int teamId, int sponsorId, int investmentAmount) {
         super(id);

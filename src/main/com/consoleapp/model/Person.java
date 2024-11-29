@@ -1,8 +1,21 @@
 package main.com.consoleapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Base class for all People
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME, // Use logical names for subtypes
+        include = JsonTypeInfo.As.PROPERTY, // Include the type information as a property
+        property = "@type" // The property name to store the type information
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = F1Admin.class, name = "f1Admin"),
+        @JsonSubTypes.Type(value = TeamMember.class, name = "teamMember"),
+})
 public abstract class Person extends Entity{
     private String name;
     private String username;
@@ -10,6 +23,9 @@ public abstract class Person extends Entity{
     private int age;
     private int experience;
     private float salary;
+
+    @JsonProperty("@type")
+    private final String type = "person";
 
 
     public Person(int id,String name, int age, int experience, float salary, String username, String password) {
@@ -21,6 +37,8 @@ public abstract class Person extends Entity{
         this.username = username;
         this.password = password;
     }
+
+    public Person(){}
 
     public String getName() {
         return name;

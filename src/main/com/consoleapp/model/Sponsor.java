@@ -1,5 +1,7 @@
 package main.com.consoleapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a sponsor for races or teams
  */
@@ -7,6 +9,9 @@ public class Sponsor extends Entity{
     private String sponsorName;
     private int investmentAmount;
     private String country;
+
+    @JsonProperty("@type")
+    private final String type = "sponsor";
 
     public String getSponsorName() {
         return sponsorName;

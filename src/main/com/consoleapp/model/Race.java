@@ -1,5 +1,7 @@
 package main.com.consoleapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,9 @@ public class Race extends Entity {
     private Location location;
     private Date date;
     private List<TeamSponsor> teamSponsors;
+
+    @JsonProperty("@type")
+    private final String type = "race";
 
     public Race(int id,Location location, Date date) {
         super(id);

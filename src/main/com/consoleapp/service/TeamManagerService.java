@@ -20,10 +20,10 @@ public class TeamManagerService {
     private final IRepository<Team> teamRepo;
 
     public TeamManagerService() {
-       this.personRepository = InFileRepository.getInstance(Person.class, "personRepo.txt");
-       this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
-       this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
-       this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+       this.personRepository = InFileRepository.getInstance(Person.class, "personRepo.json");
+       this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.json");
+       this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.json");
+       this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.json");
 
     }
 
