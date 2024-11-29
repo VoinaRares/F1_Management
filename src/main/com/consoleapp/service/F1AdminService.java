@@ -24,10 +24,10 @@ public class F1AdminService {
     private final IRepository<TeamSponsor> teamSponsorRepository;
     public F1AdminService() {
         //Should probably be added with addRace
-        this.repository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
-        this.teamRepository = InFileRepository.getInstance(Team.class, "teamRepo.txt");
-        this.sponsorRepository = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
-        this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+        this.repository = InFileRepository.getInstance(Race.class, "raceRepo.json");
+        this.teamRepository = InFileRepository.getInstance(Team.class, "teamRepo.json");
+        this.sponsorRepository = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.json");
+        this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.json");
 
 //        Location location1= new Location(120,"Italy","Europe",500,1000);
 //        Race race1=new Race(50,location1);

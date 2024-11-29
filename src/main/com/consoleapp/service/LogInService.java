@@ -18,7 +18,7 @@ public class LogInService {
 //        F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"4","y");
 
 
-        this.repository = InFileRepository.getInstance(Person.class, "personRepo.txt");
+        this.repository = InFileRepository.getInstance(Person.class, "personRepo.json");
 
 //        repository.create(teamManager);
 //        repository.create(driver);

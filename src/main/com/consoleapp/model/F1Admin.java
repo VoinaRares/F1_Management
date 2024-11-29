@@ -1,5 +1,7 @@
 package main.com.consoleapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a F1 Admin.
  * Handles all the races and the organization
@@ -7,6 +9,8 @@ package main.com.consoleapp.model;
 public class F1Admin extends Person {
 
     private Calendar calendar;
+    @JsonProperty("@type")
+    private final String type = "f1Admin";
 
     public F1Admin(int id, String name, int age, int experience, float salary,String username, String password) {
         super(id, name, age, experience, salary, username, password);

@@ -1,16 +1,19 @@
 package main.com.consoleapp.repository;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import main.com.consoleapp.model.Entity;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class InFileRepository<T extends Entity> implements IRepository<T> {
 
     private final String filePath;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     /**
      * Represents a Map that stores the class and then an instance of InMemoryRepo.
@@ -32,7 +35,13 @@ public class InFileRepository<T extends Entity> implements IRepository<T> {
      */
     @Override
     public void create(T obj) {
-        doInFile(data -> data.putIfAbsent(obj.getId(), obj));
+        List<T> items = getAll();
+        items.add(obj);
+        try {
+            mapper.writeValue(new File(filePath), items);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -42,7 +51,13 @@ public class InFileRepository<T extends Entity> implements IRepository<T> {
      */
     @Override
     public T read(int id) {
-        return readDataFromFile().get(id);
+        List<T> items = getAll();
+        for (T item : items) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null;
     }
 
     /**
@@ -51,7 +66,17 @@ public class InFileRepository<T extends Entity> implements IRepository<T> {
      */
     @Override
     public void update(T obj) {
-        doInFile(data -> data.replace(obj.getId(), obj));
+        List<T> items = getAll();
+        for (T item : items) {
+            if (item.getId() == obj.getId()) {
+                items.set(items.indexOf(obj), obj);
+            }
+        }
+        try {
+            mapper.writeValue(new File(filePath), items);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -60,7 +85,17 @@ public class InFileRepository<T extends Entity> implements IRepository<T> {
      */
     @Override
     public void delete(int id) {
-        doInFile(data -> data.remove(id));
+        List<T> items = getAll();
+        for (T item : items) {
+            if (item.getId() == id) {
+                items.remove(item);
+            }
+        }
+        try {
+            mapper.writeValue(new File(filePath), items);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -68,43 +103,13 @@ public class InFileRepository<T extends Entity> implements IRepository<T> {
      */
     @Override
     public List<T> getAll() {
-        return readDataFromFile().values().stream().toList();
-    }
-
-    /**
-     * Keeps the data of the repo and the Map in sync
-     * @param function function to be executed
-     */
-    private void doInFile(Consumer<Map<Integer, T>> function) {
-        Map<Integer, T> data = readDataFromFile();
-        function.accept(data);
-        writeDataToFile(data);
-    }
-
-    /**
-     * Reads data from file
-     * @return Map object that holds an Integer(simulates an id) and the object
-     */
-    private Map<Integer, T> readDataFromFile() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-            return (Map<Integer, T>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            return new HashMap<>();
-        }
-    }
-
-    /**
-     * Writes to the repository
-     * @param data the data that is written in the
-     */
-    private void writeDataToFile(Map<Integer, T> data) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
-            oos.writeObject(data);
+        try {
+            return mapper.readValue(new File(filePath), new TypeReference<List<T>>() {});
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+            return new ArrayList<T>();
         }
     }
-
 
     /**
      * Used for keeping the same instance of InMemoryRepo
