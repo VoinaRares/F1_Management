@@ -14,6 +14,7 @@ public class TeamManagerService {
 
     private final IRepository<Person> personRepository;
     private final IRepository<Driver> driverRepository;
+    private final IRepository<Engineer> engineerRepository;
     private final IRepository<TeamSponsor> teamSponsorRepository;;
 
     //Might be used for data validation in the Controller
@@ -26,6 +27,7 @@ public class TeamManagerService {
        this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
        this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
        this.driverRepository=InFileRepository.getInstance(Driver.class, "driverRepo.txt");
+       this.engineerRepository=InFileRepository.getInstance(Engineer.class, "engineerRepo.txt");
     }
 
     /**
@@ -51,6 +53,7 @@ public class TeamManagerService {
         Engineer person = new Engineer(id, name, age, experience, salary,
                 specialty, yearsWithCurrentTeam, TeamId, userName, password );
         personRepository.create(person);
+        engineerRepository.create(person);
         return true;
     }
 
@@ -137,15 +140,8 @@ public class TeamManagerService {
      * @return all Engineer Entities
      */
     public List<Engineer> getAllEngineers(){
-        List<Person> persons = personRepository.getAll();
-        List<Engineer> engineers = new ArrayList<>();
+        return engineerRepository.getAll();
 
-        for(Person person : persons ){
-            if(person instanceof Engineer){
-                engineers.add((Engineer) person);
-            }
-        }
-        return engineers;
     }
 
     /**
@@ -162,14 +158,15 @@ public class TeamManagerService {
      * @return List of all appropriate Engineer
      */
     public List<Engineer> getEngineersBySpecialty(String specialty){
-        List<Person> persons = personRepository.getAll();
-        List<Engineer> engineers = new ArrayList<>();
-        for(Person person : persons ){
-            if(person instanceof Engineer && ((Engineer) person).getSpecialty().equals(specialty)){
-                engineers.add((Engineer) person);
+        List<Engineer> engineers=engineerRepository.getAll();
+        List<Engineer> specialtyEngineers=new ArrayList<>();
+        for(Engineer engineer:engineers){
+            if(engineer.getSpecialty().equals(specialty))
+            {
+                specialtyEngineers.add(engineer);
             }
         }
-        return engineers;
+        return specialtyEngineers;
     }
 
 }
