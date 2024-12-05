@@ -3,12 +3,17 @@ import main.com.consoleapp.model.*;
 import main.com.consoleapp.repository.IRepository;
 import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.repository.InMemoryRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class LogInService {
 
 
-    private final IRepository<Person> repository;
+
+    private final IRepository<TeamManager> repositoryTeamManager;
+    private final IRepository<F1Admin> repositoryF1Admin;
+
     public LogInService()
     {
 //        TeamManager teamManager=new TeamManager(0,"Toto Wolff",50,10,2500, 0, "1","y");
@@ -18,7 +23,8 @@ public class LogInService {
 //        F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"4","y");
 
 
-        this.repository = InFileRepository.getInstance(Person.class, "personRepo.txt");
+        this.repositoryTeamManager = InFileRepository.getInstance(TeamManager.class, "teamManagerRepo.txt");
+        this.repositoryF1Admin = InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
 
 //        repository.create(teamManager);
 //        repository.create(driver);
@@ -34,8 +40,13 @@ public class LogInService {
      * @return team id if the logged in Person is a Team Member, -1 if else
      */
     public int findTeamId(String username, String password){
-        List<Person> person = repository.getAll();
-        for(Person p : person){
+        List<TeamManager> teamManagers = repositoryTeamManager.getAll();
+        List<F1Admin> f1Admins = repositoryF1Admin.getAll();
+        List<Person> persons = new ArrayList<Person>();
+        persons.addAll(teamManagers);
+        persons.addAll(f1Admins);
+
+        for(Person p : persons){
             if(p.getUsername().equals(username) && p.getPassword().equals(password)){
                 if(p instanceof TeamMember){
                     return ((TeamMember)p).getTeamId();
@@ -53,7 +64,12 @@ public class LogInService {
      * @return the job title of the found Person, "false" if there was no job with special privileges found
      */
     public String logIn(String username, String password) {
-        List<Person> persons = repository.getAll();
+        List<TeamManager> teamManagers = repositoryTeamManager.getAll();
+        List<F1Admin> f1Admins = repositoryF1Admin.getAll();
+        List<Person> persons = new ArrayList<Person>();
+        persons.addAll(teamManagers);
+        persons.addAll(f1Admins);
+
         for(Person person:persons) {
             if ((username.equals(person.getUsername())))
             {
