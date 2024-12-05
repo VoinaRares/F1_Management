@@ -2,11 +2,9 @@ package main.com.consoleapp.service;
 import main.com.consoleapp.model.*;
 import main.com.consoleapp.repository.IRepository;
 import main.com.consoleapp.repository.InFileRepository;
-import main.com.consoleapp.repository.InMemoryRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import static java.lang.Math.pow;
@@ -18,13 +16,13 @@ import static java.lang.Math.sqrt;
 public class F1AdminService {
 
     //InMemoryRepository<Race> repository = new InMemoryRepository<Race>();
-    private final IRepository<Race> repository;
+    private final IRepository<Race> raceRepository;
     private final IRepository<Team> teamRepository;
     private final IRepository<Sponsor> sponsorRepository;
     private final IRepository<TeamSponsor> teamSponsorRepository;
     public F1AdminService() {
         //Should probably be added with addRace
-        this.repository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
+        this.raceRepository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
         this.teamRepository = InFileRepository.getInstance(Team.class, "teamRepo.txt");
         this.sponsorRepository = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
         this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
@@ -60,7 +58,7 @@ public class F1AdminService {
         Location location = new Location(rand_id,country,continent,coordinateX,coordinateY);
         rand_id=random.nextInt(9999999);
         Race race = new Race(rand_id, location);
-        repository.create(race);
+        raceRepository.create(race);
 
     }
 
@@ -76,7 +74,7 @@ public class F1AdminService {
     public List<Race> generateCalendar(String start_country, String end_country,int day, int month, int year)
     {
         //List<Race>races=repository.getAll();
-        ArrayList<Race> races = new ArrayList<>(repository.getAll());
+        ArrayList<Race> races = new ArrayList<>(raceRepository.getAll());
         int numberOfRaces=races.size();
         List<Race> calendar=new ArrayList<>();
         Race finalRace=null;
@@ -231,7 +229,7 @@ public class F1AdminService {
         Random random=new Random();
         int rand_id=random.nextInt(9999999);
         List<TeamSponsorRace> teamSponsorRaces=new ArrayList<>();
-        List<Race> races = repository.getAll();
+        List<Race> races = raceRepository.getAll();
         for(Race race1: races)
         {
             for (TeamSponsor teamSponsor : teamSponsors)
@@ -281,7 +279,7 @@ public class F1AdminService {
      * @return all the Race entities
      */
     public List<Race> getAllRaces() {
-        return repository.getAll();
+        return raceRepository.getAll();
     }
 
     /**
@@ -344,7 +342,7 @@ public class F1AdminService {
      * @return race if found, else null
      */
     public Race getRace(int id){
-        return repository.read(id);
+        return raceRepository.read(id);
     }
 }
 
