@@ -13,6 +13,7 @@ import java.util.List;
 public class TeamManagerService {
 
     private final IRepository<Person> personRepository;
+    private final IRepository<Driver> driverRepository;
     private final IRepository<TeamSponsor> teamSponsorRepository;;
 
     //Might be used for data validation in the Controller
@@ -24,7 +25,7 @@ public class TeamManagerService {
        this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
        this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
        this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
-
+       this.driverRepository=InFileRepository.getInstance(Driver.class, "driverRepo.txt");
     }
 
     /**
@@ -62,6 +63,7 @@ public class TeamManagerService {
 
         Driver person = new Driver(id, name, age, experience, salary, driverNumber, teamId, userName, password );
         personRepository.create(person);
+        driverRepository.create(person);
         return true;
     }
 
@@ -150,14 +152,7 @@ public class TeamManagerService {
      * @return all Driver Entities
      */
     public List<Driver> getAllDrivers(){
-        List<Person> persons = personRepository.getAll();
-        List<Driver> drivers = new ArrayList<>();
-        for(Person person : persons ){
-            if(person instanceof Driver){
-                drivers.add((Driver) person);
-            }
-        }
-        return drivers;
+        return driverRepository.getAll();
     }
 
 
