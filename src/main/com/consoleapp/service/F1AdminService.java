@@ -1,7 +1,6 @@
 package main.com.consoleapp.service;
 import main.com.consoleapp.model.*;
-import main.com.consoleapp.repository.IRepository;
-import main.com.consoleapp.repository.InFileRepository;
+import main.com.consoleapp.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +21,18 @@ public class F1AdminService {
     private final IRepository<TeamSponsor> teamSponsorRepository;
     public F1AdminService() {
         //Should probably be added with addRace
-        this.raceRepository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
-        this.teamRepository = InFileRepository.getInstance(Team.class, "teamRepo.txt");
-        this.sponsorRepository = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
-        this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+//        this.raceRepository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
+//        this.teamRepository = InFileRepository.getInstance(Team.class, "teamRepo.txt");
+//        this.sponsorRepository = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
+//        this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+        this.raceRepository = new RaceDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+        this.teamRepository = new TeamDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+        this.sponsorRepository = new SponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+        this.teamSponsorRepository = new TeamSponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
 
 //        Location location1= new Location(120,"Italy","Europe",500,1000);
 //        Race race1=new Race(50,location1);
