@@ -133,8 +133,10 @@ public class TeamManagerService {
      * @return A List of all Entities in the Repository
      */
     public List<Person> getAllPersons(){
-        //return personRepository.getAll();
-        return new ArrayList<>();
+        ArrayList<Person> persons = new ArrayList<>();
+        persons.addAll(driverRepository.getAll());
+        persons.addAll(engineerRepository.getAll());
+        return persons;
     }
 
     /**
@@ -153,9 +155,9 @@ public class TeamManagerService {
      * @return sorted List
      */
     public List<Person> getAllSortedByAge(){
-        //List<Person> personList = new ArrayList<>(personRepository.getAll());
-        ArrayList<Person> personList = new ArrayList<>();
-        personList.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
+        List<Person> personList = new ArrayList<>();
+        personList.addAll(driverRepository.getAll());
+        personList.addAll(engineerRepository.getAll());
         return personList;
     }
 
