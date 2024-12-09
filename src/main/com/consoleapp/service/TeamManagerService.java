@@ -15,8 +15,9 @@ public class TeamManagerService {
     private final IRepository<Person> personRepository;
     private final IRepository<Driver> driverRepository;
     private final IRepository<Engineer> engineerRepository;
+    private final IRepository<F1Admin> f1AdminRepository;
     private final IRepository<TeamSponsor> teamSponsorRepository;;
-
+    private final IRepository<TeamManager> teamManagerRepository;
     //Might be used for data validation in the Controller
     private final IRepository<Sponsor> sponsorRepo;
     private final IRepository<Team> teamRepo;
@@ -28,6 +29,8 @@ public class TeamManagerService {
        this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
        this.driverRepository=InFileRepository.getInstance(Driver.class, "driverRepo.txt");
        this.engineerRepository=InFileRepository.getInstance(Engineer.class, "engineerRepo.txt");
+       this.f1AdminRepository=InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
+       this.teamManagerRepository=InFileRepository.getInstance(TeamManager.class, "teamManagerRepo.txt");
     }
 
     /**
@@ -111,8 +114,12 @@ public class TeamManagerService {
     /**
      * @return A List of all Entities in the Repository
      */
-    public List<Person> getAllPersons(){
-        return personRepository.getAll();
+    public List<Person> getAllPersons()
+    {
+        ArrayList<Person> persons = new ArrayList<>();
+        persons.addAll(driverRepository.getAll());
+        persons.addAll(engineerRepository.getAll());
+        return persons;
     }
 
     /**
@@ -130,7 +137,9 @@ public class TeamManagerService {
      * @return sorted List
      */
     public List<Person> getAllSortedByAge(){
-        List<Person> personList = new ArrayList<>(personRepository.getAll());
+        List<Person> personList = new ArrayList<>();
+        personList.addAll(driverRepository.getAll());
+        personList.addAll(engineerRepository.getAll());
         personList.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
         return personList;
     }
