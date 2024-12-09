@@ -1,7 +1,6 @@
 package main.com.consoleapp.model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents a race at a certain location and a certain date.
@@ -21,6 +20,13 @@ public class Race extends Entity {
     public Race(int id, Location location) {
         super(id);
         this.location = location;
+    }
+
+    public Race(int id, Location location, Date date, List<TeamSponsor> teamSponsors) {
+        super(id);
+        this.location = location;
+        this.date = date;
+        this.teamSponsors = teamSponsors;
     }
 
     @Override
