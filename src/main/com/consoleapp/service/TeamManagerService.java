@@ -1,8 +1,7 @@
 package main.com.consoleapp.service;
 
 import main.com.consoleapp.model.*;
-import main.com.consoleapp.repository.IRepository;
-import main.com.consoleapp.repository.InFileRepository;
+import main.com.consoleapp.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,25 +11,41 @@ import java.util.List;
  */
 public class TeamManagerService {
 
-    private final IRepository<Person> personRepository;
+//    private final IRepository<Person> personRepository;
     private final IRepository<Driver> driverRepository;
     private final IRepository<Engineer> engineerRepository;
     private final IRepository<F1Admin> f1AdminRepository;
     private final IRepository<TeamSponsor> teamSponsorRepository;;
     private final IRepository<TeamManager> teamManagerRepository;
+
     //Might be used for data validation in the Controller
     private final IRepository<Sponsor> sponsorRepo;
     private final IRepository<Team> teamRepo;
 
     public TeamManagerService() {
-       this.personRepository = InFileRepository.getInstance(Person.class, "personRepo.txt");
-       this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
-       this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
-       this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
-       this.driverRepository=InFileRepository.getInstance(Driver.class, "driverRepo.txt");
-       this.engineerRepository=InFileRepository.getInstance(Engineer.class, "engineerRepo.txt");
-       this.f1AdminRepository=InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
-       this.teamManagerRepository=InFileRepository.getInstance(TeamManager.class, "teamManagerRepo.txt");
+
+//       this.personRepository = InFileRepository.getInstance(Person.class, "personRepo.txt");
+//       this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
+//       this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
+//       this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+//       this.driverRepository=InFileRepository.getInstance(Driver.class, "driverRepo.txt");
+//       this.engineerRepository=InFileRepository.getInstance(Engineer.class, "engineerRepo.txt");
+
+        this.sponsorRepo = new SponsorDBRepository("jdbc:mysql://localhost:3306/f1management", "root",
+                "parola123");
+        this.teamRepo = new TeamDBRepository("jdbc:mysql://localhost:3306/f1management", "root",
+                "parola123");
+        this.teamSponsorRepository = new TeamSponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+        this.driverRepository = new DriverDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+        this.engineerRepository = new EngineerDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+        this.f1AdminRepository = new F1AdminDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+        this.teamManagerRepository = new TeamManagerDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+
     }
 
     /**
@@ -40,7 +55,7 @@ public class TeamManagerService {
     public boolean addF1Admin(int id, int age, int experience, String name,
                               float salary, String userName, String password){
         F1Admin person = new F1Admin(id, name, age, experience, salary, userName, password );
-        personRepository.create(person);
+        f1AdminRepository.create(person);
         return true;
     }
 
@@ -55,7 +70,6 @@ public class TeamManagerService {
 
         Engineer person = new Engineer(id, name, age, experience, salary,
                 specialty, yearsWithCurrentTeam, TeamId, userName, password );
-        personRepository.create(person);
         engineerRepository.create(person);
         return true;
     }
@@ -68,7 +82,6 @@ public class TeamManagerService {
                              int driverNumber, int teamId, String userName, String password){
 
         Driver person = new Driver(id, name, age, experience, salary, driverNumber, teamId, userName, password );
-        personRepository.create(person);
         driverRepository.create(person);
         return true;
     }
@@ -82,16 +95,18 @@ public class TeamManagerService {
                                   float salary, int teamId, String userName, String password){
 
         TeamManager person = new TeamManager(id, name, age, experience, salary, teamId, userName, password );
-        personRepository.create(person);
+        teamManagerRepository.create(person);
         return true;
     }
 
+
+    //NEEDS TO BE REDONE TO FIT INTO THE DATABASE THAT DOES NOT STORE PERSON
     /**
      * Deletes an Entity from the repository
      * @param id of the Entity to be deleted
      */
     public void removePerson(int id){
-        personRepository.delete(id);
+        //personRepository.delete(id);
     }
 
 
@@ -114,11 +129,12 @@ public class TeamManagerService {
     /**
      * @return A List of all Entities in the Repository
      */
-    public List<Person> getAllPersons()
-    {
+
+    public List<Person> getAllPersons(){
         ArrayList<Person> persons = new ArrayList<>();
         persons.addAll(driverRepository.getAll());
         persons.addAll(engineerRepository.getAll());
+        persons.addAll(teamManagerRepository.getAll());
         return persons;
     }
 
@@ -127,9 +143,13 @@ public class TeamManagerService {
      * @return sorted List
      */
     public List<Person> getAllSortedBySalary(){
-        ArrayList<Person> personList = new ArrayList<>(personRepository.getAll());
-        personList.sort((p1, p2) -> Float.compare(p1.getSalary(), p2.getSalary()));
-        return personList;
+        ArrayList<Person> persons = new ArrayList<>();
+        persons.addAll(driverRepository.getAll());
+        persons.addAll(engineerRepository.getAll());
+        persons.addAll(teamManagerRepository.getAll());
+        persons.addAll(f1AdminRepository.getAll());
+        persons.sort((p1, p2) -> Float.compare(p1.getSalary(), p2.getSalary()));
+        return persons;
     }
 
     /**
@@ -137,11 +157,12 @@ public class TeamManagerService {
      * @return sorted List
      */
     public List<Person> getAllSortedByAge(){
-        List<Person> personList = new ArrayList<>();
-        personList.addAll(driverRepository.getAll());
-        personList.addAll(engineerRepository.getAll());
-        personList.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
-        return personList;
+        ArrayList<Person> persons = new ArrayList<>();
+        persons.addAll(driverRepository.getAll());
+        persons.addAll(engineerRepository.getAll());
+        persons.addAll(teamManagerRepository.getAll());
+        persons.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
+        return persons;
     }
 
 
@@ -150,7 +171,6 @@ public class TeamManagerService {
      */
     public List<Engineer> getAllEngineers(){
         return engineerRepository.getAll();
-
     }
 
     /**

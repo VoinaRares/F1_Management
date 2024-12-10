@@ -1,8 +1,6 @@
 package main.com.consoleapp.service;
 import main.com.consoleapp.model.*;
-import main.com.consoleapp.repository.IRepository;
-import main.com.consoleapp.repository.InFileRepository;
-import main.com.consoleapp.repository.InMemoryRepository;
+import main.com.consoleapp.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +9,8 @@ public class LogInService {
 
 
 
-    private final IRepository<TeamManager> repositoryTeamManager;
-    private final IRepository<F1Admin> repositoryF1Admin;
+    private final TeamManagerDBRepository repositoryTeamManager;
+    private final F1AdminDBRepository repositoryF1Admin;
 
     public LogInService()
     {
@@ -23,8 +21,13 @@ public class LogInService {
 //        F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"4","y");
 
 
-        this.repositoryTeamManager = InFileRepository.getInstance(TeamManager.class, "teamManagerRepo.txt");
-        this.repositoryF1Admin = InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
+//        this.repositoryTeamManager = InFileRepository.getInstance(TeamManager.class, "teamManagerRepo.txt");
+//        this.repositoryF1Admin = InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
+
+        this.repositoryTeamManager = new TeamManagerDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+        this.repositoryF1Admin = new F1AdminDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
 
 //        repository.create(teamManager);
 //        repository.create(driver);
@@ -66,7 +69,7 @@ public class LogInService {
     public String logIn(String username, String password) {
         List<TeamManager> teamManagers = repositoryTeamManager.getAll();
         List<F1Admin> f1Admins = repositoryF1Admin.getAll();
-        List<Person> persons = new ArrayList<Person>();
+        List<Person> persons = new ArrayList<>();
         persons.addAll(teamManagers);
         persons.addAll(f1Admins);
 
