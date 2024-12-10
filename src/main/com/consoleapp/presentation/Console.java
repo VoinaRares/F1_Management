@@ -3,8 +3,8 @@ import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.model.Exceptions.ValidationException;
-
 import java.util.List;
 
 public class Console {
@@ -121,11 +121,17 @@ public class Console {
         System.out.println("6.Show all Races");
         System.out.println("7.Add Team");
         System.out.println("8.Show all Teams");
-        System.out.println("9.Exit");
+        System.out.println("9.Add Team Manager");
+        System.out.println("10.Show all Team Managers");
+        System.out.println("11.Delete Team Manager");
+        System.out.println("12.Delete Race");
+        System.out.println("13.Delete Sponsor");
+        System.out.println("14.Delete Team");
+        System.out.println("15.Exit");
 
         while(true){
             try {
-                choice = validateChoice(System.console().readLine(), 9);
+                choice = validateChoice(System.console().readLine(), 15);
                 break;
             }catch(ValidationException e){
                 System.out.println(e.getMessage());
@@ -230,9 +236,16 @@ public class Console {
                     }
                 }
                 List<Race> calendar=f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
-                for(Race race:calendar)
+                if (!calendar.isEmpty())
                 {
-                    System.out.println(race);
+                    for (Race race : calendar)
+                    {
+                        System.out.println(race);
+                    }
+                }
+                else
+                {
+                    System.out.println("Can't generate calendar");
                 }
                 showF1AdminMenu();
                 break;
@@ -329,6 +342,128 @@ public class Console {
                 }
                 break;
             case 9:
+                String name,username,password;
+                int age, experience, teamId;
+                float salary;
+                System.out.println("Enter name: ");
+                name=System.console().readLine();
+                System.out.println("Enter age: ");
+                while (true){
+                    try{
+                        age=validateInt(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                System.out.println("Enter experience: ");
+                while (true){
+                    try{
+                        experience=validateInt(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                System.out.println("Enter salary: ");
+                while (true){
+                    try{
+                        salary=validateFloat(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+
+                System.out.println("Enter team id: ");
+                while (true){
+                    try{
+                        teamId=validateInt(System.console().readLine());
+                        break;
+                    }
+                    catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                System.out.println("Enter username: ");
+                username=System.console().readLine();
+                System.out.println("Enter password: ");
+                password=System.console().readLine();
+                f1AdminController.addTeamManager(name,age,experience,salary,teamId,username,password);
+                break;
+            case 10:
+                List<TeamManager> teamManagers=f1AdminController.showTeamManagers();
+                for (TeamManager teamManager: teamManagers){
+                    System.out.println(teamManager);
+                }
+                break;
+            case 11:
+                int teamManagerId;
+                System.out.println("Enter id: ");
+                while (true){
+                    try{
+                        teamManagerId=validateInt(System.console().readLine());
+                        break;
+                    }
+                    catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                if(f1AdminController.deleteTeamManager(teamManagerId))
+                    System.out.println("Entry deleted successfully");
+                break;
+            case 12:
+                int raceId;
+                System.out.println("Enter id: ");
+                while (true){
+                    try{
+                        raceId=validateInt(System.console().readLine());
+                        break;
+                    }
+                    catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                if(f1AdminController.deleteRace(raceId))
+                    System.out.println("Entry deleted successfully");
+                break;
+
+            case 13:
+                int sponsorId;
+                System.out.println("Enter id: ");
+                while (true){
+                    try{
+                        sponsorId=validateInt(System.console().readLine());
+                        break;
+                    }
+                    catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                if(f1AdminController.deleteSponsor(sponsorId))
+                    System.out.println("Entry deleted successfully");
+                break;
+
+
+            case 14:
+                int team_Id;
+                System.out.println("Enter id: ");
+                while (true)
+                {
+                    try{
+                        team_Id=validateInt(System.console().readLine());
+                        break;
+                    }
+                    catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+
+                if(f1AdminController.deleteTeam(team_Id))
+                    System.out.println("Entry deleted successfully");
+                break;
+
+            case 15:
                 isLoggedIn = false;
                 isF1Admin = false;
                 isTeamManager = false;
@@ -393,11 +528,9 @@ public class Console {
         float salary;
 
         if(choice != 3){
-
             id=chooseId();
             age = readVariable("age: ");
             experience = readVariable("experience: ");
-
             System.out.println("name: ");
             while(true){
                 try {
