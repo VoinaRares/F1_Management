@@ -38,14 +38,15 @@ public class Console {
         System.out.println("1. Sort by salary");
         System.out.println("2. Sort by age");
         System.out.println("3. Exit");
-        int choice = Integer.parseInt(System.console().readLine());
+        int choice;
+        choice = validateInt(System.console().readLine());
         if(choice == 1){
-            for(Person person : teamManagerController.getAllSortedBySalary()){
+            for(Person person : teamManagerController.getAllSortedBySalary(currentUserTeamId)){
                 System.out.println(person + " Salary: " + person.getSalary());
             }
         }
         else if(choice == 2){
-            for(Person person : teamManagerController.getAllSortedByAge()){
+            for(Person person : teamManagerController.getAllSortedByAge(currentUserTeamId)){
                 System.out.println(person + " Age: " + person.getAge());
             }
         }
@@ -70,33 +71,28 @@ public class Console {
         if(personJob.equals("TeamManager")) {
             isTeamManager = true;
             isLoggedIn = true;
+            isF1Admin =false;
             currentUserTeamId = logInController.getTeamId(username, password);
         }
 
         if(personJob.equals("F1Admin")) {
             isF1Admin = true;
             isLoggedIn = true;
+            isTeamManager = false;
         }
 
-        if(personJob.equals("Driver")) {
-            isLoggedIn = true;
-            currentUserTeamId = logInController.getTeamId(username, password);
-        }
-
-        if(personJob.equals("Engineer")) {
-            isLoggedIn = true;
-            currentUserTeamId = logInController.getTeamId(username, password);
-        }
-
-        if(isF1Admin)
+        if(isF1Admin) {
             showF1AdminMenu();
+        }
+        if(isTeamManager) {
+            showTeamManagerOptions();
+        }
         if(personJob.equals("false"))
         {
             System.out.println("Invalid username or password");
             showLoginMenu();
         }
-        if(isTeamManager)
-            showTeamManagerOptions();
+
     }
 
 
@@ -117,7 +113,9 @@ public class Console {
         System.out.println("7.Add Team");
         System.out.println("8.Show all Teams");
         System.out.println("9.Exit");
-        choice=Integer.parseInt(System.console().readLine());
+        //Should maybe check if its between 1 and 9
+        choice=validateInt(System.console().readLine());
+
         switch(choice)
         {
             case 1:
@@ -128,9 +126,11 @@ public class Console {
                 System.out.println("Enter continent: ");
                 continent=System.console().readLine();
                 System.out.println("Enter coordinate1: ");
-                coordinate_x= Integer.parseInt(System.console().readLine());
+                coordinate_x=validateInt(System.console().readLine());
                 System.out.println("Enter coordinate2: ");
-                coordinate_y=Integer.parseInt(System.console().readLine());
+                coordinate_y=validateInt(System.console().readLine());
+
+                //Not sure if this is actually a good addition. Or at least it doesn't do anything
                 boolean added=f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
                 if(added)
                 {
@@ -145,11 +145,11 @@ public class Console {
                 startCountry=System.console().readLine();
                 System.out.println("Enter starting date of the season: ");
                 System.out.println("Enter starting day: ");
-                day=Integer.parseInt(System.console().readLine());
+                day=validateInt(System.console().readLine());
                 System.out.println("Enter starting month: ");
-                month=Integer.parseInt(System.console().readLine());
+                month=validateInt(System.console().readLine());
                 System.out.println("Enter starting year: ");
-                year=Integer.parseInt(System.console().readLine());
+                year=validateInt(System.console().readLine());
                 System.out.println("Enter ending country: ");
                 endCountry=System.console().readLine();
                 List<Race> calendar=f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
@@ -179,7 +179,7 @@ public class Console {
                 System.out.println("Enter sponsor name: ");
                 addSponsorName =System.console().readLine();
                 System.out.println("Enter sponsor investment amount: ");
-                addInvestmentAmount =Integer.parseInt(System.console().readLine());
+                addInvestmentAmount =validateInt(System.console().readLine());
                 System.out.println("Enter sponsor country: ");
                 sponsorCountry=System.console().readLine();
                 f1AdminController.addSponsor(addSponsorName, addInvestmentAmount,sponsorCountry);
@@ -206,7 +206,7 @@ public class Console {
                 System.out.println("Enter team name: ");
                 addTeamName =System.console().readLine();
                 System.out.println("Enter budget: ");
-                budget=Integer.parseInt(System.console().readLine());
+                budget=validateInt(System.console().readLine());
                 f1AdminController.addTeam(addTeamName,budget);
                 break;
             case 8:
@@ -216,9 +216,10 @@ public class Console {
                     System.out.println(team);
                 }
                 break;
-
-
             case 9:
+                isLoggedIn = false;
+                isF1Admin = false;
+                isTeamManager = false;
                 break;
         }
 
@@ -232,7 +233,7 @@ public class Console {
     private int chooseId(){
         int choice;
         System.out.println("Enter ID: ");
-        choice = Integer.parseInt(System.console().readLine());
+        choice = validateInt(System.console().readLine());
 
         return choice;
     }
@@ -245,7 +246,7 @@ public class Console {
     private int readVariable(String message){
         int choice;
         System.out.println(message);
-        choice = Integer.parseInt(System.console().readLine());
+        choice = validateInt(System.console().readLine());
 
         return choice;
     }
@@ -255,37 +256,32 @@ public class Console {
      */
     public void chooseUserType(){
         System.out.println("Choose your User Type: ");
-        System.out.println("1. F1 Admin");
-        System.out.println("2. Engineer");
-        System.out.println("3. Driver");
-        System.out.println("4. Team Manager");
-        System.out.println("5. Exit");
+        System.out.println("1. Engineer");
+        System.out.println("2. Driver");
+        System.out.println("3. Exit");
         int choice;
-        choice = Integer.parseInt(System.console().readLine());
+        choice = validateInt(System.console().readLine());
 
         int id, age, experience;
         String name, userName, password;
         float salary;
 
-        if(choice != 5){
+        if(choice != 3){
             System.out.println("id: ");
-            id=Integer.parseInt(System.console().readLine());
+            id=validateInt(System.console().readLine());
             System.out.println("age: ");
-            age=Integer.parseInt(System.console().readLine());
+            age=validateInt(System.console().readLine());
             System.out.println("experience: ");
-            experience=Integer.parseInt(System.console().readLine());
+            experience=validateInt(System.console().readLine());
             System.out.println("name: ");
             name=System.console().readLine();
             System.out.println("salary: ");
-            salary=Float.parseFloat(System.console().readLine());
+            salary=validateFloat(System.console().readLine());
             System.out.println("userName: ");
             userName=System.console().readLine();
             System.out.println("password: ");
             password=System.console().readLine();
             if(choice == 1){
-                teamManagerController.addF1Admin(id, age, experience, name, salary, userName, password);
-            }
-            else if(choice == 2){
                 String specialty;
                 int yearsWithCurrentTeam = 0;
                 System.out.println("specialty: ");
@@ -293,14 +289,11 @@ public class Console {
                 teamManagerController.addEngineer(id, age, experience, name, salary, specialty,
                         yearsWithCurrentTeam, currentUserTeamId, userName, password);
             }
-            else if(choice == 3){
+            else if(choice == 2){
                 int driverNumber;
                 System.out.println("driverNumber: ");
-                driverNumber=Integer.parseInt(System.console().readLine());
+                driverNumber=validateInt(System.console().readLine());
                 teamManagerController.addDriver(id, age, experience, name, salary, driverNumber,currentUserTeamId, userName, password);
-            }
-            else if(choice == 4){
-                teamManagerController.addTeamManager(id, age, experience, name, salary,currentUserTeamId, userName, password);
             }
         }
     }
@@ -320,31 +313,26 @@ public class Console {
         System.out.println("6. Sorting Operations");
         System.out.println("7. Filter Operations");
         System.out.println("8. Exit");
-        choice = Integer.parseInt(System.console().readLine());
+        choice = validateInt(System.console().readLine());
         switch (choice) {
             case 1:
-                //call to controller for Add
                 chooseUserType();
                 break;
             case 2:
-                //call to controller for remove
-                int id = chooseId();
-                teamManagerController.removePerson(id);
+                removePerson();
                 break;
             case 3:
                 int teamSponsorId = chooseId();
-                int teamId, sponsorId, investmentAmount;
-                teamId = readVariable("Enter Team ID: ");
+                int  sponsorId, investmentAmount;
                 sponsorId = readVariable("Enter Sponsor ID: ");
                 investmentAmount = readVariable("Enter Investment Amount: ");
-                teamManagerController.addTeamSponsor(teamSponsorId, sponsorId, teamId, investmentAmount);
+                teamManagerController.addTeamSponsor(teamSponsorId, sponsorId, currentUserTeamId, investmentAmount);
                 break;
             case 4:
                 int removeId = readVariable("Enter Team Sponsor ID to remove: ");
-                teamManagerController.removeTeamSponsor(removeId);
+                teamManagerController.removeTeamSponsor(removeId, currentUserTeamId);
                 break;
             case 5:
-                //Might be a good idea to receive a List of Strings to not depend on the Person class
                 for(Person person : teamManagerController.getAllPersons()){
                     System.out.println(person);
                 }
@@ -356,6 +344,9 @@ public class Console {
                 showTeamManagerFilterOptions();
                 break;
             default:
+                isTeamManager=false;
+                isF1Admin=false;
+                isLoggedIn=false;
                 break;
         }
 
@@ -369,7 +360,7 @@ public class Console {
         System.out.println("1. Show All Engineers");
         System.out.println("2. Show All Drivers");
         System.out.println("3. Filter Engineers by Specialty:");
-        choice=Integer.parseInt(System.console().readLine());
+        choice=validateInt(System.console().readLine());
         switch (choice)
         {
             case 1:
@@ -390,7 +381,7 @@ public class Console {
                 System.out.println("1. Aerodynamics");
                 System.out.println("2. Chassis");
                 System.out.println("3. Engine");
-                choice2 = Integer.parseInt(System.console().readLine());
+                choice2 = validateInt(System.console().readLine());
                 switch (choice2){
                     case 1:
                         List<Engineer> specialtyEngineersAerodynamics = teamManagerController.getEngineersBySpecialty("Aerodynamics");
@@ -426,16 +417,75 @@ public class Console {
 //        repo.create(teamManager);
         while(true)
         {
-            showMenu();
-            int choice;
-            choice=Integer.parseInt(System.console().readLine());
-            if(choice==1)
-            {
-                showLoginMenu();
+            if(isLoggedIn){
+                if(isTeamManager){
+                    showTeamManagerOptions();
+                }
+                if(isF1Admin){
+                    showF1AdminMenu();
+                }
             }
-            if(choice==2)
-                break;
+            else {
+                showMenu();
+                int choice;
+                choice = Integer.parseInt(System.console().readLine());
+                if (choice == 1) {
+                    showLoginMenu();
+                }
+                if (choice == 2) {
+                    break;
+                }
+            }
         }
+    }
+
+    private int validateInt(String number) {
+        int res;
+        while(true) {
+            try {
+                res = Integer.parseInt(number);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Enter an valid option!");
+            }
+        }
+        return res;
+    }
+
+    private float validateFloat(String number) {
+        float res;
+        while(true) {
+            try {
+                res = Float.parseFloat(number);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Enter an valid option!");
+            }
+        }
+        return res;
+    }
+
+    private void removePerson(){
+        int choice;
+        System.out.println("1. Driver");
+        System.out.println("2. Engineer");
+        System.out.println("Pick your choice: ");
+        choice=validateInt(System.console().readLine());
+        int id;
+        switch (choice){
+            case 1:
+                id = chooseId();
+                teamManagerController.removeDriver(id, currentUserTeamId);
+                break;
+            case 2:
+                id = chooseId();
+                teamManagerController.removeEngineer(id, currentUserTeamId);
+                break;
+            default:
+                break;
+
+        }
+
     }
 
 }

@@ -5,6 +5,7 @@ import main.com.consoleapp.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Provides connection between Repository and logic for the attributes that Team Manager can perform
@@ -122,7 +123,7 @@ public class TeamManagerService {
      * Deletes a Team Sponsor
      * @param id of the deleted Team Sponsor
      */
-    public void removeTeamSponsor(int id){
+    public void removeTeamSponsor(int id, int teamId){
         teamSponsorRepository.delete(id);
     }
 
@@ -131,10 +132,11 @@ public class TeamManagerService {
      */
 
     public List<Person> getAllPersons(){
-        ArrayList<Person> persons = new ArrayList<>();
+        List<Person> persons = new ArrayList<>();
         persons.addAll(driverRepository.getAll());
         persons.addAll(engineerRepository.getAll());
         persons.addAll(teamManagerRepository.getAll());
+
         return persons;
     }
 
@@ -142,12 +144,12 @@ public class TeamManagerService {
      * Sorts all Person entities by their salary
      * @return sorted List
      */
-    public List<Person> getAllSortedBySalary(){
-        ArrayList<Person> persons = new ArrayList<>();
+    public List<TeamMember> getAllSortedBySalary(int teamId){
+        List<TeamMember> persons = new ArrayList<>();
         persons.addAll(driverRepository.getAll());
         persons.addAll(engineerRepository.getAll());
         persons.addAll(teamManagerRepository.getAll());
-        persons.addAll(f1AdminRepository.getAll());
+        persons = persons.stream().filter(person -> person.getTeamId() == teamId).collect(Collectors.toList());
         persons.sort((p1, p2) -> Float.compare(p1.getSalary(), p2.getSalary()));
         return persons;
     }
@@ -156,11 +158,12 @@ public class TeamManagerService {
      * Sorts all Person entities by their age
      * @return sorted List
      */
-    public List<Person> getAllSortedByAge(){
-        ArrayList<Person> persons = new ArrayList<>();
+    public List<TeamMember> getAllSortedByAge(int teamId){
+        List<TeamMember> persons = new ArrayList<>();
         persons.addAll(driverRepository.getAll());
         persons.addAll(engineerRepository.getAll());
         persons.addAll(teamManagerRepository.getAll());
+        persons = persons.stream().filter(person -> person.getTeamId() == teamId).collect(Collectors.toList());
         persons.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
         return persons;
     }
@@ -197,5 +200,26 @@ public class TeamManagerService {
         }
         return specialtyEngineers;
     }
+
+    public void removeDriver(int id, int teamId){
+        if(driverRepository.read(id).getTeamId() == teamId){
+            driverRepository.delete(id);
+        }
+        else{
+            throw new IllegalArgumentException("Driver does not exist or is not part of your team");
+        }
+
+    }
+
+    public void removeEngineer(int id, int teamId){
+        if(engineerRepository.read(id).getTeamId() == teamId){
+            engineerRepository.delete(id);
+        }
+        else{
+            throw new IllegalArgumentException("Engineer does not exist or is not part of your team");
+        }
+
+    }
+
 
 }
