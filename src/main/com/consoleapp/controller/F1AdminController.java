@@ -139,4 +139,30 @@ public class F1AdminController {
     public Race getRaceById(int id){
         return f1AdminService.getRace(id);
     }
+
+
+    public boolean addTeamManager(String name, int age, int experience, float salary, int teamId,
+                                   String username, String password){
+        return f1AdminService.addTeamManager(name,age,experience,salary,teamId,username,password);
+    }
+
+    public List<TeamManager> showTeamManagers() {
+        return f1AdminService.showTeamManagers();
+    }
+
+    public boolean deleteTeamManager(int id) {
+        return f1AdminService.deleteTeamManager(id);
+    }
+
+    public boolean deleteRace(int raceId) {
+        return f1AdminService.deleteRace(raceId);
+    }
+
+    public boolean deleteSponsor(int sponsorId) {
+        return f1AdminService.deleteSponsor(sponsorId);
+    }
+
+    public boolean deleteTeam(int teamId) {
+        return f1AdminService.deleteTeam(teamId);
+    }
 }

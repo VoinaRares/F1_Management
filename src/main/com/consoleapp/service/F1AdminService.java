@@ -20,6 +20,9 @@ public class F1AdminService {
     private final IRepository<Team> teamRepository;
     private final IRepository<Sponsor> sponsorRepository;
     private final IRepository<TeamSponsor> teamSponsorRepository;
+    private final IRepository<TeamManager> teamManagerRepository;
+    private final IRepository<Driver> driverRepository;
+    private final IRepository<Engineer> engineerRepository;
     public F1AdminService() {
         //Should probably be added with addRace
 //        this.raceRepository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
@@ -33,6 +36,15 @@ public class F1AdminService {
         this.sponsorRepository = new SponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
                 "root", "parola123");
         this.teamSponsorRepository = new TeamSponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+
+        this.teamManagerRepository = new TeamManagerDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+
+        this.driverRepository = new DriverDBRepository("jdbc:mysql://localhost:3306/f1management",
+        "root", "parola123");
+
+        this.engineerRepository = new EngineerDBRepository("jdbc:mysql://localhost:3306/f1management",
                 "root", "parola123");
 
 //        Location location1= new Location(120,"Italy","Europe",500,1000);
@@ -90,7 +102,6 @@ public class F1AdminService {
         Race finalRace=null;
         Race firstRace=null;
         for(Race race:races) {
-            //Validate races exist
 
             if (race.getLocation().getCountry().equals(start_country)) {
                 Date date=new Date(year,month,day);
@@ -380,5 +391,78 @@ public class F1AdminService {
             throw new EntityNotFoundException("No entity found");
         }
         return race;
+    }
+
+
+
+    public boolean addTeamManager( String name, int age, int experience, float salary, int teamId,
+                                   String username, String password) {
+        Random random=new Random();
+        int rand_id=random.nextInt(9999999);
+        TeamManager teamManager = new TeamManager(rand_id, name, age, experience, salary, teamId,username, password);
+        teamManagerRepository.create(teamManager);
+
+
+        return true;
+    }
+
+    public List<TeamManager> showTeamManagers() {
+        return teamManagerRepository.getAll();
+    }
+
+    public boolean deleteTeamManager(int id) {
+        teamManagerRepository.delete(id);
+
+        return true;
+    }
+
+    public boolean deleteRace(int raceId) {
+        raceRepository.delete(raceId);
+
+        return true;
+    }
+
+    public boolean deleteSponsor(int sponsorId) {
+        raceRepository.delete(sponsorId);
+        ArrayList<TeamSponsor> teamSponsors= (ArrayList<TeamSponsor>) teamSponsorRepository.getAll();
+        for(TeamSponsor teamSponsor:teamSponsors)
+        {
+            if(teamSponsor.getSponsorId()==sponsorId)
+                teamSponsorRepository.delete(teamSponsor.getId());
+        }
+        return true;
+    }
+
+    public boolean deleteTeam(int teamId)
+    {
+        teamRepository.delete(teamId);
+        ArrayList<TeamSponsor> teamsSponsors= (ArrayList<TeamSponsor>) teamSponsorRepository.getAll();
+        ArrayList<Driver> drivers=(ArrayList<Driver>) driverRepository.getAll();
+        ArrayList<Engineer> engineers = (ArrayList<Engineer>) engineerRepository.getAll();
+        ArrayList<TeamManager> teamManagers= (ArrayList<TeamManager>) teamManagerRepository.getAll();
+        for(TeamSponsor teamSponsor:teamsSponsors)
+        {
+            if(teamSponsor.getTeamId()==teamId)
+                teamSponsorRepository.delete(teamSponsor.getId());
+        }
+
+        for(Driver driver:drivers)
+        {
+            if(driver.getTeamId()==teamId)
+                driverRepository.delete(driver.getId());
+        }
+
+        for(Engineer engineer:engineers)
+        {
+            if(engineer.getTeamId()==teamId)
+                engineerRepository.delete(engineer.getId());
+        }
+
+        for(TeamManager teamManager:teamManagers)
+        {
+            if(teamManager.getTeamId()==teamId)
+                teamManagerRepository.delete(teamManager.getId());
+        }
+        return true;
     }
 }
