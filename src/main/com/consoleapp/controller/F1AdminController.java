@@ -139,4 +139,10 @@ public class F1AdminController {
     public Race getRaceById(int id){
         return f1AdminService.getRace(id);
     }
+
+
+    public boolean addTeamManager(String name, int age, int experience, float salary, int teamId,
+                                   String username, String password){
+        return f1AdminService.addTeamManager(name,age,experience,salary,teamId,username,password);
+    }
 }

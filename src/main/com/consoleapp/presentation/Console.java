@@ -3,8 +3,8 @@ import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.model.Exceptions.ValidationException;
-
 import java.util.List;
 
 public class Console {
@@ -121,11 +121,12 @@ public class Console {
         System.out.println("6.Show all Races");
         System.out.println("7.Add Team");
         System.out.println("8.Show all Teams");
-        System.out.println("9.Exit");
+        System.out.println("9.Add Team Manager");
+        System.out.println("10.Exit");
 
         while(true){
             try {
-                choice = validateChoice(System.console().readLine(), 9);
+                choice = validateChoice(System.console().readLine(), 10);
                 break;
             }catch(ValidationException e){
                 System.out.println(e.getMessage());
@@ -202,9 +203,16 @@ public class Console {
                 System.out.println("Enter ending country: ");
                 endCountry=System.console().readLine();
                 List<Race> calendar=f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
-                for(Race race:calendar)
+                if (!calendar.isEmpty())
                 {
-                    System.out.println(race);
+                    for (Race race : calendar)
+                    {
+                        System.out.println(race);
+                    }
+                }
+                else
+                {
+                    System.out.println("Can't generate calendar");
                 }
                 showF1AdminMenu();
                 break;
@@ -280,6 +288,55 @@ public class Console {
                 }
                 break;
             case 9:
+                String name,username,password;
+                int age, experience, teamId;
+                float salary;
+                System.out.println("Enter name: ");
+                name=System.console().readLine();
+                System.out.println("Enter age: ");
+                while (true){
+                    try{
+                        age=validateInt(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                System.out.println("Enter experience: ");
+                while (true){
+                    try{
+                        experience=validateInt(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                System.out.println("Enter salary: ");
+                while (true){
+                    try{
+                        salary=validateFloat(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+
+                System.out.println("Enter team id: ");
+                while (true){
+                    try{
+                        teamId=validateInt(System.console().readLine());
+                        break;
+                    }
+                    catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                System.out.println("Enter username: ");
+                username=System.console().readLine();
+                System.out.println("Enter password: ");
+                password=System.console().readLine();
+                f1AdminController.addTeamManager(name,age,experience,salary,teamId,username,password);
+            case 10:
                 isLoggedIn = false;
                 isF1Admin = false;
                 isTeamManager = false;

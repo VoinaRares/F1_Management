@@ -19,6 +19,7 @@ public class F1AdminService {
     private final IRepository<Team> teamRepository;
     private final IRepository<Sponsor> sponsorRepository;
     private final IRepository<TeamSponsor> teamSponsorRepository;
+    private final IRepository<TeamManager> teamManagerRepository;
     public F1AdminService() {
         //Should probably be added with addRace
 //        this.raceRepository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
@@ -32,6 +33,9 @@ public class F1AdminService {
         this.sponsorRepository = new SponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
                 "root", "parola123");
         this.teamSponsorRepository = new TeamSponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+
+        this.teamManagerRepository = new TeamManagerDBRepository("jdbc:mysql://localhost:3306/f1management",
                 "root", "parola123");
 
 //        Location location1= new Location(120,"Italy","Europe",500,1000);
@@ -363,6 +367,20 @@ public class F1AdminService {
     public Race getRace(int id){
         return raceRepository.read(id);
     }
+
+
+
+    public boolean addTeamManager( String name, int age, int experience, float salary, int teamId,
+                                   String username, String password) {
+        Random random=new Random();
+        int rand_id=random.nextInt(9999999);
+        TeamManager teamManager = new TeamManager(rand_id, name, age, experience, salary, teamId,username, password);
+        teamManagerRepository.create(teamManager);
+
+
+        return true;
+    }
+
 }
 
 
