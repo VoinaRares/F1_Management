@@ -137,9 +137,23 @@ public class Console {
                 int coordinate_x,coordinate_y;
                 String country, continent;
                 System.out.println("Enter country: ");
-                country=System.console().readLine();
+                while(true){
+                    try{
+                        country=validateString(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter continent: ");
-                continent=System.console().readLine();
+                while(true){
+                    try {
+                        continent=validateString(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter coordinate1: ");
                 while(true){
                     try {
@@ -170,7 +184,14 @@ public class Console {
                 String startCountry, endCountry;
                 int day,month,year;
                 System.out.println("Enter starting country: ");
-                startCountry=System.console().readLine();
+                while(true){
+                    try{
+                        startCountry=validateString(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter starting date of the season: ");
                 System.out.println("Enter starting day: ");
                 while(true){
@@ -200,7 +221,14 @@ public class Console {
                     }
                 }
                 System.out.println("Enter ending country: ");
-                endCountry=System.console().readLine();
+                while(true){
+                    try{
+                        endCountry=validateString(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 List<Race> calendar=f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
                 for(Race race:calendar)
                 {
@@ -226,7 +254,14 @@ public class Console {
                 String addSponsorName,sponsorCountry;
                 int addInvestmentAmount;
                 System.out.println("Enter sponsor name: ");
-                addSponsorName =System.console().readLine();
+                while(true){
+                    try {
+                        addSponsorName=validateString(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter sponsor investment amount: ");
                 while(true){
                     try{
@@ -237,7 +272,14 @@ public class Console {
                     }
                 }
                 System.out.println("Enter sponsor country: ");
-                sponsorCountry=System.console().readLine();
+                while(true){
+                    try {
+                        sponsorCountry=validateString(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 f1AdminController.addSponsor(addSponsorName, addInvestmentAmount,sponsorCountry);
                 break;
 
@@ -260,7 +302,14 @@ public class Console {
                 String addTeamName;
                 int budget;
                 System.out.println("Enter team name: ");
-                addTeamName =System.console().readLine();
+                while(true){
+                    try {
+                        addTeamName=validateString(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter budget: ");
                 while (true){
                     try{
@@ -350,7 +399,14 @@ public class Console {
             experience = readVariable("experience: ");
 
             System.out.println("name: ");
-            name=System.console().readLine();
+            while(true){
+                try {
+                    name=validateString(System.console().readLine());
+                    break;
+                }catch(ValidationException e){
+                    System.out.println(e.getMessage());
+                }
+            }
             System.out.println("salary: ");
             while(true){
                 try{
@@ -361,14 +417,35 @@ public class Console {
                 }
             }
             System.out.println("userName: ");
-            userName=System.console().readLine();
+            while(true){
+                try{
+                    userName=validateString(System.console().readLine());
+                    break;
+                }catch (ValidationException e){
+                    System.out.println(e.getMessage());
+                }
+            }
             System.out.println("password: ");
-            password=System.console().readLine();
+            while(true){
+                try {
+                    password=validateString(System.console().readLine());
+                    break;
+                }catch (ValidationException e){
+                    System.out.println(e.getMessage());
+                }
+            }
             if(choice == 1){
                 String specialty;
                 int yearsWithCurrentTeam = 0;
                 System.out.println("specialty: ");
-                specialty=System.console().readLine();
+                while(true){
+                    try{
+                        specialty=validateString(System.console().readLine());
+                        break;
+                    }catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 teamManagerController.addEngineer(id, age, experience, name, salary, specialty,
                         yearsWithCurrentTeam, currentUserTeamId, userName, password);
             }
@@ -577,7 +654,7 @@ public class Console {
 
     private String validateString(String str) {
         if(str.isBlank() || str.isEmpty()){
-            throw new ValidationException("Enter a valid string");
+            throw new ValidationException("Enter a valid input");
         }
         return str;
     }
