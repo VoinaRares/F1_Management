@@ -395,7 +395,26 @@ public class Console {
                     System.out.println("Entry deleted successfully");
                 break;
 
+
             case 14:
+                int team_Id;
+                System.out.println("Enter id: ");
+                while (true)
+                {
+                    try{
+                        team_Id=validateInt(System.console().readLine());
+                        break;
+                    }
+                    catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+
+                if(f1AdminController.deleteTeam(team_Id))
+                    System.out.println("Entry deleted successfully");
+                break;
+
+            case 15:
                 isLoggedIn = false;
                 isF1Admin = false;
                 isTeamManager = false;

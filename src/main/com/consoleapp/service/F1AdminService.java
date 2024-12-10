@@ -20,6 +20,8 @@ public class F1AdminService {
     private final IRepository<Sponsor> sponsorRepository;
     private final IRepository<TeamSponsor> teamSponsorRepository;
     private final IRepository<TeamManager> teamManagerRepository;
+    private final IRepository<Driver> driverRepository;
+    private final IRepository<Engineer> engineerRepository;
     public F1AdminService() {
         //Should probably be added with addRace
 //        this.raceRepository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
@@ -36,6 +38,12 @@ public class F1AdminService {
                 "root", "parola123");
 
         this.teamManagerRepository = new TeamManagerDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+
+        this.driverRepository = new DriverDBRepository("jdbc:mysql://localhost:3306/f1management",
+        "root", "parola123");
+
+        this.engineerRepository = new EngineerDBRepository("jdbc:mysql://localhost:3306/f1management",
                 "root", "parola123");
 
 //        Location location1= new Location(120,"Italy","Europe",500,1000);
@@ -404,6 +412,39 @@ public class F1AdminService {
         {
             if(teamSponsor.getSponsorId()==sponsorId)
                 teamSponsorRepository.delete(teamSponsor.getId());
+        }
+        return true;
+    }
+
+    public boolean deleteTeam(int teamId)
+    {
+        teamRepository.delete(teamId);
+        ArrayList<TeamSponsor> teamsSponsors= (ArrayList<TeamSponsor>) teamSponsorRepository.getAll();
+        ArrayList<Driver> drivers=(ArrayList<Driver>) driverRepository.getAll();
+        ArrayList<Engineer> engineers = (ArrayList<Engineer>) engineerRepository.getAll();
+        ArrayList<TeamManager> teamManagers= (ArrayList<TeamManager>) teamManagerRepository.getAll();
+        for(TeamSponsor teamSponsor:teamsSponsors)
+        {
+            if(teamSponsor.getTeamId()==teamId)
+                teamSponsorRepository.delete(teamSponsor.getId());
+        }
+
+        for(Driver driver:drivers)
+        {
+            if(driver.getTeamId()==teamId)
+                driverRepository.delete(driver.getId());
+        }
+
+        for(Engineer engineer:engineers)
+        {
+            if(engineer.getTeamId()==teamId)
+                engineerRepository.delete(engineer.getId());
+        }
+
+        for(TeamManager teamManager:teamManagers)
+        {
+            if(teamManager.getTeamId()==teamId)
+                teamManagerRepository.delete(teamManager.getId());
         }
         return true;
     }

@@ -161,4 +161,8 @@ public class F1AdminController {
     public boolean deleteSponsor(int sponsorId) {
         return f1AdminService.deleteSponsor(sponsorId);
     }
+
+    public boolean deleteTeam(int teamId) {
+        return f1AdminService.deleteTeam(teamId);
+    }
 }
