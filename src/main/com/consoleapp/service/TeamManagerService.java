@@ -113,7 +113,10 @@ public class TeamManagerService {
      * @param id of the deleted Team Sponsor
      */
     public void removeTeamSponsor(int id, int teamId){
-        teamSponsorRepository.delete(id);
+        if(teamSponsorRepository.read(id).getTeamId() == teamId){
+            teamSponsorRepository.delete(id);
+
+        }
     }
 
     /**
@@ -230,5 +233,16 @@ public class TeamManagerService {
 
     public List<Sponsor> showSponsors() {
         return sponsorRepo.getAll();
+    }
+
+    public List<TeamSponsor> showTeamSponsorsId(int teamId) {
+        List<TeamSponsor> teamSponsors=teamSponsorRepository.getAll();
+        List<TeamSponsor> newTeamSponsors=new ArrayList<>();
+        for(TeamSponsor teamSponsor:teamSponsors){
+            if(teamSponsor.getTeamId() == teamId){
+                newTeamSponsors.add(teamSponsor);
+            }
+        }
+        return newTeamSponsors;
     }
 }

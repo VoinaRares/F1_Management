@@ -675,10 +675,11 @@ public class Console {
         System.out.println("7. Filter Operations");
         System.out.println("8. Show all Sponsors for this Team");
         System.out.println("9. Show all Sponsors");
-        System.out.println("10. Exit");
+        System.out.println("10. Show TeamSponsors for this Team");
+        System.out.println("11. Exit");
         while(true){
             try{
-                choice = validateChoice(System.console().readLine(), 9);
+                choice = validateChoice(System.console().readLine(), 11);
                 break;
             }catch (ValidationException e){
                 System.out.println(e.getMessage());
@@ -742,6 +743,13 @@ public class Console {
                     System.out.println(sponsor);
                 }
                 break;
+
+            case 10:
+                List<TeamSponsor> teamSponsors = teamManagerController.showTeamSponsorsId(currentUserTeamId);
+                for(TeamSponsor teamSponsor:teamSponsors)
+                {
+                    System.out.println(teamSponsor);
+                }
             default:
                 isTeamManager=false;
                 isF1Admin=false;

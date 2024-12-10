@@ -136,4 +136,8 @@ public class TeamManagerController {
     public List<Sponsor> showSponsors() {
         return teamManagerService.showSponsors();
     }
+
+    public List<TeamSponsor> showTeamSponsorsId(int teamId) {
+        return teamManagerService.showTeamSponsorsId(teamId);
+    }
 }

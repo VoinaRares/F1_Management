@@ -46,4 +46,13 @@ public class TeamSponsor extends Entity{
     public void setInvestmentAmount(int investmentAmount) {
         this.investmentAmount = investmentAmount;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                ", teamId=" + teamId +
+                ", sponsorId=" + sponsorId +
+                ", investmentAmount=" + investmentAmount +
+                '}';
+    }
 }
