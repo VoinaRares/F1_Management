@@ -82,6 +82,8 @@ public class F1AdminService {
     {
         //List<Race>races=repository.getAll();
         ArrayList<Race> races = new ArrayList<>(raceRepository.getAll());
+        if(races.isEmpty())
+            return races;
         int numberOfRaces=races.size();
         List<Race> calendar=new ArrayList<>();
         Race finalRace=null;
@@ -113,6 +115,17 @@ public class F1AdminService {
             newRace.setDate(date);
             calendar.add(newRace);
             races.remove(newRace);
+            if(date.getMonth()>9)
+            {
+                for(Race race:races)
+                {
+                    if(race.getLocation().getContinent().equals("Europe"))
+                    {
+                        return new ArrayList<>();
+                    }
+                }
+            }
+
         }
 
         Date date=setNextRaceDate(calendar.getLast(),finalRace);
