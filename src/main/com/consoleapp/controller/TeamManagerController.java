@@ -74,8 +74,8 @@ public class TeamManagerController {
      * Removes a team sponsor by id
      * @param id of team sponsor
      */
-    public void removeTeamSponsor(int id){
-        teamManagerService.removeTeamSponsor(id);
+    public void removeTeamSponsor(int id, int teamId){
+        teamManagerService.removeTeamSponsor(id, teamId);
     }
 
     /**
@@ -90,23 +90,25 @@ public class TeamManagerController {
      * Sorts the List of Person by Salary
      * @return List of Persons sorted by salary
      */
-    public List<Person> getAllSortedBySalary(){
-        return teamManagerService.getAllSortedBySalary();
+    public List<TeamMember> getAllSortedBySalary(int teamId){
+        return teamManagerService.getAllSortedBySalary(teamId);
     }
 
     /**
      * Sorts the List of Persons by Age
      * @return List of Persons sorted by their age
      */
-    public List<Person> getAllSortedByAge(){
-        return teamManagerService.getAllSortedByAge();
+    public List<TeamMember> getAllSortedByAge(int teamId){
+        return teamManagerService.getAllSortedByAge(teamId);
     }
 
     /**
      * Filters all Persons to be an instance of Engineer
      * @return List of all Engineers
      */
-    public List<Engineer> getAllEngineers(){return teamManagerService.getAllEngineers();}
+    public List<Engineer> getAllEngineers(){
+        return teamManagerService.getAllEngineers();
+    }
 
     /**
      * Filters all Persons to be an instance of Driver
@@ -123,5 +125,11 @@ public class TeamManagerController {
         return teamManagerService.getEngineersBySpecialty(specialty);
     }
 
+    public void removeDriver(int id, int teamId){
+        teamManagerService.removeDriver(id, teamId);
+    }
 
+    public void removeEngineer(int id, int teamId){
+        teamManagerService.removeEngineer(id, teamId);
+    }
 }
