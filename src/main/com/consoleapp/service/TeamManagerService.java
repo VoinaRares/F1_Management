@@ -54,7 +54,6 @@ public class TeamManagerService {
     public boolean addF1Admin(int id, int age, int experience, String name,
                               float salary, String userName, String password){
         F1Admin person = new F1Admin(id, name, age, experience, salary, userName, password );
-        //personRepository.create(person);
         f1AdminRepository.create(person);
         return true;
     }
@@ -70,7 +69,6 @@ public class TeamManagerService {
 
         Engineer person = new Engineer(id, name, age, experience, salary,
                 specialty, yearsWithCurrentTeam, TeamId, userName, password );
-        //personRepository.create(person);
         engineerRepository.create(person);
         return true;
     }
@@ -83,7 +81,6 @@ public class TeamManagerService {
                              int driverNumber, int teamId, String userName, String password){
 
         Driver person = new Driver(id, name, age, experience, salary, driverNumber, teamId, userName, password );
-        //personRepository.create(person);
         driverRepository.create(person);
         return true;
     }
@@ -97,7 +94,6 @@ public class TeamManagerService {
                                   float salary, int teamId, String userName, String password){
 
         TeamManager person = new TeamManager(id, name, age, experience, salary, teamId, userName, password );
-        //personRepository.create(person);
         teamManagerRepository.create(person);
         return true;
     }
@@ -136,6 +132,7 @@ public class TeamManagerService {
         ArrayList<Person> persons = new ArrayList<>();
         persons.addAll(driverRepository.getAll());
         persons.addAll(engineerRepository.getAll());
+        persons.addAll(teamManagerRepository.getAll());
         return persons;
     }
 
@@ -144,10 +141,13 @@ public class TeamManagerService {
      * @return sorted List
      */
     public List<Person> getAllSortedBySalary(){
-        //ArrayList<Person> personList = new ArrayList<>(personRepository.getAll());
-        ArrayList<Person> personList = new ArrayList<>();
-        personList.sort((p1, p2) -> Float.compare(p1.getSalary(), p2.getSalary()));
-        return personList;
+        ArrayList<Person> persons = new ArrayList<>();
+        persons.addAll(driverRepository.getAll());
+        persons.addAll(engineerRepository.getAll());
+        persons.addAll(teamManagerRepository.getAll());
+        persons.addAll(f1AdminRepository.getAll());
+        persons.sort((p1, p2) -> Float.compare(p1.getSalary(), p2.getSalary()));
+        return persons;
     }
 
     /**
@@ -155,10 +155,12 @@ public class TeamManagerService {
      * @return sorted List
      */
     public List<Person> getAllSortedByAge(){
-        List<Person> personList = new ArrayList<>();
-        personList.addAll(driverRepository.getAll());
-        personList.addAll(engineerRepository.getAll());
-        return personList;
+        ArrayList<Person> persons = new ArrayList<>();
+        persons.addAll(driverRepository.getAll());
+        persons.addAll(engineerRepository.getAll());
+        persons.addAll(teamManagerRepository.getAll());
+        persons.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
+        return persons;
     }
 
 
@@ -167,7 +169,6 @@ public class TeamManagerService {
      */
     public List<Engineer> getAllEngineers(){
         return engineerRepository.getAll();
-
     }
 
     /**
