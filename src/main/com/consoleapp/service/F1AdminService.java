@@ -1,10 +1,12 @@
 package main.com.consoleapp.service;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.model.Exceptions.BusinessLogicException;
 import main.com.consoleapp.model.Exceptions.EntityNotFoundException;
 import main.com.consoleapp.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import static java.lang.Math.pow;
@@ -94,6 +96,16 @@ public class F1AdminService {
     public List<Race> generateCalendar(String start_country, String end_country,int day, int month, int year)
     {
         //List<Race>races=repository.getAll();
+
+        validateCountry(start_country);
+        validateCountry(end_country);
+
+
+        Date startDate=new Date(year,month,day);
+
+        validateDate(startDate);
+
+        validateStartEndCountry(start_country,end_country);
         ArrayList<Race> races = new ArrayList<>(raceRepository.getAll());
         if(races.isEmpty() || races.size()==1)
             return races;
@@ -147,6 +159,31 @@ public class F1AdminService {
         return calendar;
 
 
+    }
+
+    private void validateStartEndCountry(String startCountry, String endCountry) {
+        if(startCountry.equals(endCountry))
+            throw new BusinessLogicException("Start country and end country are the same");
+    }
+
+    private void validateDate(Date startDate) {
+        if(startDate.getDay()<1 || startDate.getDay()>30)
+            throw new BusinessLogicException("Invalid date");
+        if(startDate.getMonth()<1 || startDate.getMonth()>12)
+            throw new BusinessLogicException("Invalid date");
+
+    }
+
+    private void validateCountry(String country) {
+        boolean found=false;
+
+        for(Race race:raceRepository.getAll())
+        {
+            if(Objects.equals(country, race.getLocation().getCountry()))
+                found=true;
+        }
+        if(!found)
+            throw new BusinessLogicException("Invalid country/countries");
     }
 
     /**
@@ -423,13 +460,14 @@ public class F1AdminService {
     }
 
     public boolean deleteSponsor(int sponsorId) {
-        raceRepository.delete(sponsorId);
+
         ArrayList<TeamSponsor> teamSponsors= (ArrayList<TeamSponsor>) teamSponsorRepository.getAll();
         for(TeamSponsor teamSponsor:teamSponsors)
         {
             if(teamSponsor.getSponsorId()==sponsorId)
                 teamSponsorRepository.delete(teamSponsor.getId());
         }
+        sponsorRepository.delete(sponsorId);
         return true;
     }
 

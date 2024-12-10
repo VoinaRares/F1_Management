@@ -3,6 +3,7 @@ package main.com.consoleapp.controller;
 import main.com.consoleapp.model.*;
 import main.com.consoleapp.service.TeamManagerService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeamManagerController {
@@ -125,5 +126,18 @@ public class TeamManagerController {
 
     public void removeEngineer(int id, int teamId){
         teamManagerService.removeEngineer(id, teamId);
+    }
+
+    public List<Sponsor> showTeamSponsors(int teamId) {
+        return teamManagerService.showTeamSponsors(teamId);
+
+    }
+
+    public List<Sponsor> showSponsors() {
+        return teamManagerService.showSponsors();
+    }
+
+    public List<TeamSponsor> showTeamSponsorsId(int teamId) {
+        return teamManagerService.showTeamSponsorsId(teamId);
     }
 }
