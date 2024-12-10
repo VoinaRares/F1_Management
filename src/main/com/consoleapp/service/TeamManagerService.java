@@ -227,4 +227,8 @@ public class TeamManagerService {
         }
         return sponsorForTeam;
     }
+
+    public List<Sponsor> showSponsors() {
+        return sponsorRepo.getAll();
+    }
 }

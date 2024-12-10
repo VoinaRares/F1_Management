@@ -134,6 +134,6 @@ public class TeamManagerController {
     }
 
     public List<Sponsor> showSponsors() {
-        return null;
+        return teamManagerService.showSponsors();
     }
 }
