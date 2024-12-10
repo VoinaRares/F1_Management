@@ -14,8 +14,8 @@ public class TeamManagerService {
 //    private final IRepository<Person> personRepository;
     private final IRepository<Driver> driverRepository;
     private final IRepository<Engineer> engineerRepository;
-    private final IRepository<TeamSponsor> teamSponsorRepository;
     private final IRepository<F1Admin> f1AdminRepository;
+    private final IRepository<TeamSponsor> teamSponsorRepository;;
     private final IRepository<TeamManager> teamManagerRepository;
 
     //Might be used for data validation in the Controller
@@ -23,6 +23,7 @@ public class TeamManagerService {
     private final IRepository<Team> teamRepo;
 
     public TeamManagerService() {
+
 //       this.personRepository = InFileRepository.getInstance(Person.class, "personRepo.txt");
 //       this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
 //       this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
@@ -128,6 +129,7 @@ public class TeamManagerService {
     /**
      * @return A List of all Entities in the Repository
      */
+
     public List<Person> getAllPersons(){
         ArrayList<Person> persons = new ArrayList<>();
         persons.addAll(driverRepository.getAll());
