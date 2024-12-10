@@ -145,4 +145,8 @@ public class F1AdminController {
                                    String username, String password){
         return f1AdminService.addTeamManager(name,age,experience,salary,teamId,username,password);
     }
+
+    public List<TeamManager> showTeamManagers() {
+        return f1AdminService.showTeamManagers();
+    }
 }

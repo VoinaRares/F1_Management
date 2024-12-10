@@ -122,11 +122,12 @@ public class Console {
         System.out.println("7.Add Team");
         System.out.println("8.Show all Teams");
         System.out.println("9.Add Team Manager");
-        System.out.println("10.Exit");
+        System.out.println("10.Show all Team Managers");
+        System.out.println("11.Delete Team Manager");
 
         while(true){
             try {
-                choice = validateChoice(System.console().readLine(), 10);
+                choice = validateChoice(System.console().readLine(), 12);
                 break;
             }catch(ValidationException e){
                 System.out.println(e.getMessage());
@@ -337,6 +338,14 @@ public class Console {
                 password=System.console().readLine();
                 f1AdminController.addTeamManager(name,age,experience,salary,teamId,username,password);
             case 10:
+                List<TeamManager> teamManagers=f1AdminController.showTeamManagers();
+                for (TeamManager teamManager: teamManagers){
+                    System.out.println(teamManager);
+                }
+            case 11:
+                int id;
+
+            case 12:
                 isLoggedIn = false;
                 isF1Admin = false;
                 isTeamManager = false;

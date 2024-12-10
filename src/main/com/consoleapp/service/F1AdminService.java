@@ -381,6 +381,9 @@ public class F1AdminService {
         return true;
     }
 
+    public List<TeamManager> showTeamManagers() {
+        return teamManagerRepository.getAll();
+    }
 }
 
 
