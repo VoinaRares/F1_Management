@@ -89,7 +89,6 @@ public class F1AdminService {
         Race finalRace=null;
         Race firstRace=null;
         for(Race race:races) {
-            //Validate races exist
 
             if (race.getLocation().getCountry().equals(start_country)) {
                 Date date=new Date(year,month,day);

@@ -20,6 +20,16 @@ public class EngineerDBRepository extends DBRepository<Engineer> {
                 " yearsWithCurrentTeam, teamId, username, password) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, obj.getId());
+            statement.setString(2, obj.getName());
+            statement.setInt(3, obj.getAge());
+            statement.setInt(4, obj.getExperience());
+            statement.setFloat(5, obj.getSalary());
+            statement.setString(6, obj.getSpecialty());
+            statement.setInt(7, obj.getYearsWithCurrentTeam());
+            statement.setInt(8, obj.getTeamId());
+            statement.setString(9, obj.getUsername());
+            statement.setString(10, obj.getPassword());
+            statement.execute();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
