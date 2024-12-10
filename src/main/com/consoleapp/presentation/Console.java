@@ -3,6 +3,7 @@ import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.model.Exceptions.BusinessLogicException;
 import main.com.consoleapp.model.Exceptions.DatabaseException;
 import main.com.consoleapp.model.Exceptions.EntityNotFoundException;
 import main.com.consoleapp.repository.InFileRepository;
@@ -262,19 +263,25 @@ public class Console {
                         System.out.println(e.getMessage());
                     }
                 }
-
-                List<Race> calendar=f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
-                if (!calendar.isEmpty())
-                {
-                    for (Race race : calendar)
+                try {
+                    List<Race> calendar=f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
+                    if (!calendar.isEmpty())
                     {
-                        System.out.println(race);
+                        for (Race race : calendar)
+                        {
+                            System.out.println(race);
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("Can't generate calendar");
                     }
                 }
-                else
+                catch(BusinessLogicException e)
                 {
-                    System.out.println("Can't generate calendar");
+                    System.out.println(e.getMessage());
                 }
+
                 showF1AdminMenu();
                 break;
             case 3:
