@@ -31,7 +31,7 @@ public class Race extends Entity {
 
     @Override
     public String toString() {
-        return "Race{" +
+        return super.toString() + ", Race{" +
                 "date=" + date +
                 ", location=" + location +
                 '}';
