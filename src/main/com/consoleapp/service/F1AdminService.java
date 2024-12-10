@@ -390,6 +390,12 @@ public class F1AdminService {
 
         return true;
     }
+
+    public boolean deleteRace(int raceId) {
+        raceRepository.delete(raceId);
+
+        return true;
+    }
 }
 
 

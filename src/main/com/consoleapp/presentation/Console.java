@@ -124,6 +124,7 @@ public class Console {
         System.out.println("9.Add Team Manager");
         System.out.println("10.Show all Team Managers");
         System.out.println("11.Delete Team Manager");
+        System.out.println("12.Delete Race");
 
         while(true){
             try {
@@ -345,21 +346,41 @@ public class Console {
                 }
                 break;
             case 11:
-                int id;
+                int teamManagerId;
                 System.out.println("Enter id: ");
                 while (true){
                     try{
-                        id=validateInt(System.console().readLine());
+                        teamManagerId=validateInt(System.console().readLine());
                         break;
                     }
                     catch (ValidationException e){
                         System.out.println(e.getMessage());
                     }
                 }
-                if(f1AdminController.deleteTeamManager(id))
+                if(f1AdminController.deleteTeamManager(teamManagerId))
                     System.out.println("Entry deleted successfully");
                 break;
             case 12:
+                int raceId;
+                System.out.println("Enter id: ");
+                while (true){
+                    try{
+                        raceId=validateInt(System.console().readLine());
+                        break;
+                    }
+                    catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                if(f1AdminController.deleteRace(raceId))
+                    System.out.println("Entry deleted successfully");
+                break;
+
+            case 13:
+
+
+
+            case 14:
                 isLoggedIn = false;
                 isF1Admin = false;
                 isTeamManager = false;
@@ -424,11 +445,9 @@ public class Console {
         float salary;
 
         if(choice != 3){
-
             id=chooseId();
             age = readVariable("age: ");
             experience = readVariable("experience: ");
-
             System.out.println("name: ");
             name=System.console().readLine();
             System.out.println("salary: ");

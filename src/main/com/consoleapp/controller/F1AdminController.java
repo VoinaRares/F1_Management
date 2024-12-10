@@ -153,4 +153,8 @@ public class F1AdminController {
     public boolean deleteTeamManager(int id) {
         return f1AdminService.deleteTeamManager(id);
     }
+
+    public boolean deleteRace(int raceId) {
+        return f1AdminService.deleteRace(raceId);
+    }
 }
