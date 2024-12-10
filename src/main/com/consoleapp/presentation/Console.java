@@ -3,6 +3,7 @@ import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.model.Exceptions.ValidationException;
 
 import java.util.List;
 
@@ -39,7 +40,15 @@ public class Console {
         System.out.println("2. Sort by age");
         System.out.println("3. Exit");
         int choice;
-        choice = validateInt(System.console().readLine());
+        while(true){
+            try{
+                choice = validateChoice(System.console().readLine(), 3);
+                break;
+            } catch(ValidationException e){
+                System.out.println(e.getMessage());
+            }
+        }
+
         if(choice == 1){
             for(Person person : teamManagerController.getAllSortedBySalary(currentUserTeamId)){
                 System.out.println(person + " Salary: " + person.getSalary());
@@ -113,9 +122,15 @@ public class Console {
         System.out.println("7.Add Team");
         System.out.println("8.Show all Teams");
         System.out.println("9.Exit");
-        //Should maybe check if its between 1 and 9
-        choice=validateInt(System.console().readLine());
 
+        while(true){
+            try {
+                choice = validateChoice(System.console().readLine(), 9);
+                break;
+            }catch(ValidationException e){
+                System.out.println(e.getMessage());
+            }
+        }
         switch(choice)
         {
             case 1:
@@ -126,10 +141,23 @@ public class Console {
                 System.out.println("Enter continent: ");
                 continent=System.console().readLine();
                 System.out.println("Enter coordinate1: ");
-                coordinate_x=validateInt(System.console().readLine());
+                while(true){
+                    try {
+                        coordinate_x=validateInt(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter coordinate2: ");
-                coordinate_y=validateInt(System.console().readLine());
-
+                while(true){
+                    try{
+                        coordinate_y=validateInt(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 //Not sure if this is actually a good addition. Or at least it doesn't do anything
                 boolean added=f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
                 if(added)
@@ -145,11 +173,32 @@ public class Console {
                 startCountry=System.console().readLine();
                 System.out.println("Enter starting date of the season: ");
                 System.out.println("Enter starting day: ");
-                day=validateInt(System.console().readLine());
+                while(true){
+                    try{
+                        day=validateInt(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter starting month: ");
-                month=validateInt(System.console().readLine());
+                while(true){
+                    try{
+                        month=validateInt(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter starting year: ");
-                year=validateInt(System.console().readLine());
+                while(true){
+                    try {
+                        year=validateInt(System.console().readLine());
+                        break;
+                    } catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter ending country: ");
                 endCountry=System.console().readLine();
                 List<Race> calendar=f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
@@ -179,7 +228,14 @@ public class Console {
                 System.out.println("Enter sponsor name: ");
                 addSponsorName =System.console().readLine();
                 System.out.println("Enter sponsor investment amount: ");
-                addInvestmentAmount =validateInt(System.console().readLine());
+                while(true){
+                    try{
+                        addInvestmentAmount=validateInt(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter sponsor country: ");
                 sponsorCountry=System.console().readLine();
                 f1AdminController.addSponsor(addSponsorName, addInvestmentAmount,sponsorCountry);
@@ -206,7 +262,14 @@ public class Console {
                 System.out.println("Enter team name: ");
                 addTeamName =System.console().readLine();
                 System.out.println("Enter budget: ");
-                budget=validateInt(System.console().readLine());
+                while (true){
+                    try{
+                        budget=validateInt(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 f1AdminController.addTeam(addTeamName,budget);
                 break;
             case 8:
@@ -233,7 +296,14 @@ public class Console {
     private int chooseId(){
         int choice;
         System.out.println("Enter ID: ");
-        choice = validateInt(System.console().readLine());
+        while(true){
+            try{
+                choice=validateId(System.console().readLine());
+                break;
+            }catch(ValidationException e){
+                System.out.println(e.getMessage());
+            }
+        }
 
         return choice;
     }
@@ -246,7 +316,14 @@ public class Console {
     private int readVariable(String message){
         int choice;
         System.out.println(message);
-        choice = validateInt(System.console().readLine());
+        while(true){
+            try{
+                choice=validateInt(System.console().readLine());
+                break;
+            }catch(ValidationException e){
+                System.out.println(e.getMessage());
+            }
+        }
 
         return choice;
     }
@@ -260,19 +337,18 @@ public class Console {
         System.out.println("2. Driver");
         System.out.println("3. Exit");
         int choice;
-        choice = validateInt(System.console().readLine());
+        choice = validateChoice(System.console().readLine(), 3);
 
         int id, age, experience;
         String name, userName, password;
         float salary;
 
         if(choice != 3){
-            System.out.println("id: ");
-            id=validateInt(System.console().readLine());
-            System.out.println("age: ");
-            age=validateInt(System.console().readLine());
-            System.out.println("experience: ");
-            experience=validateInt(System.console().readLine());
+
+            id=chooseId();
+            age = readVariable("age: ");
+            experience = readVariable("experience: ");
+
             System.out.println("name: ");
             name=System.console().readLine();
             System.out.println("salary: ");
@@ -291,8 +367,7 @@ public class Console {
             }
             else if(choice == 2){
                 int driverNumber;
-                System.out.println("driverNumber: ");
-                driverNumber=validateInt(System.console().readLine());
+                driverNumber = readVariable("driver number: ");
                 teamManagerController.addDriver(id, age, experience, name, salary, driverNumber,currentUserTeamId, userName, password);
             }
         }
@@ -313,7 +388,7 @@ public class Console {
         System.out.println("6. Sorting Operations");
         System.out.println("7. Filter Operations");
         System.out.println("8. Exit");
-        choice = validateInt(System.console().readLine());
+        choice = validateChoice(System.console().readLine(), 8);
         switch (choice) {
             case 1:
                 chooseUserType();
@@ -360,7 +435,7 @@ public class Console {
         System.out.println("1. Show All Engineers");
         System.out.println("2. Show All Drivers");
         System.out.println("3. Filter Engineers by Specialty:");
-        choice=validateInt(System.console().readLine());
+        choice=validateChoice(System.console().readLine(), 3);
         switch (choice)
         {
             case 1:
@@ -381,7 +456,7 @@ public class Console {
                 System.out.println("1. Aerodynamics");
                 System.out.println("2. Chassis");
                 System.out.println("3. Engine");
-                choice2 = validateInt(System.console().readLine());
+                choice2 = validateChoice(System.console().readLine(), 3);
                 switch (choice2){
                     case 1:
                         List<Engineer> specialtyEngineersAerodynamics = teamManagerController.getEngineersBySpecialty("Aerodynamics");
@@ -440,29 +515,41 @@ public class Console {
     }
 
     private int validateInt(String number) {
-        int res;
-        while(true) {
-            try {
-                res = Integer.parseInt(number);
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Enter an valid option!");
-            }
+        try{
+            return Integer.parseInt(number);
+        }catch (NumberFormatException e){
+            throw new ValidationException("Enter a valid number");
         }
-        return res;
+    }
+
+    private int validateId(String id){
+        int new_id;
+        try{
+            new_id = validateInt(id);
+            if(new_id < 0){
+                throw new ValidationException("Enter a valid id");
+            }
+            return new_id;
+        }catch (ValidationException e){
+            throw new ValidationException("Enter a valid id");
+        }
+    }
+
+    private int validateChoice(String choice, int maxChoice){
+        int choice_number;
+        try{
+            choice_number = validateInt(choice);
+            if(choice_number > maxChoice || choice_number <= 0){
+                throw new ValidationException("Enter a valid number");
+            }
+            return choice_number;
+        }catch (ValidationException e){
+            throw new ValidationException(e.getMessage());
+        }
     }
 
     private float validateFloat(String number) {
-        float res;
-        while(true) {
-            try {
-                res = Float.parseFloat(number);
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Enter an valid option!");
-            }
-        }
-        return res;
+        return Float.parseFloat(number);
     }
 
     private void removePerson(){
