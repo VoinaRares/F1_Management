@@ -276,22 +276,26 @@ public class Console {
                 showF1AdminMenu();
                 break;
             case 3:
-                List<TeamSponsorRace> teamSponsorRaces= f1AdminController.showSponsorMoneyPerRace();
+                try {
+                    List<TeamSponsorRace> teamSponsorRaces = f1AdminController.showSponsorMoneyPerRace();
 
-                for(TeamSponsorRace teamSponsorRace: teamSponsorRaces){
-                    try{
-                        int teamId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId())
-                                .getTeamId();
-                        int sponsorId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId())
-                                .getSponsorId();
-                        System.out.print(f1AdminController.getRaceById(teamSponsorRace.getRaceId()).getLocation()
-                                .getCountry() + " ");
-                        System.out.print(f1AdminController.getTeamById(teamId).getTeamName() + " ");
-                        System.out.print(f1AdminController.getSponsorById(sponsorId).getSponsorName() + " ");
-                        System.out.println("Budget: " + teamSponsorRace.getInvestment());
-                    }catch(EntityNotFoundException | DatabaseException e){
-                        System.out.println(e.getMessage());
+                    for (TeamSponsorRace teamSponsorRace : teamSponsorRaces) {
+                        try {
+                            int teamId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId())
+                                    .getTeamId();
+                            int sponsorId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId())
+                                    .getSponsorId();
+                            System.out.print(f1AdminController.getRaceById(teamSponsorRace.getRaceId()).getLocation()
+                                    .getCountry() + " ");
+                            System.out.print(f1AdminController.getTeamById(teamId).getTeamName() + " ");
+                            System.out.print(f1AdminController.getSponsorById(sponsorId).getSponsorName() + " ");
+                            System.out.println("Budget: " + teamSponsorRace.getInvestment());
+                        } catch (EntityNotFoundException e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
+                }catch (DatabaseException e){
+                    System.out.println(e.getMessage());
                 }
 
                 break;
@@ -437,15 +441,33 @@ public class Console {
                     }
                 }
                 System.out.println("Enter username: ");
-                username=System.console().readLine();
+                while (true) {
+                    try {
+                        username = validateString(System.console().readLine());
+                        break;
+                    } catch (ValidationException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
                 System.out.println("Enter password: ");
-                password=System.console().readLine();
+                while (true){
+                    try{
+                        password=validateString(System.console().readLine());
+                        break;
+                    }catch(ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 f1AdminController.addTeamManager(name,age,experience,salary,teamId,username,password);
                 break;
             case 10:
-                List<TeamManager> teamManagers=f1AdminController.showTeamManagers();
-                for (TeamManager teamManager: teamManagers){
-                    System.out.println(teamManager);
+                try {
+                    List<TeamManager> teamManagers = f1AdminController.showTeamManagers();
+                    for (TeamManager teamManager : teamManagers) {
+                        System.out.println(teamManager);
+                    }
+                }catch (DatabaseException e){
+                    System.out.println(e.getMessage());
                 }
                 break;
             case 11:
@@ -453,15 +475,19 @@ public class Console {
                 System.out.println("Enter id: ");
                 while (true){
                     try{
-                        teamManagerId=validateInt(System.console().readLine());
+                        teamManagerId=validateId(System.console().readLine());
                         break;
                     }
                     catch (ValidationException e){
                         System.out.println(e.getMessage());
                     }
                 }
-                if(f1AdminController.deleteTeamManager(teamManagerId))
-                    System.out.println("Entry deleted successfully");
+                try {
+                    if (f1AdminController.deleteTeamManager(teamManagerId))
+                        System.out.println("Entry deleted successfully");
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
             case 12:
                 int raceId;
@@ -475,8 +501,12 @@ public class Console {
                         System.out.println(e.getMessage());
                     }
                 }
-                if(f1AdminController.deleteRace(raceId))
-                    System.out.println("Entry deleted successfully");
+                try {
+                    if (f1AdminController.deleteRace(raceId))
+                        System.out.println("Entry deleted successfully");
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
 
             case 13:
@@ -491,8 +521,12 @@ public class Console {
                         System.out.println(e.getMessage());
                     }
                 }
-                if(f1AdminController.deleteSponsor(sponsorId))
-                    System.out.println("Entry deleted successfully");
+                try {
+                    if (f1AdminController.deleteSponsor(sponsorId))
+                        System.out.println("Entry deleted successfully");
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
 
 
@@ -509,9 +543,12 @@ public class Console {
                         System.out.println(e.getMessage());
                     }
                 }
-
-                if(f1AdminController.deleteTeam(team_Id))
-                    System.out.println("Entry deleted successfully");
+                try {
+                    if (f1AdminController.deleteTeam(team_Id))
+                        System.out.println("Entry deleted successfully");
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
 
             case 15:
@@ -520,8 +557,6 @@ public class Console {
                 isTeamManager = false;
                 break;
         }
-
-
     }
 
     /**
