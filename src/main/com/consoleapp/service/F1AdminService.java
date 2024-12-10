@@ -396,6 +396,17 @@ public class F1AdminService {
 
         return true;
     }
+
+    public boolean deleteSponsor(int sponsorId) {
+        raceRepository.delete(sponsorId);
+        ArrayList<TeamSponsor> teamSponsors= (ArrayList<TeamSponsor>) teamSponsorRepository.getAll();
+        for(TeamSponsor teamSponsor:teamSponsors)
+        {
+            if(teamSponsor.getSponsorId()==sponsorId)
+                teamSponsorRepository.delete(teamSponsor.getId());
+        }
+        return true;
+    }
 }
 
 

@@ -157,4 +157,8 @@ public class F1AdminController {
     public boolean deleteRace(int raceId) {
         return f1AdminService.deleteRace(raceId);
     }
+
+    public boolean deleteSponsor(int sponsorId) {
+        return f1AdminService.deleteSponsor(sponsorId);
+    }
 }

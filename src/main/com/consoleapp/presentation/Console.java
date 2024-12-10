@@ -125,10 +125,13 @@ public class Console {
         System.out.println("10.Show all Team Managers");
         System.out.println("11.Delete Team Manager");
         System.out.println("12.Delete Race");
+        System.out.println("13.Delete Sponsor");
+        System.out.println("14.Delete Team");
+        System.out.println("15.Exit");
 
         while(true){
             try {
-                choice = validateChoice(System.console().readLine(), 12);
+                choice = validateChoice(System.console().readLine(), 15);
                 break;
             }catch(ValidationException e){
                 System.out.println(e.getMessage());
@@ -377,8 +380,20 @@ public class Console {
                 break;
 
             case 13:
-
-
+                int sponsorId;
+                System.out.println("Enter id: ");
+                while (true){
+                    try{
+                        sponsorId=validateInt(System.console().readLine());
+                        break;
+                    }
+                    catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                if(f1AdminController.deleteSponsor(sponsorId))
+                    System.out.println("Entry deleted successfully");
+                break;
 
             case 14:
                 isLoggedIn = false;
