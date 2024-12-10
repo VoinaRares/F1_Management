@@ -1,5 +1,6 @@
 package main.com.consoleapp.repository;
 
+import main.com.consoleapp.model.Exceptions.DatabaseException;
 import main.com.consoleapp.model.F1Admin;
 
 import java.sql.PreparedStatement;
@@ -28,7 +29,7 @@ public class F1AdminDBRepository extends DBRepository<F1Admin> {
 
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -45,7 +46,7 @@ public class F1AdminDBRepository extends DBRepository<F1Admin> {
                 return null;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -64,7 +65,7 @@ public class F1AdminDBRepository extends DBRepository<F1Admin> {
 
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -75,7 +76,7 @@ public class F1AdminDBRepository extends DBRepository<F1Admin> {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -91,7 +92,7 @@ public class F1AdminDBRepository extends DBRepository<F1Admin> {
             }
             return list;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 

@@ -1,5 +1,6 @@
 package main.com.consoleapp.service;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.model.Exceptions.EntityNotFoundException;
 import main.com.consoleapp.repository.*;
 
 import java.util.ArrayList;
@@ -310,7 +311,7 @@ public class F1AdminService {
      * @return all the Race entities
      */
     public List<Race> getAllRaces() {
-        return raceRepository.getAll();
+        return  raceRepository.getAll();
     }
 
     /**
@@ -346,7 +347,11 @@ public class F1AdminService {
      * @return Team if found, else null
      */
     public Team getTeam(int id){
-        return teamRepository.read(id);
+        Team team = teamRepository.read(id);
+        if(team == null){
+            throw new EntityNotFoundException("No entity found");
+        }
+        return team;
     }
 
     /**
@@ -355,7 +360,11 @@ public class F1AdminService {
      * @return TeamSponsor if found, else null
      */
     public TeamSponsor getTeamSponsor(int id){
-        return teamSponsorRepository.read(id);
+        TeamSponsor teamSponsor = teamSponsorRepository.read(id);
+        if(teamSponsor == null){
+            throw new EntityNotFoundException("No entity found");
+        }
+        return teamSponsor;
     }
 
     /**
@@ -364,7 +373,11 @@ public class F1AdminService {
      * @return Sponsor if found, else null
      */
     public Sponsor getSponsor(int id){
-        return sponsorRepository.read(id);
+        Sponsor sponsor = sponsorRepository.read(id);
+        if(sponsor == null){
+            throw new EntityNotFoundException("No entity found");
+        }
+        return sponsor;
     }
 
     /**
@@ -373,7 +386,11 @@ public class F1AdminService {
      * @return race if found, else null
      */
     public Race getRace(int id){
-        return raceRepository.read(id);
+        Race race = raceRepository.read(id);
+        if(race == null){
+            throw new EntityNotFoundException("No entity found");
+        }
+        return race;
     }
 
 
@@ -449,5 +466,3 @@ public class F1AdminService {
         return true;
     }
 }
-
-

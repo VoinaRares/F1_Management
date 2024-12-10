@@ -19,6 +19,7 @@ public class TeamManagerController {
      */
     public boolean addF1Admin(int id, int age, int experience, String name,
                               float salary, String userName, String password){
+
         teamManagerService.addF1Admin(id, age, experience, name, salary, userName, password);
         return true;
     }
@@ -55,13 +56,6 @@ public class TeamManagerController {
         return true;
     }
 
-    /**
-     * Validates the data entered and calls remove from the service
-     * @param id of the object to be removed
-     */
-    public void removePerson(int id){
-        teamManagerService.removePerson(id);
-    }
 
     /**
      * Adds a team sponsor

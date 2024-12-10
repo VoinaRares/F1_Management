@@ -100,17 +100,6 @@ public class TeamManagerService {
         return true;
     }
 
-
-    //NEEDS TO BE REDONE TO FIT INTO THE DATABASE THAT DOES NOT STORE PERSON
-    /**
-     * Deletes an Entity from the repository
-     * @param id of the Entity to be deleted
-     */
-    public void removePerson(int id){
-        //personRepository.delete(id);
-    }
-
-
     /**
      * Creates a new Team Sponsor with the given Parameters and tries to add it to the Repository
      */

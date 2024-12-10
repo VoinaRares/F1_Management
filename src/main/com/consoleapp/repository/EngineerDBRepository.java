@@ -2,6 +2,7 @@ package main.com.consoleapp.repository;
 
 import main.com.consoleapp.model.Driver;
 import main.com.consoleapp.model.Engineer;
+import main.com.consoleapp.model.Exceptions.DatabaseException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +32,7 @@ public class EngineerDBRepository extends DBRepository<Engineer> {
             statement.setString(10, obj.getPassword());
             statement.execute();
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -49,7 +50,7 @@ public class EngineerDBRepository extends DBRepository<Engineer> {
                 return null;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -70,7 +71,7 @@ public class EngineerDBRepository extends DBRepository<Engineer> {
             statement.setInt(10, obj.getId());
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
 
     }
@@ -82,7 +83,7 @@ public class EngineerDBRepository extends DBRepository<Engineer> {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -97,7 +98,7 @@ public class EngineerDBRepository extends DBRepository<Engineer> {
             }
             return engineers;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 

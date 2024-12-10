@@ -3,6 +3,8 @@ import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.model.Exceptions.DatabaseException;
+import main.com.consoleapp.model.Exceptions.EntityNotFoundException;
 import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.model.Exceptions.ValidationException;
 import java.util.List;
@@ -11,16 +13,21 @@ public class Console {
 
     private boolean isTeamManager = false;
     private boolean isF1Admin = false;
-    private final TeamManagerController teamManagerController;
-    private final LogInController logInController;
-    private final F1AdminController f1AdminController;
+    private TeamManagerController teamManagerController;
+    private LogInController logInController;
+    private F1AdminController f1AdminController;
     private boolean isLoggedIn = false;
     private int currentUserTeamId;
 
     public Console() {
-        teamManagerController = new TeamManagerController();
-        logInController = new LogInController();
-        f1AdminController = new F1AdminController();
+        try {
+            teamManagerController = new TeamManagerController();
+            logInController = new LogInController();
+            f1AdminController = new F1AdminController();
+        }catch(DatabaseException e){
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
     }
 
     /**
@@ -50,13 +57,21 @@ public class Console {
         }
 
         if(choice == 1){
-            for(Person person : teamManagerController.getAllSortedBySalary(currentUserTeamId)){
-                System.out.println(person + " Salary: " + person.getSalary());
+            try {
+                for (Person person : teamManagerController.getAllSortedBySalary(currentUserTeamId)) {
+                    System.out.println(person + " Salary: " + person.getSalary());
+                }
+            }catch(DatabaseException e){
+                System.out.println(e.getMessage());
             }
         }
         else if(choice == 2){
-            for(Person person : teamManagerController.getAllSortedByAge(currentUserTeamId)){
-                System.out.println(person + " Age: " + person.getAge());
+            try {
+                for (Person person : teamManagerController.getAllSortedByAge(currentUserTeamId)) {
+                    System.out.println(person + " Age: " + person.getAge());
+                }
+            }catch(DatabaseException e){
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -75,13 +90,24 @@ public class Console {
         username=System.console().readLine();
         System.out.println("Enter your Password: ");
         password=System.console().readLine();
-        String personJob=logInController.validateCredentials(username, password);
+        String personJob;
+        try {
+            personJob = logInController.validateCredentials(username, password);
+        }catch (DatabaseException e){
+            System.out.println(e.getMessage());
+            personJob = "false";
+        }
 
         if(personJob.equals("TeamManager")) {
             isTeamManager = true;
             isLoggedIn = true;
             isF1Admin =false;
-            currentUserTeamId = logInController.getTeamId(username, password);
+            try {
+                currentUserTeamId = logInController.getTeamId(username, password);
+            }catch(DatabaseException e){
+                currentUserTeamId = -1;
+                System.out.println(e.getMessage());
+            }
         }
 
         if(personJob.equals("F1Admin")) {
@@ -178,13 +204,12 @@ public class Console {
                         System.out.println(e.getMessage());
                     }
                 }
-                //Not sure if this is actually a good addition. Or at least it doesn't do anything
-                boolean added=f1AdminController.addRace(country,continent,coordinate_x,coordinate_y);
-                if(added)
-                {
-                    System.out.println("Race added successfully");
-                    showF1AdminMenu();
+                try {
+                    f1AdminController.addRace(country, continent, coordinate_x, coordinate_y);
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
                 }
+                showF1AdminMenu();
                 break;
             case 2:
                 String startCountry, endCountry;
@@ -235,6 +260,7 @@ public class Console {
                         System.out.println(e.getMessage());
                     }
                 }
+
                 List<Race> calendar=f1AdminController.generateCalendar(startCountry,endCountry,day,month,year);
                 if (!calendar.isEmpty())
                 {
@@ -253,12 +279,19 @@ public class Console {
                 List<TeamSponsorRace> teamSponsorRaces= f1AdminController.showSponsorMoneyPerRace();
 
                 for(TeamSponsorRace teamSponsorRace: teamSponsorRaces){
-                    int teamId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId()).getTeamId();
-                    int sponsorId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId()).getSponsorId();
-                    System.out.print(f1AdminController.getRaceById(teamSponsorRace.getRaceId()).getLocation().getCountry() + " ");
-                    System.out.print(f1AdminController.getTeamById(teamId).getTeamName() + " ");
-                    System.out.print(f1AdminController.getSponsorById(sponsorId).getSponsorName() + " ");
-                    System.out.println("Budget: " + teamSponsorRace.getInvestment());
+                    try{
+                        int teamId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId())
+                                .getTeamId();
+                        int sponsorId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId())
+                                .getSponsorId();
+                        System.out.print(f1AdminController.getRaceById(teamSponsorRace.getRaceId()).getLocation()
+                                .getCountry() + " ");
+                        System.out.print(f1AdminController.getTeamById(teamId).getTeamName() + " ");
+                        System.out.print(f1AdminController.getSponsorById(sponsorId).getSponsorName() + " ");
+                        System.out.println("Budget: " + teamSponsorRace.getInvestment());
+                    }catch(EntityNotFoundException | DatabaseException e){
+                        System.out.println(e.getMessage());
+                    }
                 }
 
                 break;
@@ -293,21 +326,32 @@ public class Console {
                         System.out.println(e.getMessage());
                     }
                 }
-                f1AdminController.addSponsor(addSponsorName, addInvestmentAmount,sponsorCountry);
+                try {
+                    f1AdminController.addSponsor(addSponsorName, addInvestmentAmount, sponsorCountry);
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
 
             case 5:
-                List<Sponsor> getSponsors =f1AdminController.getAllSponsors();
-                for(Sponsor sponsor: getSponsors)
-                {
-                    System.out.println(sponsor);
+                try {
+                    List<Sponsor> getSponsors = f1AdminController.getAllSponsors();
+
+                    for (Sponsor sponsor : getSponsors) {
+                        System.out.println(sponsor);
+                    }
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
                 }
                 break;
             case 6:
-                List<Race> getRaces =f1AdminController.getAllRaces();
-                for(Race race: getRaces)
-                {
-                    System.out.println(race);
+                try {
+                    List<Race> getRaces = f1AdminController.getAllRaces();
+                    for (Race race : getRaces) {
+                        System.out.println(race);
+                    }
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
                 }
                 break;
 
@@ -332,13 +376,20 @@ public class Console {
                         System.out.println(e.getMessage());
                     }
                 }
-                f1AdminController.addTeam(addTeamName,budget);
+                try {
+                    f1AdminController.addTeam(addTeamName, budget);
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
             case 8:
-                List<Team> getTeams =f1AdminController.getAllTeams();
-                for(Team team: getTeams)
-                {
-                    System.out.println(team);
+                try {
+                    List<Team> getTeams = f1AdminController.getAllTeams();
+                    for (Team team : getTeams) {
+                        System.out.println(team);
+                    }
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
                 }
                 break;
             case 9:
@@ -579,13 +630,22 @@ public class Console {
                         System.out.println(e.getMessage());
                     }
                 }
-                teamManagerController.addEngineer(id, age, experience, name, salary, specialty,
-                        yearsWithCurrentTeam, currentUserTeamId, userName, password);
+                try {
+                    teamManagerController.addEngineer(id, age, experience, name, salary, specialty,
+                            yearsWithCurrentTeam, currentUserTeamId, userName, password);
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
             }
-            else if(choice == 2){
+            else if(choice == 2) {
                 int driverNumber;
                 driverNumber = readVariable("driver number: ");
-                teamManagerController.addDriver(id, age, experience, name, salary, driverNumber,currentUserTeamId, userName, password);
+                try {
+                    teamManagerController.addDriver(id, age, experience, name, salary,
+                            driverNumber, currentUserTeamId, userName, password);
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
@@ -625,15 +685,28 @@ public class Console {
                 int  sponsorId, investmentAmount;
                 sponsorId = readVariable("Enter Sponsor ID: ");
                 investmentAmount = readVariable("Enter Investment Amount: ");
-                teamManagerController.addTeamSponsor(teamSponsorId, sponsorId, currentUserTeamId, investmentAmount);
+                try {
+                    teamManagerController.addTeamSponsor(teamSponsorId, sponsorId,
+                            currentUserTeamId, investmentAmount);
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
             case 4:
                 int removeId = readVariable("Enter Team Sponsor ID to remove: ");
-                teamManagerController.removeTeamSponsor(removeId, currentUserTeamId);
+                try {
+                    teamManagerController.removeTeamSponsor(removeId, currentUserTeamId);
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
             case 5:
-                for(Person person : teamManagerController.getAllPersons()){
-                    System.out.println(person);
+                try {
+                    for (Person person : teamManagerController.getAllPersons()) {
+                        System.out.println(person);
+                    }
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
                 }
                 break;
             case 6:
@@ -663,15 +736,23 @@ public class Console {
         switch (choice)
         {
             case 1:
-                List<Engineer> engineers= teamManagerController.getAllEngineers();
-                for(Engineer engineer : engineers){
-                    System.out.println(engineer);
+                try {
+                    List<Engineer> engineers = teamManagerController.getAllEngineers();
+                    for (Engineer engineer : engineers) {
+                        System.out.println(engineer);
+                    }
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
                 }
                 break;
             case 2:
-                List<Driver> drivers= teamManagerController.getAllDrivers();
-                for(Driver driver : drivers){
-                    System.out.println(driver);
+                try {
+                    List<Driver> drivers = teamManagerController.getAllDrivers();
+                    for (Driver driver : drivers) {
+                        System.out.println(driver);
+                    }
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
                 }
                 break;
             case 3:
@@ -681,27 +762,38 @@ public class Console {
                 System.out.println("2. Chassis");
                 System.out.println("3. Engine");
                 choice2 = validateChoice(System.console().readLine(), 3);
-                switch (choice2){
+                switch (choice2) {
                     case 1:
-                        List<Engineer> specialtyEngineersAerodynamics = teamManagerController.getEngineersBySpecialty("Aerodynamics");
-                        for(Engineer engineer : specialtyEngineersAerodynamics){
-                            System.out.println(engineer);
+                        try {
+                            List<Engineer> specialtyEngineersAerodynamics = teamManagerController.getEngineersBySpecialty("Aerodynamics");
+                            for (Engineer engineer : specialtyEngineersAerodynamics) {
+                                System.out.println(engineer);
+                            }
+                        } catch (DatabaseException e) {
+                            System.out.println(e.getMessage());
                         }
                         break;
                     case 2:
-                        List<Engineer> specialtyEngineersChassis = teamManagerController.getEngineersBySpecialty("Chassis");
-                        for(Engineer engineer : specialtyEngineersChassis){
-                            System.out.println(engineer);
+                        try {
+                            List<Engineer> specialtyEngineersChassis = teamManagerController.getEngineersBySpecialty("Chassis");
+                            for (Engineer engineer : specialtyEngineersChassis) {
+                                System.out.println(engineer);
+                            }
+                        } catch (DatabaseException e) {
+                            System.out.println(e.getMessage());
                         }
                         break;
                     case 3:
-                        List<Engineer> specialtyEngineersEngine= teamManagerController.getEngineersBySpecialty("Engine");
-                        for(Engineer engineer : specialtyEngineersEngine){
-                            System.out.println(engineer);
+                        try {
+                            List<Engineer> specialtyEngineersEngine = teamManagerController.getEngineersBySpecialty("Engine");
+                            for (Engineer engineer : specialtyEngineersEngine) {
+                                System.out.println(engineer);
+                            }
+                        } catch (DatabaseException e) {
+                            System.out.println(e.getMessage());
                         }
                         break;
                 }
-
                 break;
         }
     }
@@ -802,11 +894,19 @@ public class Console {
         switch (choice){
             case 1:
                 id = chooseId();
-                teamManagerController.removeDriver(id, currentUserTeamId);
+                try {
+                    teamManagerController.removeDriver(id, currentUserTeamId);
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
             case 2:
                 id = chooseId();
-                teamManagerController.removeEngineer(id, currentUserTeamId);
+                try {
+                    teamManagerController.removeEngineer(id, currentUserTeamId);
+                }catch(DatabaseException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
             default:
                 break;
