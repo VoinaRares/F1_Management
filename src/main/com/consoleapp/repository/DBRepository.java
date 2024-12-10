@@ -1,6 +1,7 @@
 package main.com.consoleapp.repository;
 
 import main.com.consoleapp.model.Entity;
+import main.com.consoleapp.model.Exceptions.DatabaseException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +15,7 @@ public class DBRepository<T extends Entity> implements IRepository<T>, AutoClose
         try {
             connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
     public void close() throws Exception {

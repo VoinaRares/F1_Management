@@ -2,6 +2,7 @@ package main.com.consoleapp.repository;
 
 
 import main.com.consoleapp.model.Date;
+import main.com.consoleapp.model.Exceptions.DatabaseException;
 import main.com.consoleapp.model.Location;
 import main.com.consoleapp.model.Race;
 import main.com.consoleapp.model.TeamSponsor;
@@ -34,7 +35,7 @@ public class RaceDBRepository extends DBRepository<Race>{
             statement.setInt(2, race.getLocation().getId());
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -50,7 +51,7 @@ public class RaceDBRepository extends DBRepository<Race>{
                 return null;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -63,7 +64,7 @@ public class RaceDBRepository extends DBRepository<Race>{
             statement.setInt(2, race.getId());
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -76,7 +77,7 @@ public class RaceDBRepository extends DBRepository<Race>{
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -92,7 +93,7 @@ public class RaceDBRepository extends DBRepository<Race>{
 
             return races;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 

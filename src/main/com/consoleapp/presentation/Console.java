@@ -3,6 +3,7 @@ import main.com.consoleapp.controller.LogInController;
 import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.controller.F1AdminController;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.model.Exceptions.EntityNotFoundException;
 import main.com.consoleapp.model.Exceptions.ValidationException;
 
 import java.util.List;
@@ -240,12 +241,19 @@ public class Console {
                 List<TeamSponsorRace> teamSponsorRaces= f1AdminController.showSponsorMoneyPerRace();
 
                 for(TeamSponsorRace teamSponsorRace: teamSponsorRaces){
-                    int teamId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId()).getTeamId();
-                    int sponsorId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId()).getSponsorId();
-                    System.out.print(f1AdminController.getRaceById(teamSponsorRace.getRaceId()).getLocation().getCountry() + " ");
-                    System.out.print(f1AdminController.getTeamById(teamId).getTeamName() + " ");
-                    System.out.print(f1AdminController.getSponsorById(sponsorId).getSponsorName() + " ");
-                    System.out.println("Budget: " + teamSponsorRace.getInvestment());
+                    try{
+                        int teamId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId())
+                                .getTeamId();
+                        int sponsorId = f1AdminController.getTeamSponsorById(teamSponsorRace.getTeamSponsorId())
+                                .getSponsorId();
+                        System.out.print(f1AdminController.getRaceById(teamSponsorRace.getRaceId()).getLocation()
+                                .getCountry() + " ");
+                        System.out.print(f1AdminController.getTeamById(teamId).getTeamName() + " ");
+                        System.out.print(f1AdminController.getSponsorById(sponsorId).getSponsorName() + " ");
+                        System.out.println("Budget: " + teamSponsorRace.getInvestment());
+                    }catch(EntityNotFoundException e){
+                        System.out.println(e.getMessage());
+                    }
                 }
 
                 break;

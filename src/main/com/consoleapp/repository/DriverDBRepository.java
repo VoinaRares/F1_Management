@@ -1,6 +1,7 @@
 package main.com.consoleapp.repository;
 
 import main.com.consoleapp.model.Driver;
+import main.com.consoleapp.model.Exceptions.DatabaseException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +32,7 @@ public class DriverDBRepository extends DBRepository<Driver> {
 
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -48,7 +49,7 @@ public class DriverDBRepository extends DBRepository<Driver> {
                 return null;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -69,7 +70,7 @@ public class DriverDBRepository extends DBRepository<Driver> {
             statement.setInt(9, obj.getId());
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -80,7 +81,7 @@ public class DriverDBRepository extends DBRepository<Driver> {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -95,7 +96,7 @@ public class DriverDBRepository extends DBRepository<Driver> {
             }
             return drivers;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 

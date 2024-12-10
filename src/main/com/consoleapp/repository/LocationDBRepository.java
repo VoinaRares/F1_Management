@@ -1,5 +1,6 @@
 package main.com.consoleapp.repository;
 
+import main.com.consoleapp.model.Exceptions.DatabaseException;
 import main.com.consoleapp.model.Location;
 
 import java.sql.PreparedStatement;
@@ -25,7 +26,7 @@ public class LocationDBRepository extends DBRepository<Location> {
             statement.setInt(5, location.getCoordinateY());
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -41,7 +42,7 @@ public class LocationDBRepository extends DBRepository<Location> {
                 return null;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -56,7 +57,7 @@ public class LocationDBRepository extends DBRepository<Location> {
             statement.setInt(5, location.getId());
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -67,7 +68,7 @@ public class LocationDBRepository extends DBRepository<Location> {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -82,7 +83,7 @@ public class LocationDBRepository extends DBRepository<Location> {
             }
             return locations;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 

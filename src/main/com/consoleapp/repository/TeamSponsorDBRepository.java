@@ -1,5 +1,6 @@
 package main.com.consoleapp.repository;
 
+import main.com.consoleapp.model.Exceptions.DatabaseException;
 import main.com.consoleapp.model.TeamSponsor;
 
 import java.sql.PreparedStatement;
@@ -24,7 +25,7 @@ public class TeamSponsorDBRepository extends DBRepository<TeamSponsor> {
             statement.setDouble(4, obj.getInvestmentAmount());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -41,7 +42,7 @@ public class TeamSponsorDBRepository extends DBRepository<TeamSponsor> {
                 return null;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -56,7 +57,7 @@ public class TeamSponsorDBRepository extends DBRepository<TeamSponsor> {
 
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -68,7 +69,7 @@ public class TeamSponsorDBRepository extends DBRepository<TeamSponsor> {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -86,7 +87,7 @@ public class TeamSponsorDBRepository extends DBRepository<TeamSponsor> {
 
             return teamSponsors;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 

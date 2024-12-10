@@ -1,5 +1,6 @@
 package main.com.consoleapp.repository;
 
+import main.com.consoleapp.model.Exceptions.DatabaseException;
 import main.com.consoleapp.model.Sponsor;
 
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ public class SponsorDBRepository extends DBRepository<Sponsor> {
              statement.setString(4, sponsor.getCountry());
              statement.execute();
          } catch (SQLException e) {
-             throw new RuntimeException(e);
+             throw new DatabaseException("Database error");
          }
     }
 
@@ -39,7 +40,7 @@ public class SponsorDBRepository extends DBRepository<Sponsor> {
                 return null;
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -53,7 +54,7 @@ public class SponsorDBRepository extends DBRepository<Sponsor> {
             statement.setInt(4, sponsor.getId());
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -64,7 +65,7 @@ public class SponsorDBRepository extends DBRepository<Sponsor> {
             statement.setInt(1, id);
             statement.execute();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
@@ -79,7 +80,7 @@ public class SponsorDBRepository extends DBRepository<Sponsor> {
             }
             return sponsors;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException("Database error");
         }
     }
 
