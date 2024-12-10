@@ -15,7 +15,7 @@ public class F1AdminDBRepository extends DBRepository<F1Admin> {
 
     @Override
     public void create(F1Admin obj) {
-        String sql = "INSERT INTO f1admin (id, name, age, experience, salary, username, password)" +
+        String sql = "INSERT INTO f1admins (id, name, age, experience, salary, username, password)" +
                 " VALUES (?,?,?,?,?,?,?)";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, obj.getId());
@@ -34,7 +34,7 @@ public class F1AdminDBRepository extends DBRepository<F1Admin> {
 
     @Override
     public F1Admin read(int id) {
-        String sql = "SELECT * FROM f1admin WHERE id = ?";
+        String sql = "SELECT * FROM f1admins WHERE id = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
