@@ -129,12 +129,10 @@ public class TeamManagerService {
      * @return A List of all Entities in the Repository
      */
     public List<Person> getAllPersons(){
-        List<Person> persons = new ArrayList<>();
+        ArrayList<Person> persons = new ArrayList<>();
         persons.addAll(driverRepository.getAll());
         persons.addAll(engineerRepository.getAll());
         persons.addAll(teamManagerRepository.getAll());
-        persons.addAll(f1AdminRepository.getAll());
-
         return persons;
     }
 
@@ -161,7 +159,6 @@ public class TeamManagerService {
         persons.addAll(driverRepository.getAll());
         persons.addAll(engineerRepository.getAll());
         persons.addAll(teamManagerRepository.getAll());
-        persons.addAll(f1AdminRepository.getAll());
         persons.sort((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()));
         return persons;
     }
