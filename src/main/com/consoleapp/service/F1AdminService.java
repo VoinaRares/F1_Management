@@ -82,7 +82,7 @@ public class F1AdminService {
     {
         //List<Race>races=repository.getAll();
         ArrayList<Race> races = new ArrayList<>(raceRepository.getAll());
-        if(races.isEmpty())
+        if(races.isEmpty() || races.size()==1)
             return races;
         int numberOfRaces=races.size();
         List<Race> calendar=new ArrayList<>();
