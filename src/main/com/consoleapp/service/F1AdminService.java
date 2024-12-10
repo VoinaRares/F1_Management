@@ -384,6 +384,12 @@ public class F1AdminService {
     public List<TeamManager> showTeamManagers() {
         return teamManagerRepository.getAll();
     }
+
+    public boolean deleteTeamManager(int id) {
+        teamManagerRepository.delete(id);
+
+        return true;
+    }
 }
 
 

@@ -149,4 +149,8 @@ public class F1AdminController {
     public List<TeamManager> showTeamManagers() {
         return f1AdminService.showTeamManagers();
     }
+
+    public boolean deleteTeamManager(int id) {
+        return f1AdminService.deleteTeamManager(id);
+    }
 }

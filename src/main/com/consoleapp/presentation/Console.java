@@ -337,14 +337,28 @@ public class Console {
                 System.out.println("Enter password: ");
                 password=System.console().readLine();
                 f1AdminController.addTeamManager(name,age,experience,salary,teamId,username,password);
+                break;
             case 10:
                 List<TeamManager> teamManagers=f1AdminController.showTeamManagers();
                 for (TeamManager teamManager: teamManagers){
                     System.out.println(teamManager);
                 }
+                break;
             case 11:
                 int id;
-
+                System.out.println("Enter id: ");
+                while (true){
+                    try{
+                        id=validateInt(System.console().readLine());
+                        break;
+                    }
+                    catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                if(f1AdminController.deleteTeamManager(id))
+                    System.out.println("Entry deleted successfully");
+                break;
             case 12:
                 isLoggedIn = false;
                 isF1Admin = false;
