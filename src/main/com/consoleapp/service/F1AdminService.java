@@ -423,13 +423,14 @@ public class F1AdminService {
     }
 
     public boolean deleteSponsor(int sponsorId) {
-        raceRepository.delete(sponsorId);
+
         ArrayList<TeamSponsor> teamSponsors= (ArrayList<TeamSponsor>) teamSponsorRepository.getAll();
         for(TeamSponsor teamSponsor:teamSponsors)
         {
             if(teamSponsor.getSponsorId()==sponsorId)
                 teamSponsorRepository.delete(teamSponsor.getId());
         }
+        sponsorRepository.delete(sponsorId);
         return true;
     }
 

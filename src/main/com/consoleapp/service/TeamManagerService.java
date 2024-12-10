@@ -211,4 +211,20 @@ public class TeamManagerService {
     }
 
 
+    public List<Sponsor> showTeamSponsors(int teamId) {
+
+        List<Sponsor> sponsorForTeam=new ArrayList<>();
+        List<TeamSponsor> teamSponsors=teamSponsorRepository.getAll();
+        List<Integer> ids=new ArrayList<>();
+        for(TeamSponsor teamSponsor:teamSponsors){
+            if(teamSponsor.getTeamId() == teamId){
+                ids.add(teamSponsor.getSponsorId());
+            }
+        }
+
+        for(Integer id:ids){
+            sponsorForTeam.add(sponsorRepo.read(id));
+        }
+        return sponsorForTeam;
+    }
 }

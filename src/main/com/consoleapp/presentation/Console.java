@@ -7,6 +7,8 @@ import main.com.consoleapp.model.Exceptions.DatabaseException;
 import main.com.consoleapp.model.Exceptions.EntityNotFoundException;
 import main.com.consoleapp.repository.InFileRepository;
 import main.com.consoleapp.model.Exceptions.ValidationException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Console {
@@ -664,10 +666,12 @@ public class Console {
         System.out.println("5. Show all Members");
         System.out.println("6. Sorting Operations");
         System.out.println("7. Filter Operations");
-        System.out.println("8. Exit");
+        System.out.println("8. Show all Sponsors for this Team");
+        System.out.println("9. Show all Sponsors");
+        System.out.println("10. Exit");
         while(true){
             try{
-                choice = validateChoice(System.console().readLine(), 8);
+                choice = validateChoice(System.console().readLine(), 9);
                 break;
             }catch (ValidationException e){
                 System.out.println(e.getMessage());
@@ -714,6 +718,22 @@ public class Console {
                 break;
             case 7:
                 showTeamManagerFilterOptions();
+                break;
+
+            case 8:
+                List<Sponsor> sponsorsForTeam = teamManagerController.showTeamSponsors(currentUserTeamId);
+                for(Sponsor sponsor:sponsorsForTeam)
+                {
+                    System.out.println(sponsor);
+                }
+                break;
+
+            case 9:
+                List<Sponsor> sponsors = teamManagerController.showSponsors();
+                for(Sponsor sponsor:sponsors)
+                {
+                    System.out.println(sponsor);
+                }
                 break;
             default:
                 isTeamManager=false;
