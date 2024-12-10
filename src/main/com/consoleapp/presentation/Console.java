@@ -352,7 +352,14 @@ public class Console {
             System.out.println("name: ");
             name=System.console().readLine();
             System.out.println("salary: ");
-            salary=validateFloat(System.console().readLine());
+            while(true){
+                try{
+                    salary=validateFloat(System.console().readLine());
+                    break;
+                }catch (ValidationException e){
+                    System.out.println(e.getMessage());
+                }
+            }
             System.out.println("userName: ");
             userName=System.console().readLine();
             System.out.println("password: ");
@@ -388,7 +395,14 @@ public class Console {
         System.out.println("6. Sorting Operations");
         System.out.println("7. Filter Operations");
         System.out.println("8. Exit");
-        choice = validateChoice(System.console().readLine(), 8);
+        while(true){
+            try{
+                choice = validateChoice(System.console().readLine(), 8);
+                break;
+            }catch (ValidationException e){
+                System.out.println(e.getMessage());
+            }
+        }
         switch (choice) {
             case 1:
                 chooseUserType();
@@ -549,14 +563,30 @@ public class Console {
     }
 
     private float validateFloat(String number) {
-        return Float.parseFloat(number);
+        float res;
+        try{
+            res = Float.parseFloat(number);
+            if(res < 0){
+                throw new ValidationException("Enter a valid number");
+            }
+            return res;
+        }catch (NumberFormatException e){
+            throw new ValidationException("Enter a valid number");
+        }
+    }
+
+    private String validateString(String str) {
+        if(str.isBlank() || str.isEmpty()){
+            throw new ValidationException("Enter a valid string");
+        }
+        return str;
     }
 
     private void removePerson(){
         int choice;
         System.out.println("1. Driver");
         System.out.println("2. Engineer");
-        System.out.println("Pick your choice: ");
+        System.out.println("Choose: ");
         choice=validateInt(System.console().readLine());
         int id;
         switch (choice){
