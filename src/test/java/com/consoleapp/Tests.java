@@ -1,9 +1,14 @@
-package com.consoleapp;
+package test.java.com.consoleapp;
 
 import main.com.consoleapp.model.Exceptions.DatabaseException;
 import main.com.consoleapp.repository.*;
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.service.F1AdminService;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Tests {
@@ -155,5 +160,52 @@ public class Tests {
         assertEquals(222, teamDBRepository.read(15).getBudget());
         teamDBRepository.delete(15);
         assertNull(teamDBRepository.read(15));
+    }
+
+    @Test
+    public void Test1Calendar()
+    {
+        //assertThrows()
+
+        RaceDBRepository raceDBRepository = new RaceDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+
+        LocationDBRepository locationDBRepository = new LocationDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+
+        F1AdminService f1AdminService = new F1AdminService();
+
+
+        Race race1 = new Race(1005, new Location(1005, "Italy", "Europe", 500, 400));
+        Race race2 = new Race(1006, new Location(1006, "France", "Europe", 400, 500));
+        Race race3 = new Race(1007, new Location(1007, "UAE", "Asia", 1000, 100));
+        Race race4 = new Race(1008, new Location(1008, "Japan", "Asia", 3000, 500));
+        Race race5 = new Race(1009, new Location(1009, "Portugal", "Europe", 200, 200));
+        raceDBRepository.create(race1);
+        raceDBRepository.create(race2);
+        raceDBRepository.create(race3);
+        raceDBRepository.create(race4);
+        raceDBRepository.create(race5);
+        List<Race> calendar= new ArrayList<>();
+        calendar= f1AdminService.generateCalendar("Italy","Japan", 15, 5, 2024);
+        assertEquals("Italy",calendar.getFirst().getLocation().getCountry());
+        assertEquals(15,calendar.getFirst().getDate().getDay());
+        assertEquals(5,calendar.getFirst().getDate().getMonth());
+        assertEquals(2024,calendar.getFirst().getDate().getYear());
+        assertEquals("Portugal",calendar.get(2).getLocation().getCountry());
+        assertEquals(29,calendar.get(2).getDate().getDay());
+        assertEquals(5,calendar.get(2).getDate().getMonth());
+        assertEquals(2024,calendar.get(2).getDate().getYear());
+        assertEquals("Japan",calendar.getLast().getLocation().getCountry());
+        assertEquals(20,calendar.getLast().getDate().getDay());
+        assertEquals(6,calendar.getLast().getDate().getMonth());
+        assertEquals(2024,calendar.getLast().getDate().getYear());
+    }
+
+    public void Test2Calendar()
+    {
+        RaceDBRepository raceDBRepository = new RaceDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+        F1AdminService f1AdminService = new F1AdminService();
     }
 }
