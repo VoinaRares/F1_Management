@@ -1,6 +1,7 @@
 package main.com.consoleapp.controller;
 
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.model.Exceptions.BusinessLogicException;
 import main.com.consoleapp.service.TeamManagerService;
 
 import java.util.ArrayList;
@@ -43,6 +44,9 @@ public class TeamManagerController {
      */
     public boolean addDriver(int id, int age, int experience, String name, float salary,
                              int driverNumber, int teamId, String userName, String password){
+        if(age < 18){
+            throw new BusinessLogicException("Driver does not meet the required age");
+        }
         teamManagerService.addDriver(id, age, experience, name, salary, driverNumber, teamId, userName, password);
         return true;
     }

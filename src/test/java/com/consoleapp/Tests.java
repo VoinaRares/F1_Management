@@ -1,5 +1,6 @@
 package com.consoleapp;
 
+import main.com.consoleapp.controller.TeamManagerController;
 import main.com.consoleapp.model.Exceptions.BusinessLogicException;
 import main.com.consoleapp.model.Exceptions.DatabaseException;
 import main.com.consoleapp.repository.*;
@@ -267,4 +268,16 @@ public class Tests {
         locationDBRepository.delete(1009);
 
     }
+
+    @Test
+    public void DriverBusinessLogic(){
+        Driver d1 = new Driver(89, "Test", 16, 0, 12341, 10,
+                1, "213", "y");
+        TeamManagerController teamManagerController = new TeamManagerController();
+        assertThrows(BusinessLogicException.class, () -> {teamManagerController.addDriver(89,
+                16, 0, "Test", 12341, 10,
+                1, "213", "y");});
+
+    }
+
 }

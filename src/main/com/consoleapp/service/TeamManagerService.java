@@ -1,6 +1,7 @@
 package main.com.consoleapp.service;
 
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.model.Exceptions.BusinessLogicException;
 import main.com.consoleapp.model.Exceptions.EntityNotFoundException;
 import main.com.consoleapp.repository.*;
 
