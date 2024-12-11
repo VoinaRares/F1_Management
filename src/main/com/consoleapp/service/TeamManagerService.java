@@ -1,6 +1,7 @@
 package main.com.consoleapp.service;
 
 import main.com.consoleapp.model.*;
+import main.com.consoleapp.model.Exceptions.EntityNotFoundException;
 import main.com.consoleapp.repository.*;
 
 import java.util.ArrayList;
@@ -193,27 +194,44 @@ public class TeamManagerService {
         return specialtyEngineers;
     }
 
+    /**
+     * Removes Drivers by a given id
+     * @param id of the removed Driver
+     * @param teamId of the currently logged-in user. Is used to verify that a team Manager
+     *               cannot remove a Driver from a different team
+     */
     public void removeDriver(int id, int teamId){
         if(driverRepository.read(id).getTeamId() == teamId){
             driverRepository.delete(id);
         }
         else{
-            throw new IllegalArgumentException("Driver does not exist or is not part of your team");
+            throw new EntityNotFoundException("Driver does not exist or is not part of your team");
         }
 
     }
 
+    /**
+     * Removes Engineer by a given id
+     * @param id of the removed Engineer
+     * @param teamId of the currently logged-in user. Is used to verify that a team Manager
+     *               cannot remove a Driver from a different team
+     */
     public void removeEngineer(int id, int teamId){
         if(engineerRepository.read(id).getTeamId() == teamId){
             engineerRepository.delete(id);
         }
         else{
-            throw new IllegalArgumentException("Engineer does not exist or is not part of your team");
+            throw new EntityNotFoundException("Engineer does not exist or is not part of your team");
         }
 
     }
 
 
+    /**
+     * Shows all Sponsors for one team
+     * @param teamId of the Team of the currently logged-in user
+     * @return List of Sponsors that support the team
+     */
     public List<Sponsor> showTeamSponsors(int teamId) {
 
         List<Sponsor> sponsorForTeam=new ArrayList<>();
