@@ -1,5 +1,6 @@
-package test.java.com.consoleapp;
+package com.consoleapp;
 
+import main.com.consoleapp.model.Exceptions.BusinessLogicException;
 import main.com.consoleapp.model.Exceptions.DatabaseException;
 import main.com.consoleapp.repository.*;
 import main.com.consoleapp.model.*;
@@ -175,12 +176,21 @@ public class Tests {
 
         F1AdminService f1AdminService = new F1AdminService();
 
+        List<Race> races = raceDBRepository.getAll();
+        List<Location> locations = locationDBRepository.getAll();
 
-        Race race1 = new Race(1005, new Location(1005, "Italy", "Europe", 500, 400));
-        Race race2 = new Race(1006, new Location(1006, "France", "Europe", 400, 500));
-        Race race3 = new Race(1007, new Location(1007, "UAE", "Asia", 1000, 100));
-        Race race4 = new Race(1008, new Location(1008, "Japan", "Asia", 3000, 500));
-        Race race5 = new Race(1009, new Location(1009, "Portugal", "Europe", 200, 200));
+        for(Race race: races){
+            raceDBRepository.delete(race.getId());
+        }
+        for(Location location: locations){
+            locationDBRepository.delete(location.getId());
+        }
+
+        Race race1 = new Race(105, new Location(105, "Italy", "Europe", 500, 400));
+        Race race2 = new Race(106, new Location(106, "France", "Europe", 400, 500));
+        Race race3 = new Race(107, new Location(107, "UAE", "Asia", 1000, 100));
+        Race race4 = new Race(108, new Location(108, "Japan", "Asia", 3000, 500));
+        Race race5 = new Race(109, new Location(109, "Portugal", "Europe", 200, 200));
         raceDBRepository.create(race1);
         raceDBRepository.create(race2);
         raceDBRepository.create(race3);
@@ -200,12 +210,61 @@ public class Tests {
         assertEquals(20,calendar.getLast().getDate().getDay());
         assertEquals(6,calendar.getLast().getDate().getMonth());
         assertEquals(2024,calendar.getLast().getDate().getYear());
+
+        raceDBRepository.delete(105);
+        raceDBRepository.delete(106);
+        raceDBRepository.delete(107);
+        raceDBRepository.delete(108);
+        raceDBRepository.delete(109);
+
+        locationDBRepository.delete(105);
+        locationDBRepository.delete(106);
+        locationDBRepository.delete(107);
+        locationDBRepository.delete(108);
+        locationDBRepository.delete(109);
+
+        for(Race race: races){
+            raceDBRepository.create(race);
+        }
     }
 
+    @Test
     public void Test2Calendar()
     {
         RaceDBRepository raceDBRepository = new RaceDBRepository("jdbc:mysql://localhost:3306/f1management",
                 "root", "parola123");
+        LocationDBRepository locationDBRepository = new LocationDBRepository("jdbc:mysql://localhost:3306/f1management",
+                "root", "parola123");
+
         F1AdminService f1AdminService = new F1AdminService();
+
+        Race race1 = new Race(1005, new Location(1005, "Italy", "Europe", 500, 400));
+        Race race2 = new Race(1006, new Location(1006, "France", "Europe", 400, 500));
+        Race race3 = new Race(1007, new Location(1007, "UAE", "Asia", 1000, 100));
+        Race race4 = new Race(1008, new Location(1008, "Japan", "Asia", 3000, 500));
+        Race race5 = new Race(1009, new Location(1009, "Portugal", "Europe", 200, 200));
+        raceDBRepository.create(race1);
+        raceDBRepository.create(race2);
+        raceDBRepository.create(race3);
+        raceDBRepository.create(race4);
+        raceDBRepository.create(race5);
+
+        assertThrows(BusinessLogicException.class, () -> {f1AdminService.generateCalendar(
+                "Romania","Japan", 15, 5, 2024);});
+        assertThrows(BusinessLogicException.class, () -> {f1AdminService.generateCalendar(
+                "Italy", "Italy", 15, 5, 2024);});
+
+        raceDBRepository.delete(1005);
+        raceDBRepository.delete(1006);
+        raceDBRepository.delete(1007);
+        raceDBRepository.delete(1008);
+        raceDBRepository.delete(1009);
+
+        locationDBRepository.delete(1005);
+        locationDBRepository.delete(1006);
+        locationDBRepository.delete(1007);
+        locationDBRepository.delete(1008);
+        locationDBRepository.delete(1009);
+
     }
 }
