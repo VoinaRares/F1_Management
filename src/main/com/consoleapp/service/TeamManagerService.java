@@ -36,7 +36,6 @@ public class TeamManagerService {
             this.engineerRepository = InMemoryRepository.getInstance(Engineer.class);
             this.f1AdminRepository = InMemoryRepository.getInstance(F1Admin.class);
             this.teamManagerRepository = InMemoryRepository.getInstance(TeamManager.class);
-
         }
         if(repositoryChoice == 2) {
             this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
@@ -280,5 +279,21 @@ public class TeamManagerService {
             }
         }
         return newTeamSponsors;
+    }
+
+    public boolean usernameISUnique(String username) {
+        List<Person> personList = new ArrayList<>();
+        personList.addAll(driverRepository.getAll());
+        personList.addAll(engineerRepository.getAll());
+        personList.addAll(teamManagerRepository.getAll());
+        personList.addAll(f1AdminRepository.getAll());
+
+        for(Person person:personList){
+            if(person.getUsername().equals(username)){
+                return false;
+            }
+        }
+
+        return true;
     }
 }

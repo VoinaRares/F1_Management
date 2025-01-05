@@ -450,9 +450,13 @@ public class Console {
                     }
                 }
                 System.out.println("Enter username: ");
-                while (true) {
+
+                while(true){
                     try {
                         username = validateString(System.console().readLine());
+                        if(!f1AdminController.usernameIsUnique(username)){
+                            throw new ValidationException("Username is already taken");
+                        }
                         break;
                     } catch (ValidationException e) {
                         System.out.println(e.getMessage());
@@ -648,6 +652,9 @@ public class Console {
             while(true){
                 try{
                     userName=validateString(System.console().readLine());
+                    if(!teamManagerController.usernameIsUnique(userName)){
+                        throw new ValidationException("Username is already taken");
+                    }
                     break;
                 }catch (ValidationException e){
                     System.out.println(e.getMessage());

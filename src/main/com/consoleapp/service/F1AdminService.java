@@ -25,6 +25,7 @@ public class F1AdminService {
     private  IRepository<TeamManager> teamManagerRepository;
     private  IRepository<Driver> driverRepository;
     private  IRepository<Engineer> engineerRepository;
+    private IRepository<F1Admin> f1AdminRepository;
 
 
     public F1AdminService(int repositoryChoice) {
@@ -36,12 +37,14 @@ public class F1AdminService {
             this.teamRepository = InMemoryRepository.getInstance(Team.class);
             this.sponsorRepository = InMemoryRepository.getInstance(Sponsor.class);
             this.teamSponsorRepository = InMemoryRepository.getInstance(TeamSponsor.class);
+            this.f1AdminRepository = InMemoryRepository.getInstance(F1Admin.class);
         }
         if(repositoryChoice == 2) {
             this.raceRepository = InFileRepository.getInstance(Race.class, "raceRepo.txt");
             this.teamRepository = InFileRepository.getInstance(Team.class, "teamRepo.txt");
             this.sponsorRepository = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
             this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+            this.f1AdminRepository = InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
         }
         if(repositoryChoice == 3) {
             this.raceRepository = new RaceDBRepository("jdbc:mysql://localhost:3306/f1management",
@@ -60,6 +63,8 @@ public class F1AdminService {
                     "root", "parola123");
 
             this.engineerRepository = new EngineerDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.f1AdminRepository = new F1AdminDBRepository("jdbc:mysql://localhost:3306/f1management",
                     "root", "parola123");
         }
 
@@ -517,6 +522,22 @@ public class F1AdminService {
             if(teamManager.getTeamId()==teamId)
                 teamManagerRepository.delete(teamManager.getId());
         }
+        return true;
+    }
+
+    public boolean usernameISUnique(String username) {
+        List<Person> personList = new ArrayList<>();
+        personList.addAll(driverRepository.getAll());
+        personList.addAll(engineerRepository.getAll());
+        personList.addAll(teamManagerRepository.getAll());
+        personList.addAll(f1AdminRepository.getAll());
+
+        for(Person person:personList){
+            if(person.getUsername().equals(username)){
+                return false;
+            }
+        }
+
         return true;
     }
 }

@@ -144,4 +144,8 @@ public class TeamManagerController {
     public List<TeamSponsor> showTeamSponsorsId(int teamId) {
         return teamManagerService.showTeamSponsorsId(teamId);
     }
+
+    public boolean usernameIsUnique(String username) {
+        return teamManagerService.usernameISUnique(username);
+    }
 }

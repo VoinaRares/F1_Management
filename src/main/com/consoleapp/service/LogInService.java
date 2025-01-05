@@ -14,10 +14,6 @@ public class LogInService {
 
     public LogInService(int repositoryChoice)
     {
-
-
-
-
         if(repositoryChoice == 1)
         {
             this.repositoryTeamManager = InMemoryRepository.getInstance(TeamManager.class);
@@ -35,9 +31,6 @@ public class LogInService {
             this.repositoryF1Admin = new F1AdminDBRepository("jdbc:mysql://localhost:3306/f1management",
                     "root", "parola123");
         }
-
-
-
 //        repository.create(teamManager);
 //        repository.create(driver);
 //        repository.create(engineer);

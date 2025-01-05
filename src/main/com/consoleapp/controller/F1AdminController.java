@@ -168,4 +168,8 @@ public class F1AdminController {
     public boolean deleteTeam(int teamId) {
         return f1AdminService.deleteTeam(teamId);
     }
+
+    public boolean usernameIsUnique(String username) {
+        return f1AdminService.usernameISUnique(username);
+    }
 }
