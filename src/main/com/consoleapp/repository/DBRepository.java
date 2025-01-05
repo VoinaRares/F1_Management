@@ -46,4 +46,15 @@ public class DBRepository<T extends Entity> implements IRepository<T>, AutoClose
     public List<T> getAll() {
         return List.of();
     }
+
+    public int getNextId(){
+        int id = 0;
+        for( Entity entity : getAll()){
+            if(entity.getId() > id){
+                id = entity.getId();
+            }
+        }
+        return id + 1;
+
+    }
 }
