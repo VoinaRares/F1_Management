@@ -11,8 +11,8 @@ public class TeamManagerController {
 
     private TeamManagerService teamManagerService;
 
-    public TeamManagerController() {
-        teamManagerService = new TeamManagerService();
+    public TeamManagerController(int repositoryChoice) {
+        teamManagerService = new TeamManagerService(repositoryChoice);
     }
 
     /**

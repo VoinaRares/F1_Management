@@ -8,7 +8,10 @@ import java.util.Map;
 
 public class F1AdminController {
 
-    F1AdminService f1AdminService = new F1AdminService();
+    private F1AdminService f1AdminService;
+    public F1AdminController(int repositoryChoice) {
+        f1AdminService = new F1AdminService(repositoryChoice);
+    }
 
     /**
      * Performs validation of data and calls addRace from the Admin Service

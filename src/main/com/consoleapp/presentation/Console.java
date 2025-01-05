@@ -22,11 +22,11 @@ public class Console {
     private boolean isLoggedIn = false;
     private int currentUserTeamId;
 
-    public Console() {
+    public Console(int repositoryChoice) {
         try {
-            teamManagerController = new TeamManagerController();
-            logInController = new LogInController();
-            f1AdminController = new F1AdminController();
+            teamManagerController = new TeamManagerController(repositoryChoice);
+            logInController = new LogInController(repositoryChoice);
+            f1AdminController = new F1AdminController(repositoryChoice);
         }catch(DatabaseException e){
             System.out.println(e.getMessage());
             System.exit(1);
@@ -873,7 +873,7 @@ public class Console {
     */
     public void run()
     {
-//        InFileRepository<Person> repo=new InFileRepository<>("personRepo.txt");
+//        InFileRepository<Person> repo=new InFileRepository<>("teamManagerRepo.txt");
 //        TeamManager teamManager=new TeamManager(0,"Toto Wolff",50,10,2500, 0, "1","y");
 //        repo.create(teamManager);
         while(true)

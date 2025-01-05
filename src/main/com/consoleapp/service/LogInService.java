@@ -9,25 +9,34 @@ public class LogInService {
 
 
 
-    private final TeamManagerDBRepository repositoryTeamManager;
-    private final F1AdminDBRepository repositoryF1Admin;
+    private  IRepository<TeamManager> repositoryTeamManager;
+    private  IRepository<F1Admin> repositoryF1Admin;
 
-    public LogInService()
+    public LogInService(int repositoryChoice)
     {
-//        TeamManager teamManager=new TeamManager(0,"Toto Wolff",50,10,2500, 0, "1","y");
-//        Driver  driver= new Driver(1,"Charles Leclerc", 25, 6, 1200000, 16,2,"2","y" );
-//        Engineer engineer=new Engineer(2, "Adrian Newey", 65, 22, 122555, "Aerodynamics",
-//                5, 0, "3","y");
-//        F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"4","y");
 
 
-//        this.repositoryTeamManager = InFileRepository.getInstance(TeamManager.class, "teamManagerRepo.txt");
-//        this.repositoryF1Admin = InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
 
-        this.repositoryTeamManager = new TeamManagerDBRepository("jdbc:mysql://localhost:3306/f1management",
-                "root", "parola123");
-        this.repositoryF1Admin = new F1AdminDBRepository("jdbc:mysql://localhost:3306/f1management",
-                "root", "parola123");
+
+        if(repositoryChoice == 1)
+        {
+            this.repositoryTeamManager = InMemoryRepository.getInstance(TeamManager.class);
+            this.repositoryF1Admin = InMemoryRepository.getInstance(F1Admin.class);
+            populateInMemory();
+        }
+        if(repositoryChoice == 2)
+        {
+            this.repositoryTeamManager = InFileRepository.getInstance(TeamManager.class, "teamManagerRepo.txt");
+            this.repositoryF1Admin = InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
+        }
+        if(repositoryChoice == 3){
+            this.repositoryTeamManager = new TeamManagerDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.repositoryF1Admin = new F1AdminDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+        }
+
+
 
 //        repository.create(teamManager);
 //        repository.create(driver);
@@ -105,6 +114,14 @@ public class LogInService {
             }
         }
         return "false";
+    }
+
+    private void populateInMemory(){
+        TeamManager teamManager=new TeamManager(0,"Toto Wolff",50,10,2500, 0, "1","y");
+        F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"4","y");
+
+        repositoryF1Admin.create(adminho);
+        repositoryTeamManager.create(teamManager);
     }
 
 }

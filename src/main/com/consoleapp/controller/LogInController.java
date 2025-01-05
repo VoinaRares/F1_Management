@@ -3,7 +3,10 @@ import main.com.consoleapp.service.LogInService;
 
 public class LogInController {
 
-    LogInService logInService = new LogInService();
+    private LogInService logInService;
+    public LogInController(int repositoryChoice){
+        logInService = new LogInService(repositoryChoice);
+    }
 
     /**
      * Validates the data for Login
