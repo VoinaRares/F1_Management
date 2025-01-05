@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Tests {
 
+    private int repositoryChoice = 3;
+
     @Test
     public void CRUDDriver() {
         DriverDBRepository driverRepository = new DriverDBRepository("jdbc:mysql://localhost:3306/f1management",
@@ -175,7 +177,7 @@ public class Tests {
         LocationDBRepository locationDBRepository = new LocationDBRepository("jdbc:mysql://localhost:3306/f1management",
                 "root", "parola123");
 
-        F1AdminService f1AdminService = new F1AdminService();
+        F1AdminService f1AdminService = new F1AdminService(repositoryChoice);
 
         List<Race> races = raceDBRepository.getAll();
         List<Location> locations = locationDBRepository.getAll();
@@ -237,7 +239,7 @@ public class Tests {
         LocationDBRepository locationDBRepository = new LocationDBRepository("jdbc:mysql://localhost:3306/f1management",
                 "root", "parola123");
 
-        F1AdminService f1AdminService = new F1AdminService();
+        F1AdminService f1AdminService = new F1AdminService(repositoryChoice);
 
         Race race1 = new Race(1005, new Location(1005, "Italy", "Europe", 500, 400));
         Race race2 = new Race(1006, new Location(1006, "France", "Europe", 400, 500));
@@ -273,7 +275,7 @@ public class Tests {
     public void DriverBusinessLogic(){
         Driver d1 = new Driver(89, "Test", 16, 0, 12341, 10,
                 1, "213", "y");
-        TeamManagerController teamManagerController = new TeamManagerController();
+        TeamManagerController teamManagerController = new TeamManagerController(repositoryChoice);
         assertThrows(BusinessLogicException.class, () -> {teamManagerController.addDriver(89,
                 16, 0, "Test", 12341, 10,
                 1, "213", "y");});
