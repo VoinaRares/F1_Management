@@ -311,7 +311,7 @@ public class Console {
 
             case 4:
                 String addSponsorName,sponsorCountry;
-                int addInvestmentAmount;
+
                 System.out.println("Enter sponsor name: ");
                 while(true){
                     try {
@@ -321,15 +321,7 @@ public class Console {
                         System.out.println(e.getMessage());
                     }
                 }
-                System.out.println("Enter sponsor investment amount: ");
-                while(true){
-                    try{
-                        addInvestmentAmount=validateInt(System.console().readLine());
-                        break;
-                    }catch(ValidationException e){
-                        System.out.println(e.getMessage());
-                    }
-                }
+
                 System.out.println("Enter sponsor country: ");
                 while(true){
                     try {
@@ -340,7 +332,7 @@ public class Console {
                     }
                 }
                 try {
-                    f1AdminController.addSponsor(addSponsorName, addInvestmentAmount, sponsorCountry);
+                    f1AdminController.addSponsor(addSponsorName, sponsorCountry);
                 }catch(DatabaseException e){
                     System.out.println(e.getMessage());
                 }

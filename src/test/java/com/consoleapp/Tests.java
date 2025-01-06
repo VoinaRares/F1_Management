@@ -108,12 +108,12 @@ public class Tests {
     public void CRUDSponsor(){
         SponsorDBRepository sponsorDBRepository = new SponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
                 "root", "parola123");
-        Sponsor sponsor = new Sponsor(15, "Test", 123, "Test");
+        Sponsor sponsor = new Sponsor(15, "Test",  "Test");
         sponsorDBRepository.create(sponsor);
-        assertEquals(123, sponsorDBRepository.read(15).getInvestmentAmount());
+
         assertEquals("Test", sponsorDBRepository.read(15).getCountry());
         assertEquals("Test", sponsorDBRepository.read(15).getSponsorName());
-        sponsorDBRepository.update(new Sponsor(15, "Update", 123, "Test"));
+        sponsorDBRepository.update(new Sponsor(15, "Update", "Test"));
         assertEquals("Update", sponsorDBRepository.read(15).getSponsorName());
         sponsorDBRepository.delete(15);
         assertNull(sponsorDBRepository.read(15));

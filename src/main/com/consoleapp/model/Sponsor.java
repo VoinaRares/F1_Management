@@ -5,7 +5,7 @@ package main.com.consoleapp.model;
  */
 public class Sponsor extends Entity{
     private String sponsorName;
-    private int investmentAmount;
+
     private String country;
 
     public String getSponsorName() {
@@ -16,13 +16,7 @@ public class Sponsor extends Entity{
         this.sponsorName = sponsorName;
     }
 
-    public int getInvestmentAmount() {
-        return investmentAmount;
-    }
 
-    public void setInvestmentAmount(int investmentAmount) {
-        this.investmentAmount = investmentAmount;
-    }
 
     public String getCountry() {
         return country;
@@ -32,10 +26,10 @@ public class Sponsor extends Entity{
         this.country = country;
     }
 
-    public Sponsor(int id,String sponsorName, int investmentAmount, String country) {
+    public Sponsor(int id,String sponsorName, String country) {
         super(id);
         this.sponsorName = sponsorName;
-        this.investmentAmount = investmentAmount;
+
         this.country = country;
     }
 
