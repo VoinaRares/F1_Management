@@ -107,4 +107,15 @@ public class InMemoryRepository<T extends Entity> implements IRepository<T>{
     private int getFirstAvailableId() {
         return 1;
     }
+
+    public int getNextId(){
+        int id = 0;
+        for( Entity entity : getAll()){
+            if(entity.getId() > id){
+                id = entity.getId();
+            }
+        }
+        return id + 1;
+
+    }
 }

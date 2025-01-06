@@ -11,8 +11,8 @@ public class TeamManagerController {
 
     private TeamManagerService teamManagerService;
 
-    public TeamManagerController() {
-        teamManagerService = new TeamManagerService();
+    public TeamManagerController(int repositoryChoice) {
+        teamManagerService = new TeamManagerService(repositoryChoice);
     }
 
     /**
@@ -143,5 +143,9 @@ public class TeamManagerController {
 
     public List<TeamSponsor> showTeamSponsorsId(int teamId) {
         return teamManagerService.showTeamSponsorsId(teamId);
+    }
+
+    public boolean usernameIsUnique(String username) {
+        return teamManagerService.usernameISUnique(username);
     }
 }

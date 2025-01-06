@@ -15,39 +15,55 @@ import java.util.stream.Collectors;
 public class TeamManagerService {
 
 //    private final IRepository<Person> personRepository;
-    private final IRepository<Driver> driverRepository;
-    private final IRepository<Engineer> engineerRepository;
-    private final IRepository<F1Admin> f1AdminRepository;
-    private final IRepository<TeamSponsor> teamSponsorRepository;;
-    private final IRepository<TeamManager> teamManagerRepository;
+    private  IRepository<Driver> driverRepository;
+    private  IRepository<Engineer> engineerRepository;
+    private  IRepository<F1Admin> f1AdminRepository;
+    private  IRepository<TeamSponsor> teamSponsorRepository;;
+    private  IRepository<TeamManager> teamManagerRepository;
 
     //Might be used for data validation in the Controller
-    private final IRepository<Sponsor> sponsorRepo;
-    private final IRepository<Team> teamRepo;
+    private  IRepository<Sponsor> sponsorRepo;
+    private  IRepository<Team> teamRepo;
 
-    public TeamManagerService() {
+    public TeamManagerService(int repositoryChoice) {
 
-//       this.personRepository = InFileRepository.getInstance(Person.class, "personRepo.txt");
-//       this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
-//       this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
-//       this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
-//       this.driverRepository=InFileRepository.getInstance(Driver.class, "driverRepo.txt");
-//       this.engineerRepository=InFileRepository.getInstance(Engineer.class, "engineerRepo.txt");
 
-        this.sponsorRepo = new SponsorDBRepository("jdbc:mysql://localhost:3306/f1management", "root",
-                "parola123");
-        this.teamRepo = new TeamDBRepository("jdbc:mysql://localhost:3306/f1management", "root",
-                "parola123");
-        this.teamSponsorRepository = new TeamSponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
-                "root", "parola123");
-        this.driverRepository = new DriverDBRepository("jdbc:mysql://localhost:3306/f1management",
-                "root", "parola123");
-        this.engineerRepository = new EngineerDBRepository("jdbc:mysql://localhost:3306/f1management",
-                "root", "parola123");
-        this.f1AdminRepository = new F1AdminDBRepository("jdbc:mysql://localhost:3306/f1management",
-                "root", "parola123");
-        this.teamManagerRepository = new TeamManagerDBRepository("jdbc:mysql://localhost:3306/f1management",
-                "root", "parola123");
+        if(repositoryChoice == 1) {
+            this.sponsorRepo = InMemoryRepository.getInstance(Sponsor.class);
+            this.teamRepo = InMemoryRepository.getInstance(Team.class);
+            this.teamSponsorRepository = InMemoryRepository.getInstance(TeamSponsor.class);
+            this.driverRepository = InMemoryRepository.getInstance(Driver.class);
+            this.engineerRepository = InMemoryRepository.getInstance(Engineer.class);
+            this.f1AdminRepository = InMemoryRepository.getInstance(F1Admin.class);
+            this.teamManagerRepository = InMemoryRepository.getInstance(TeamManager.class);
+        }
+        if(repositoryChoice == 2) {
+            this.sponsorRepo = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
+            this.teamRepo = InFileRepository.getInstance(Team.class, "teamRepo.txt");
+            this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+            this.driverRepository=InFileRepository.getInstance(Driver.class, "driverRepo.txt");
+            this.engineerRepository=InFileRepository.getInstance(Engineer.class, "engineerRepo.txt");
+            this.f1AdminRepository=InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
+            this.teamManagerRepository=InFileRepository.getInstance(TeamManager.class, "teamManagerRepo.txt");
+        }
+        if(repositoryChoice == 3) {
+            this.sponsorRepo = new SponsorDBRepository("jdbc:mysql://localhost:3306/f1management", "root",
+                    "parola123");
+            this.teamRepo = new TeamDBRepository("jdbc:mysql://localhost:3306/f1management", "root",
+                    "parola123");
+            this.teamSponsorRepository = new TeamSponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.driverRepository = new DriverDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.engineerRepository = new EngineerDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.f1AdminRepository = new F1AdminDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.teamManagerRepository = new TeamManagerDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+        }
+
+
 
     }
 
@@ -263,5 +279,21 @@ public class TeamManagerService {
             }
         }
         return newTeamSponsors;
+    }
+
+    public boolean usernameISUnique(String username) {
+        List<Person> personList = new ArrayList<>();
+        personList.addAll(driverRepository.getAll());
+        personList.addAll(engineerRepository.getAll());
+        personList.addAll(teamManagerRepository.getAll());
+        personList.addAll(f1AdminRepository.getAll());
+
+        for(Person person:personList){
+            if(person.getUsername().equals(username)){
+                return false;
+            }
+        }
+
+        return true;
     }
 }

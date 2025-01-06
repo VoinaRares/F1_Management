@@ -122,4 +122,15 @@ public class InFileRepository<T extends Entity> implements IRepository<T> {
         }
         return (InFileRepository<T>) instances.get(type);
     }
+
+    public int getNextId(){
+        int id = 0;
+        for( Entity entity : getAll()){
+            if(entity.getId() > id){
+                id = entity.getId();
+            }
+        }
+        return id + 1;
+
+    }
 }

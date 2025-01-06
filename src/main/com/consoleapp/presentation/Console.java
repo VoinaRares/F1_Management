@@ -22,11 +22,11 @@ public class Console {
     private boolean isLoggedIn = false;
     private int currentUserTeamId;
 
-    public Console() {
+    public Console(int repositoryChoice) {
         try {
-            teamManagerController = new TeamManagerController();
-            logInController = new LogInController();
-            f1AdminController = new F1AdminController();
+            teamManagerController = new TeamManagerController(repositoryChoice);
+            logInController = new LogInController(repositoryChoice);
+            f1AdminController = new F1AdminController(repositoryChoice);
         }catch(DatabaseException e){
             System.out.println(e.getMessage());
             System.exit(1);
@@ -450,9 +450,13 @@ public class Console {
                     }
                 }
                 System.out.println("Enter username: ");
-                while (true) {
+
+                while(true){
                     try {
                         username = validateString(System.console().readLine());
+                        if(!f1AdminController.usernameIsUnique(username)){
+                            throw new ValidationException("Username is already taken");
+                        }
                         break;
                     } catch (ValidationException e) {
                         System.out.println(e.getMessage());
@@ -648,6 +652,9 @@ public class Console {
             while(true){
                 try{
                     userName=validateString(System.console().readLine());
+                    if(!teamManagerController.usernameIsUnique(userName)){
+                        throw new ValidationException("Username is already taken");
+                    }
                     break;
                 }catch (ValidationException e){
                     System.out.println(e.getMessage());
@@ -873,7 +880,7 @@ public class Console {
     */
     public void run()
     {
-//        InFileRepository<Person> repo=new InFileRepository<>("personRepo.txt");
+//        InFileRepository<Person> repo=new InFileRepository<>("teamManagerRepo.txt");
 //        TeamManager teamManager=new TeamManager(0,"Toto Wolff",50,10,2500, 0, "1","y");
 //        repo.create(teamManager);
         while(true)
