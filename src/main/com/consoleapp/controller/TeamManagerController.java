@@ -65,8 +65,8 @@ public class TeamManagerController {
     /**
      * Adds a team sponsor
      */
-    public void addTeamSponsor(int id,String sponsorName, int teamId){
-        teamManagerService.addTeamSponsor(id, sponsorName, teamId);
+    public void addTeamSponsor(int id,String sponsorName, int teamId, int investmentAmount){
+        teamManagerService.addTeamSponsor(id, sponsorName, teamId, investmentAmount);
     }
 
     /**

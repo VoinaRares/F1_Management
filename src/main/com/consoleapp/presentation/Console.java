@@ -729,6 +729,7 @@ public class Console {
             case 3:
                 int teamSponsorId = chooseId();
                 String sponsorName;
+                int investmentAmount;
                 while(true) {
                     while(true) {
                         try {
@@ -739,9 +740,18 @@ public class Console {
                             System.out.println(e.getMessage());
                         }
                     }
+                    while(true) {
+                        try{
+                            System.out.println("Enter investment amount: ");
+                            investmentAmount = validateInt(System.console().readLine());
+                            break;
+                        }catch(ValidationException e){
+                            System.out.println(e.getMessage());
+                        }
+                    }
                     try {
                         teamManagerController.addTeamSponsor(teamSponsorId, sponsorName,
-                                currentUserTeamId);
+                                currentUserTeamId, investmentAmount);
                         break;
                     } catch (DatabaseException | EntityNotFoundException e) {
                         System.out.println(e.getMessage());
