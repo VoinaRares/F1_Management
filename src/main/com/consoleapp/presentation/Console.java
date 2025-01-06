@@ -736,14 +736,24 @@ public class Console {
                 break;
             case 3:
                 int teamSponsorId = chooseId();
-                int  sponsorId, investmentAmount;
-                sponsorId = readVariable("Enter Sponsor ID: ");
-                investmentAmount = readVariable("Enter Investment Amount: ");
-                try {
-                    teamManagerController.addTeamSponsor(teamSponsorId, sponsorId,
-                            currentUserTeamId, investmentAmount);
-                }catch(DatabaseException e){
-                    System.out.println(e.getMessage());
+                String sponsorName;
+                while(true) {
+                    while(true) {
+                        try {
+                            System.out.println("Enter sponsor name: ");
+                            sponsorName = validateString(System.console().readLine());
+                            break;
+                        } catch (ValidationException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                    try {
+                        teamManagerController.addTeamSponsor(teamSponsorId, sponsorName,
+                                currentUserTeamId);
+                        break;
+                    } catch (DatabaseException | EntityNotFoundException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
                 break;
             case 4:

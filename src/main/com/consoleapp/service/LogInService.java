@@ -7,8 +7,6 @@ import java.util.List;
 
 public class LogInService {
 
-
-
     private  IRepository<TeamManager> repositoryTeamManager;
     private  IRepository<F1Admin> repositoryF1Admin;
 
