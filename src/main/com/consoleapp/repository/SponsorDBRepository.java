@@ -16,12 +16,11 @@ public class SponsorDBRepository extends DBRepository<Sponsor> {
 
     @Override
     public void create(Sponsor sponsor) {
-         String sql = "INSERT INTO sponsors (id, sponsorName, investment_Amount, country) VALUES (?,?,?,?)";
+         String sql = "INSERT INTO sponsors (id, sponsorName, country) VALUES (?,?,?)";
          try(PreparedStatement statement = connection.prepareStatement(sql)){
              statement.setInt(1, sponsor.getId());
              statement.setString(2, sponsor.getSponsorName());
-             statement.setDouble(3, sponsor.getInvestmentAmount());
-             statement.setString(4, sponsor.getCountry());
+             statement.setString(3, sponsor.getCountry());
              statement.execute();
          } catch (SQLException e) {
              throw new DatabaseException("Database error");
@@ -49,9 +48,8 @@ public class SponsorDBRepository extends DBRepository<Sponsor> {
         String sql = "UPDATE SPONSORS SET sponsorName = ?, investment_Amount = ?, country = ? WHERE id = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, sponsor.getSponsorName());
-            statement.setDouble(2, sponsor.getInvestmentAmount());
-            statement.setString(3, sponsor.getCountry());
-            statement.setInt(4, sponsor.getId());
+            statement.setString(2, sponsor.getCountry());
+            statement.setInt(3, sponsor.getId());
             statement.execute();
         } catch (SQLException e) {
             throw new DatabaseException("Database error");
@@ -88,7 +86,6 @@ public class SponsorDBRepository extends DBRepository<Sponsor> {
         return new Sponsor(
                 resultSet.getInt("id"),
                 resultSet.getString("sponsorName"),
-                resultSet.getInt("investment_Amount"),
                 resultSet.getString("country")
         );
     }

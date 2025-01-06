@@ -349,11 +349,11 @@ public class F1AdminService {
      * @param investmentAmount of the Sponsor
      * @param country of the Sponsor
      */
-    public void addSponsor(String name, int investmentAmount,String country)
+    public void addSponsor(String name,String country)
     {
         Random random=new Random();
         int rand_id=random.nextInt(9999999);
-        Sponsor sponsor= new Sponsor(rand_id, name, investmentAmount, country);
+        Sponsor sponsor= new Sponsor(rand_id, name, country);
         sponsorRepository.create(sponsor);
     }
 

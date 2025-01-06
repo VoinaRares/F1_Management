@@ -54,10 +54,9 @@ public class F1AdminController {
     /**
      * adds a Sponsor
      * @param name SponsorName
-     * @param investmentAmount SponsorInvestmentAmount
      * @param country SponsorCountry
      */
-    public void addSponsor(String name, int investmentAmount, String country){f1AdminService.addSponsor(name,investmentAmount,country);}
+    public void addSponsor(String name, String country){f1AdminService.addSponsor(name,country);}
 
 
     /**

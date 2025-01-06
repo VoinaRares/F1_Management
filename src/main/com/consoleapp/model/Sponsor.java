@@ -26,7 +26,7 @@ public class Sponsor extends Entity{
         this.country = country;
     }
 
-    public Sponsor(int id,String sponsorName, int investmentAmount, String country) {
+    public Sponsor(int id,String sponsorName, String country) {
         super(id);
         this.sponsorName = sponsorName;
 
