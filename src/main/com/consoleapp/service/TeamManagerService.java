@@ -98,10 +98,10 @@ public class TeamManagerService {
      * Creates a new Driver with the given Parameters and tries to add it to the Repository
      * @return true if correctly created or false if else
      */
-    public boolean addDriver(int id, int age, int experience, String name, float salary,
+    public boolean addDriver(int age, int experience, String name, float salary,
                              int driverNumber, int teamId, String userName, String password){
 
-        Driver person = new Driver(id, name, age, experience, salary, driverNumber, teamId, userName, password );
+        Driver person = new Driver(driverRepository.getNextId(), name, age, experience, salary, driverNumber, teamId, userName, password );
         driverRepository.create(person);
         return true;
     }
@@ -122,11 +122,11 @@ public class TeamManagerService {
     /**
      * Creates a new Team Sponsor with the given Parameters and tries to add it to the Repository
      */
-    public void addTeamSponsor(int id,String sponsorName, int teamId, int investmentAmount){
+    public void addTeamSponsor(String sponsorName, int teamId, int investmentAmount){
         List<Sponsor> sponsors = sponsorRepo.getAll();
         for(Sponsor sponsor:sponsors){
             if(sponsor.getSponsorName().equals(sponsorName)){
-                TeamSponsor teamSponsor = new TeamSponsor(id, teamId, sponsor.getId(), investmentAmount);
+                TeamSponsor teamSponsor = new TeamSponsor(teamSponsorRepository.getNextId(), teamId, sponsor.getId(), investmentAmount);
                 teamSponsorRepository.create(teamSponsor);
                 return;
             }

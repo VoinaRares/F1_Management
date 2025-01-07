@@ -42,12 +42,12 @@ public class TeamManagerController {
      * Validates the data entered the user calls add from the service
      * @return true, if added successfully, false otherwise
      */
-    public boolean addDriver(int id, int age, int experience, String name, float salary,
+    public boolean addDriver(int age, int experience, String name, float salary,
                              int driverNumber, int teamId, String userName, String password){
         if(age < 18){
             throw new BusinessLogicException("Driver does not meet the required age");
         }
-        teamManagerService.addDriver(id, age, experience, name, salary, driverNumber, teamId, userName, password);
+        teamManagerService.addDriver(age, experience, name, salary, driverNumber, teamId, userName, password);
         return true;
     }
 
@@ -65,8 +65,8 @@ public class TeamManagerController {
     /**
      * Adds a team sponsor
      */
-    public void addTeamSponsor(int id,String sponsorName, int teamId, int investmentAmount){
-        teamManagerService.addTeamSponsor(id, sponsorName, teamId, investmentAmount);
+    public void addTeamSponsor(String sponsorName, int teamId, int investmentAmount){
+        teamManagerService.addTeamSponsor(sponsorName, teamId, investmentAmount);
     }
 
     /**
