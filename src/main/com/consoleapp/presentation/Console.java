@@ -619,7 +619,7 @@ public class Console {
         float salary;
 
         if(choice != 3){
-            id=chooseId();
+
             age = readVariable("age: ");
             experience = readVariable("experience: ");
             System.out.println("name: ");
@@ -674,14 +674,27 @@ public class Console {
                     }
                 }
                 try {
-                    teamManagerController.addEngineer(id, age, experience, name, salary, specialty,
+                    teamManagerController.addEngineer(age, experience, name, salary, specialty,
                             yearsWithCurrentTeam, currentUserTeamId, userName, password);
                 }catch(DatabaseException e){
                     System.out.println(e.getMessage());
                 }
             }
+
+
+
+
+            /*
+            NEEDS TO BE REMADE
+             */
+
+
+
+
+
             else if(choice == 2) {
                 int driverNumber;
+                id=readVariable("a");
                 driverNumber = readVariable("driver number: ");
                 try {
                     teamManagerController.addDriver(id, age, experience, name, salary,
