@@ -16,7 +16,6 @@ import static java.lang.Math.sqrt;
  */
 public class F1AdminService {
 
-    //InMemoryRepository<Race> repository = new InMemoryRepository<Race>();
     private  IRepository<Race> raceRepository;
     private  IRepository<Team> teamRepository;
     private  IRepository<Sponsor> sponsorRepository;
@@ -28,7 +27,6 @@ public class F1AdminService {
 
 
     public F1AdminService(int repositoryChoice) {
-        //Should probably be added with addRace
 
 
         if(repositoryChoice == 1) {
@@ -95,8 +93,6 @@ public class F1AdminService {
      */
     public List<Race> generateCalendar(String start_country, String end_country,int day, int month, int year)
     {
-        //List<Race>races=repository.getAll();
-
         validateCountry(start_country);
         validateCountry(end_country);
 
