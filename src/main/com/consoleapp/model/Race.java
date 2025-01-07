@@ -31,7 +31,7 @@ public class Race extends Entity {
 
     @Override
     public String toString() {
-        return date + " " + location;
+        return super.toString() + " " + date + " " + location;
     }
 
     public Location getLocation() {
