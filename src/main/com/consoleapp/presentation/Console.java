@@ -614,7 +614,7 @@ public class Console {
         int choice;
         choice = validateChoice(System.console().readLine(), 3);
 
-        int id, age, experience;
+        int age, experience;
         String name, userName, password;
         float salary;
 
@@ -680,24 +680,11 @@ public class Console {
                     System.out.println(e.getMessage());
                 }
             }
-
-
-
-
-            /*
-            NEEDS TO BE REMADE
-             */
-
-
-
-
-
             else if(choice == 2) {
                 int driverNumber;
-                id=readVariable("a");
                 driverNumber = readVariable("driver number: ");
                 try {
-                    teamManagerController.addDriver(id, age, experience, name, salary,
+                    teamManagerController.addDriver(age, experience, name, salary,
                             driverNumber, currentUserTeamId, userName, password);
                 }catch(DatabaseException e){
                     System.out.println(e.getMessage());
@@ -740,7 +727,6 @@ public class Console {
                 removePerson();
                 break;
             case 3:
-                int teamSponsorId = chooseId();
                 String sponsorName;
                 int investmentAmount;
                 while(true) {
@@ -763,7 +749,7 @@ public class Console {
                         }
                     }
                     try {
-                        teamManagerController.addTeamSponsor(teamSponsorId, sponsorName,
+                        teamManagerController.addTeamSponsor(sponsorName,
                                 currentUserTeamId, investmentAmount);
                         break;
                     } catch (DatabaseException | EntityNotFoundException e) {
