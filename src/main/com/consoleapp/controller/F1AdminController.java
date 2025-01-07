@@ -142,32 +142,71 @@ public class F1AdminController {
         return f1AdminService.getRace(id);
     }
 
-
+    /**
+     * Creates a Team Manager
+     * @param name of the team Manager
+     * @param age of the team Manager
+     * @param experience of the team Manager
+     * @param salary of the team Manager
+     * @param teamId of the team that the entity manages
+     * @param username of the team Manager
+     * @param password of the team Manager
+     * @return true if successfully added, false otherwise
+     */
     public boolean addTeamManager(String name, int age, int experience, float salary, int teamId,
                                    String username, String password){
         return f1AdminService.addTeamManager(name,age,experience,salary,teamId,username,password);
     }
 
+    /**
+     * Gets all the Team Managers
+     * @return a list of Team Manager Entities
+     */
     public List<TeamManager> showTeamManagers() {
         return f1AdminService.showTeamManagers();
     }
 
+    /**
+     * Deletes a Team Manager
+     * @param id of the team manager that should be deleted
+     * @return true, if delete was successful, false otherwise
+     */
     public boolean deleteTeamManager(int id) {
         return f1AdminService.deleteTeamManager(id);
     }
 
+    /**
+     * Deletes a race
+     * @param raceId of the race to be deleted
+     * @return true if deleted, false otherwise
+     */
     public boolean deleteRace(int raceId) {
         return f1AdminService.deleteRace(raceId);
     }
 
+    /**
+     * Deletes a sponsor
+     * @param sponsorId of the sponsor id to be deleted
+     * @return true, if sponsor is deleted, false otherwise
+     */
     public boolean deleteSponsor(int sponsorId) {
         return f1AdminService.deleteSponsor(sponsorId);
     }
 
+    /**
+     * Deletes a team
+     * @param teamId of the team to be deleted
+     * @return true if deleted successfully, false otherwise
+     */
     public boolean deleteTeam(int teamId) {
         return f1AdminService.deleteTeam(teamId);
     }
 
+    /**
+     * Checks if the username is unique
+     * @param username to be checked for it's uniqueness
+     * @return true if username is unique, false otherwise
+     */
     public boolean usernameIsUnique(String username) {
         return f1AdminService.usernameISUnique(username);
     }

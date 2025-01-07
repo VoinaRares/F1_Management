@@ -124,27 +124,56 @@ public class TeamManagerController {
         return teamManagerService.getEngineersBySpecialty(specialty);
     }
 
+    /**
+     * Deletes a driver
+     * @param id of the driver to be deleted
+     * @param teamId of the currently logged in Team Manager
+     */
     public void removeDriver(int id, int teamId){
         teamManagerService.removeDriver(id, teamId);
     }
 
+    /**
+     * Deletes an engineer
+     * @param id of the engineer to be deleted
+     * @param teamId of the currently logged in Team Manager
+     */
     public void removeEngineer(int id, int teamId){
         teamManagerService.removeEngineer(id, teamId);
     }
 
+    /**
+     * Gets all Sponsors of a certain team
+     * @param teamId of the team to get all the Sponsors from
+     * @return a List of Sponsors
+     */
     public List<Sponsor> showTeamSponsors(int teamId) {
         return teamManagerService.showTeamSponsors(teamId);
 
     }
 
+    /**
+     * Gets all possible Sponsors
+     * @return a list of Sponsors
+     */
     public List<Sponsor> showSponsors() {
         return teamManagerService.showSponsors();
     }
 
+    /**
+     * Gets all Team Sponsors for a team
+     * @param teamId of the team
+     * @return a list of Team Sponsors
+     */
     public List<TeamSponsor> showTeamSponsorsId(int teamId) {
         return teamManagerService.showTeamSponsorsId(teamId);
     }
 
+    /**
+     * Checks if the username is unique
+     * @param username that needs to be checked
+     * @return true, if username is unique, false otherwise
+     */
     public boolean usernameIsUnique(String username) {
         return teamManagerService.usernameISUnique(username);
     }

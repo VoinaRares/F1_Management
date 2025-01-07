@@ -891,9 +891,6 @@ public class Console {
     */
     public void run()
     {
-//        InFileRepository<Person> repo=new InFileRepository<>("teamManagerRepo.txt");
-//        TeamManager teamManager=new TeamManager(0,"Toto Wolff",50,10,2500, 0, "1","y");
-//        repo.create(teamManager);
         while(true)
         {
             if(isLoggedIn){
