@@ -83,10 +83,11 @@ public class TeamManagerService {
      * Creates a new Engineer with the given Parameters and tries to add it to the Repository
      * @return true if correctly created or false if else
      */
-    public boolean addEngineer(int id, int age, int experience, String name,
+    public boolean addEngineer(int age, int experience, String name,
                                float salary, String specialty, int yearsWithCurrentTeam,
                                int TeamId, String userName, String password){
 
+        int id = engineerRepository.getNextId();
         Engineer person = new Engineer(id, name, age, experience, salary,
                 specialty, yearsWithCurrentTeam, TeamId, userName, password );
         engineerRepository.create(person);

@@ -15,4 +15,6 @@ public interface IRepository<T extends Entity> {
     public void delete(int id);
 
     public List<T> getAll();
+
+    public int getNextId();
 }

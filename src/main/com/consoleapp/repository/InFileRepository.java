@@ -123,6 +123,7 @@ public class InFileRepository<T extends Entity> implements IRepository<T> {
         return (InFileRepository<T>) instances.get(type);
     }
 
+    @Override
     public int getNextId(){
         int id = 0;
         for( Entity entity : getAll()){

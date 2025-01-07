@@ -30,10 +30,10 @@ public class TeamManagerController {
      *Validates the data entered the user calls add from the service
      * @return true, if added successfully, false otherwise
      */
-    public boolean addEngineer(int id, int age, int experience, String name,
+    public boolean addEngineer(int age, int experience, String name,
                                float salary, String specialty, int yearsWithCurrentTeam,
                                int TeamId, String userName, String password){
-        teamManagerService.addEngineer(id, age, experience, name, salary, specialty,
+        teamManagerService.addEngineer(age, experience, name, salary, specialty,
                 yearsWithCurrentTeam, TeamId, userName, password);
         return true;
     }

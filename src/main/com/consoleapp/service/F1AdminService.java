@@ -346,7 +346,6 @@ public class F1AdminService {
     /**
      * Adds a new Sponsor to the Repository
      * @param name of the sponsor
-     * @param investmentAmount of the Sponsor
      * @param country of the Sponsor
      */
     public void addSponsor(String name,String country)
