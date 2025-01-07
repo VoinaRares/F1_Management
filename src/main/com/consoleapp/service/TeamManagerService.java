@@ -121,14 +121,11 @@ public class TeamManagerService {
     /**
      * Creates a new Team Sponsor with the given Parameters and tries to add it to the Repository
      */
-    public void addTeamSponsor(int id,String sponsorName, int teamId){
-//        TeamSponsor teamSponsor = new TeamSponsor(id, teamId, sponsorId, investmentAmount);
-//        teamSponsorRepository.create(teamSponsor);
-
+    public void addTeamSponsor(int id,String sponsorName, int teamId, int investmentAmount){
         List<Sponsor> sponsors = sponsorRepo.getAll();
         for(Sponsor sponsor:sponsors){
             if(sponsor.getSponsorName().equals(sponsorName)){
-                TeamSponsor teamSponsor = new TeamSponsor(id, teamId, sponsor.getId());
+                TeamSponsor teamSponsor = new TeamSponsor(id, teamId, sponsor.getId(), investmentAmount);
                 teamSponsorRepository.create(teamSponsor);
                 return;
             }

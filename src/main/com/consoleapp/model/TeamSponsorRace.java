@@ -1,11 +1,10 @@
 package main.com.consoleapp.model;
 
-public class TeamSponsorRace extends Entity {
+public class TeamSponsorRace{
     int TeamSponsorId;
     int RaceId;
     int investment;
-    public TeamSponsorRace(int id, int teamSponsorId, int raceId, int investment) {
-        super(id);
+    public TeamSponsorRace(int teamSponsorId, int raceId, int investment) {
         this.TeamSponsorId = teamSponsorId;
         this.RaceId = raceId;
         this.investment = investment;
