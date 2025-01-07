@@ -276,7 +276,7 @@ public class Tests {
         Driver d1 = new Driver(89, "Test", 16, 0, 12341, 10,
                 1, "213", "y");
         TeamManagerController teamManagerController = new TeamManagerController(repositoryChoice);
-        assertThrows(BusinessLogicException.class, () -> {teamManagerController.addDriver(89,
+        assertThrows(BusinessLogicException.class, () -> {teamManagerController.addDriver(
                 16, 0, "Test", 12341, 10,
                 1, "213", "y");});
 
