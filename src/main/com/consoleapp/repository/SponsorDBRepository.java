@@ -45,7 +45,7 @@ public class SponsorDBRepository extends DBRepository<Sponsor> {
 
     @Override
     public void update(Sponsor sponsor) {
-        String sql = "UPDATE SPONSORS SET sponsorName = ?, investment_Amount = ?, country = ? WHERE id = ?";
+        String sql = "UPDATE SPONSORS SET sponsorName = ?, country = ? WHERE id = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, sponsor.getSponsorName());
             statement.setString(2, sponsor.getCountry());
