@@ -13,6 +13,7 @@ public class LogInService {
     private IRepository<Engineer> repositoryEngineer;
     private IRepository<Race> repositoryRace;
     private IRepository<Sponsor> repositorySponsor;
+    private IRepository<TeamSponsor> repositoryTeamSponsor;
 
     public LogInService(int repositoryChoice)
     {
@@ -24,6 +25,7 @@ public class LogInService {
             this.repositoryEngineer = InMemoryRepository.getInstance(Engineer.class);
             this.repositoryRace = InMemoryRepository.getInstance(Race.class);
             this.repositorySponsor = InMemoryRepository.getInstance(Sponsor.class);
+            this.repositoryTeamSponsor = InMemoryRepository.getInstance(TeamSponsor.class);
             populateInMemory();
         }
         if(repositoryChoice == 2)
@@ -116,7 +118,7 @@ public class LogInService {
     }
 
     private void populateInMemory(){
-        TeamManager teamManager=new TeamManager(1,"Toto Wolff",50,10,2500, 0, "1","y");
+        TeamManager teamManager=new TeamManager(1,"Toto Wolff",50,10,2500, 1, "1","y");
         F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"4","y");
         Team team1 = new Team(1,"Mercedes", 150000);
         Location location1= new Location(120,"Italy","Europe",500,1000);
@@ -129,7 +131,10 @@ public class LogInService {
         Race race4=new Race(53,location4);
         Sponsor sponsor1 = new Sponsor(1, "Peroni", "Italy");
 
+        Engineer engineer = new Engineer(1, "Adrian Newey", 55, 20, 12000, "Aerodynamics",
+                2, 1, "a", "y");
 
+        TeamSponsor teamSponsor = new TeamSponsor(1, 1, 1, 2500);
         repositoryF1Admin.create(adminho);
         repositoryTeamManager.create(teamManager);
         repositoryTeam.create(team1);
@@ -138,7 +143,8 @@ public class LogInService {
         repositoryRace.create(race3);
         repositoryRace.create(race4);
         repositorySponsor.create(sponsor1);
-
+        repositoryEngineer.create(engineer);
+        repositoryTeamSponsor.create(teamSponsor);
     }
 
 }
