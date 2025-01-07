@@ -7,7 +7,7 @@ Formel 1 benötigt eine umfassende Anwendung zur Organisation der Rennen sowie z
 ## Funktionalitäten und Ziele der Anwendung
 
 - #### Einfügen und Verwaltung von Teammitgliedern
-Jede Person (Fahrer, Teammanager, Team-Admins, Ingenieure, Mechaniker und der F1-Admin) besitzt einen eindeutigen ID, einen Namen, das Alter und einen Gehalt. Alle außer dem F1-Admin gehören zu einem bestimmten Team. Der Team-Admin verwaltet die Sponsoren, während der Teammanager die Möglichkeit hat, Teammitglieder hinzuzufügen oder zu entfernen. Zudem kann der Teammanager Ingenieure von einem Team ins andere wechseln lassen.
+Jede Person (Fahrer, Teammanager, Team-Admins, Ingenieure, Mechaniker und der F1-Admin) besitzt einen eindeutigen ID, einen Namen, das Alter und einen Gehalt. Alle außer dem F1-Admin gehören zu einem bestimmten Team. Der Team-Admin verwaltet die Sponsoren, während der Teammanager die Möglichkeit hat, Teammitglieder hinzuzufügen oder zu entfernen.
 
 - #### Kalenderverwaltung
 Der F1-Admin ist für die Verwaltung des Rennkalenders zuständig. Dabei ist es sein Ziel, eine möglichst kurze Reiseentfernung zwischen einem Start- und Endpunkt sicherzustellen. Die Kalenderverwaltung ermöglicht die Organisation der Rennen unter Berücksichtigung der geografischen Lage der Rennorte, um Reisezeiten und -kosten zu minimieren und die Belastung der Teams zu reduzieren.
