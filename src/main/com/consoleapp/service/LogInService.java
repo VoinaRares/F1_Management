@@ -14,6 +14,7 @@ public class LogInService {
     private IRepository<Race> repositoryRace;
     private IRepository<Sponsor> repositorySponsor;
     private IRepository<TeamSponsor> repositoryTeamSponsor;
+    private IRepository<Driver> repositoryDriver;
 
     public LogInService(int repositoryChoice)
     {
@@ -26,23 +27,38 @@ public class LogInService {
             this.repositoryRace = InMemoryRepository.getInstance(Race.class);
             this.repositorySponsor = InMemoryRepository.getInstance(Sponsor.class);
             this.repositoryTeamSponsor = InMemoryRepository.getInstance(TeamSponsor.class);
+            this.repositoryDriver = InMemoryRepository.getInstance(Driver.class);
             populateInMemory();
         }
         if(repositoryChoice == 2)
         {
             this.repositoryTeamManager = InFileRepository.getInstance(TeamManager.class, "teamManagerRepo.txt");
             this.repositoryF1Admin = InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
+            this.repositoryTeam = InFileRepository.getInstance(Team.class, "teamRepo.txt");
+            this.repositoryEngineer = InFileRepository.getInstance(Engineer.class, "engineerRepo.txt");
+            this.repositoryRace = InFileRepository.getInstance(Race.class, "raceRepo.txt");
+            this.repositorySponsor = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
+            this.repositoryTeamSponsor = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+            this.repositoryDriver = InFileRepository.getInstance(Driver.class, "driverRepo.txt");
         }
         if(repositoryChoice == 3){
             this.repositoryTeamManager = new TeamManagerDBRepository("jdbc:mysql://localhost:3306/f1management",
                     "root", "parola123");
             this.repositoryF1Admin = new F1AdminDBRepository("jdbc:mysql://localhost:3306/f1management",
                     "root", "parola123");
+            this.repositoryTeam = new TeamDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.repositoryEngineer = new EngineerDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.repositoryRace = new RaceDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.repositorySponsor = new SponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.repositoryTeamSponsor = new TeamSponsorDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
+            this.repositoryDriver = new DriverDBRepository("jdbc:mysql://localhost:3306/f1management",
+                    "root", "parola123");
         }
-//        repository.create(teamManager);
-//        repository.create(driver);
-//        repository.create(engineer);
-//        repository.create(adminho);
     }
 
     /**
@@ -176,6 +192,17 @@ public class LogInService {
         Sponsor sponsor6 = new Sponsor(6, "Shell", "UK");
         Sponsor sponsor7 = new Sponsor(7, "Santander", "Spain");
 
+        Driver driver1 = new Driver(1, "Max Verstappen", 26, 8,
+                5000, 1, 3, "ay", "y");
+        Driver driver2 = new Driver(2, "Charles Leclerc", 26, 7,
+                5000, 16, 2, "ay", "y");
+        Driver driver3 = new Driver(3, "Lewis Hamilton", 37, 17, 2133, 44,
+                1, "ay", "y");
+        Driver driver4 = new Driver(4, "Lando Norris", 25, 6, 231, 4,
+                4, "ay", "y");
+        Driver driver5 = new Driver(5, "Oscar Piastri", 22, 3, 231, 81,
+                4, "ay", "y");
+
 
 
         TeamSponsor teamSponsor1 = new TeamSponsor(1, 1, 2, 2500);
@@ -226,8 +253,11 @@ public class LogInService {
         repositoryTeamSponsor.create(teamSponsor6);
         repositoryTeamSponsor.create(teamSponsor7);
         repositoryTeamSponsor.create(teamSponsor8);
-
-        ;
+        repositoryDriver.create(driver1);
+        repositoryDriver.create(driver2);
+        repositoryDriver.create(driver3);
+        repositoryDriver.create(driver4);
+        repositoryDriver.create(driver5);
     }
 
 }

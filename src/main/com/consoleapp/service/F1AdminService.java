@@ -34,6 +34,9 @@ public class F1AdminService {
             this.teamRepository = InMemoryRepository.getInstance(Team.class);
             this.sponsorRepository = InMemoryRepository.getInstance(Sponsor.class);
             this.teamSponsorRepository = InMemoryRepository.getInstance(TeamSponsor.class);
+            this.teamManagerRepository = InMemoryRepository.getInstance(TeamManager.class);
+            this.driverRepository = InMemoryRepository.getInstance(Driver.class);
+            this.engineerRepository = InMemoryRepository.getInstance(Engineer.class);
             this.f1AdminRepository = InMemoryRepository.getInstance(F1Admin.class);
         }
         if(repositoryChoice == 2) {
@@ -41,6 +44,9 @@ public class F1AdminService {
             this.teamRepository = InFileRepository.getInstance(Team.class, "teamRepo.txt");
             this.sponsorRepository = InFileRepository.getInstance(Sponsor.class, "sponsorRepo.txt");
             this.teamSponsorRepository = InFileRepository.getInstance(TeamSponsor.class, "teamSponsorRepo.txt");
+            this.teamManagerRepository = InFileRepository.getInstance(TeamManager.class, "teamManagerRepo.txt");
+            this.driverRepository = InFileRepository.getInstance(Driver.class, "driverRepo.txt");
+            this.engineerRepository = InFileRepository.getInstance(Engineer.class, "engineerRepo.txt");
             this.f1AdminRepository = InFileRepository.getInstance(F1Admin.class, "f1AdminRepo.txt");
         }
         if(repositoryChoice == 3) {
