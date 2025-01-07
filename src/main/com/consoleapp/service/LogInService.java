@@ -121,14 +121,25 @@ public class LogInService {
         TeamManager teamManager=new TeamManager(1,"Toto Wolff",50,10,2500, 1, "1","y");
         F1Admin adminho= new F1Admin(3,"Adminho",25, 3,2000,"4","y");
         Team team1 = new Team(1,"Mercedes", 150000);
-        Location location1= new Location(120,"Italy","Europe",500,1000);
+        Location location1= new Location(120,"Italy","Europe",500,800);
         Race race1=new Race(50,location1);
-        Location location2= new Location(121,"France","Europe",400,1200);
+        Location location2= new Location(121,"France","Europe",400,900);
         Race race2=new Race(51,location2);
         Location location3= new Location(122,"UAE","Asia",800,200);
         Race race3=new Race(52,location3);
         Location location4= new Location(123,"Japan","Asia",3000,1000);
         Race race4=new Race(53,location4);
+        Location location5 = new Location(124, "Brazil", "South America", -2000, -500);
+        Race race5=new Race(54, location5);
+        Location location6 = new Location(125, "Bahrain", "Asia", 790, 190);
+        Race race6=new Race(55, location6);
+        Location location7 = new Location(126, "Belgium", "Europe", 450, 1300);
+        Race race7=new Race(56, location7);
+        Location location8 = new Location(127, "USA", "North America", -2000, 700);
+        Race race8=new Race(57, location8);
+        Location location9 = new Location(128, "Canada", "North America", -1800, 1000);
+        Race race9 = new Race(58, location9);
+
         Sponsor sponsor1 = new Sponsor(1, "Peroni", "Italy");
 
         Engineer engineer = new Engineer(1, "Adrian Newey", 55, 20, 12000, "Aerodynamics",
@@ -142,6 +153,11 @@ public class LogInService {
         repositoryRace.create(race2);
         repositoryRace.create(race3);
         repositoryRace.create(race4);
+        repositoryRace.create(race5);
+        repositoryRace.create(race6);
+        repositoryRace.create(race7);
+        repositoryRace.create(race8);
+        repositoryRace.create(race9);
         repositorySponsor.create(sponsor1);
         repositoryEngineer.create(engineer);
         repositoryTeamSponsor.create(teamSponsor);
