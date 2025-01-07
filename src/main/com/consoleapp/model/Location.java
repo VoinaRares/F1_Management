@@ -13,10 +13,7 @@ public class Location extends Entity{
 
     @Override
     public String toString() {
-        return "Location{" +
-                "country='" + country + '\'' +
-                ", continent='" + continent + '\'' +
-                '}';
+        return  " " + country + " " + continent ;
     }
 
     public Location(int id, String country, String continent, int coordinateX, int coordinateY) {
