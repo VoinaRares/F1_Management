@@ -7,7 +7,6 @@ import main.com.consoleapp.repository.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
@@ -67,22 +66,6 @@ public class F1AdminService {
             this.f1AdminRepository = new F1AdminDBRepository("jdbc:mysql://localhost:3306/f1management",
                     "root", "parola123");
         }
-
-
-
-//        Location location1= new Location(120,"Italy","Europe",500,1000);
-//        Race race1=new Race(50,location1);
-//        Location location2= new Location(121,"France","Europe",400,1200);
-//        Race race2=new Race(51,location2);
-//        Location location3= new Location(122,"UAE","Asia",800,200);
-//        Race race3=new Race(52,location3);
-//        Location location4= new Location(123,"Japan","Asia",3000,1000);
-//        Race race4=new Race(53,location4);
-//
-//        repository.create(race1);
-//        repository.create(race2);
-//        repository.create(race3);
-//        repository.create(race4);
     }
 
     /**
@@ -94,13 +77,9 @@ public class F1AdminService {
      */
     public void addRace(String country, String continent, int coordinateX, int coordinateY)
     {
-        int id=100;
-        //Adds a random id. Will be changed in the future
-        Random random = new Random();
-        int rand_id = random.nextInt(9999999);
-        Location location = new Location(rand_id,country,continent,coordinateX,coordinateY);
-        rand_id=random.nextInt(9999999);
-        Race race = new Race(rand_id, location);
+        int id = raceRepository.getNextId();
+        Location location = new Location(id,country,continent,coordinateX,coordinateY);
+        Race race = new Race(id, location);
         raceRepository.create(race);
 
     }
@@ -316,8 +295,6 @@ public class F1AdminService {
         List<Team> teams = teamRepository.getAll();
         List<Sponsor> sponsors = sponsorRepository.getAll();
         List<TeamSponsor> teamSponsors = teamSponsorRepository.getAll();
-        Random random=new Random();
-        int rand_id=random.nextInt(9999999);
         List<TeamSponsorRace> teamSponsorRaces=new ArrayList<>();
         List<Race> races = raceRepository.getAll();
         for(Race race1: races)
@@ -327,13 +304,13 @@ public class F1AdminService {
 
                 if(race1.getLocation().getCountry().equals(sponsorRepository.read(teamSponsor.getSponsorId()).getCountry()))
                 {
-                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race1.getId(),
+                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(teamSponsor.getId(), race1.getId(),
                             teamSponsor.getInvestmentAmount()*2);
                     teamSponsorRaces.add(teamSponsorRace);
                 }
                 else
                 {
-                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(rand_id, teamSponsor.getId(), race1.getId(),
+                    TeamSponsorRace teamSponsorRace = new TeamSponsorRace(teamSponsor.getId(), race1.getId(),
                             teamSponsor.getInvestmentAmount());
                     teamSponsorRaces.add(teamSponsorRace);
                 }
@@ -346,14 +323,11 @@ public class F1AdminService {
     /**
      * Adds a new Sponsor to the Repository
      * @param name of the sponsor
-     * @param investmentAmount of the Sponsor
      * @param country of the Sponsor
      */
     public void addSponsor(String name,String country)
     {
-        Random random=new Random();
-        int rand_id=random.nextInt(9999999);
-        Sponsor sponsor= new Sponsor(rand_id, name, country);
+        Sponsor sponsor= new Sponsor(sponsorRepository.getNextId(), name, country);
         sponsorRepository.create(sponsor);
     }
 
@@ -385,9 +359,7 @@ public class F1AdminService {
      * @param budget of the team
      */
     public void addTeam(String teamName, int budget) {
-        Random random=new Random();
-        int rand_id=random.nextInt(9999999);
-        Team team= new Team(rand_id, teamName, budget);
+        Team team= new Team(teamRepository.getNextId(), teamName, budget);
         teamRepository.create(team);
     }
 
@@ -455,9 +427,8 @@ public class F1AdminService {
 
     public boolean addTeamManager( String name, int age, int experience, float salary, int teamId,
                                    String username, String password) {
-        Random random=new Random();
-        int rand_id=random.nextInt(9999999);
-        TeamManager teamManager = new TeamManager(rand_id, name, age, experience, salary, teamId,username, password);
+        TeamManager teamManager = new TeamManager(teamManagerRepository.getNextId(), name, age, experience, salary,
+                teamId,username, password);
         teamManagerRepository.create(teamManager);
 
 
