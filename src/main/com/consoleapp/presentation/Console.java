@@ -904,7 +904,14 @@ public class Console {
             else {
                 showMenu();
                 int choice;
-                choice = Integer.parseInt(System.console().readLine());
+                while(true) {
+                    try {
+                        choice = validateChoice(System.console().readLine(), 2);
+                        break;
+                    }catch (ValidationException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 if (choice == 1) {
                     showLoginMenu();
                 }
